@@ -5,7 +5,7 @@
              Width="300" Height="300">
 
     <Grid Background="Transparent">
-        <Viewbox Stretch="Uniform">
+        <Viewbox Stretch="None">
             <Grid Width="300" Height="300">
 
                 <Ellipse Stroke="#FFA5A5A5" StrokeThickness="4" Fill="#FFE8ECEF">

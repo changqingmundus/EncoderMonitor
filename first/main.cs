@@ -12,9 +12,12 @@ using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Markup;
 using WPF;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -22,33 +25,43 @@ namespace TamagawaUSB
 {
     public partial class btnClickThis : Form
     {
-        private DialControl dialControl1;   // 成员变量声明
-        private Timer continuousTimer;   // 用于连续读取的定时器
+        private DataWindow dataWindow;   //聲明DataWindow
+        private System.Windows.Forms.Timer continuousTimer;   // 用于连续读取的定时器
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
-
+        private enum EncoderProtocol
+        {
+            Tamagawa,
+            ModbusRTU,
+            CAN
+        }
+        private EncoderProtocol currentProtocol; //當前選擇的協議
+        public uint Abs;
+        public uint MultiTurn;
+        public byte EnID;
+        public byte Status;
+        public bool CRC_OK;
+        public double Angle;
         public btnClickThis()
         {
             InitializeComponent();
-            elementHost1.Width = 300;
-            elementHost1.Height = 300;
-            dialControl1 = new WPF.DialControl();
-            elementHost1.Child = dialControl1;
-            elementHost1.Location = new Point(12, 221);
-            elementHost1.BringToFront();
-            this.Controls.Add(elementHost1);
-
             // 根据你的需要调整（毫秒）
-            continuousTimer = new Timer();
-            continuousTimer.Interval = 100; 
+            continuousTimer = new System.Windows.Forms.Timer();
+            continuousTimer.Interval = 1; 
             continuousTimer.Tick += ContinuousTimer_Tick;
         }
-        private void Main_Form(object sender, EventArgs e)
+        private void Main_Form_Load(object sender, EventArgs e)
         {
             // 获取所有可用串口名称（例如 "COM1", "COM2" 等）
             string[] ports = System.IO.Ports.SerialPort.GetPortNames();
             // 将串口数组直接添加到 ComboBox 的下拉项中[reference:1]
             comboBox1.Items.AddRange(ports);
+            // 協議選擇
+            ModelSelect.Items.Add("Tamagawa");
+            ModelSelect.Items.Add("Modbus RTU");
+            ModelSelect.Items.Add("CAN");
 
+            ModelSelect.SelectedIndex = 0;
+            currentProtocol = EncoderProtocol.Tamagawa;
         }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -147,10 +160,43 @@ namespace TamagawaUSB
         }
         private void Read_Singleturn(object sender, EventArgs e)
         {
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                MessageBox.Show("请先打开串口！");
+                return;
+            }
+            EncoderData data = null;
             // 临时保存并覆盖显示标志，确保这次读取会输出信息
             bool oldFlag = showDebugInfo;
             showDebugInfo = true;
-            PerformSingleRead();
+            switch (currentProtocol)
+            {
+                case EncoderProtocol.Tamagawa:
+                    data = ReadTamagawaSingleTurn();
+                    break;
+
+
+                case EncoderProtocol.ModbusRTU:
+                    data = ReadModbusRTUSingleTurn();
+                    break;
+
+
+                case EncoderProtocol.CAN:
+                    // data = ReadCAN();
+                    break;
+            }
+            if (data != null)
+            {
+                textBox1.AppendText(
+                    $"SingleTurn: {data.Abs}\r\n" +
+                    $"Angle: {data.Angle:F4}°\r\n" +
+                    $"CRC: {(data.CRC_OK ? "PASS" : "FAIL")}\r\n\r\n"
+                );
+                if (data != null)
+                {
+                    dataWindow.UpdateEncoderData(data.Abs);
+                }
+            }
             showDebugInfo = oldFlag;
         }
         private void Read_Multiturn(object sender, EventArgs e)
@@ -160,73 +206,30 @@ namespace TamagawaUSB
                 MessageBox.Show("请先打开串口！");
                 return;
             }
-
-            try
+            EncoderData data = null;
+            switch (currentProtocol)
             {
-                // 清空接收緩衝區
-                SerialPortManager.sp.DiscardInBuffer();
+                case EncoderProtocol.Tamagawa:
+                    data = ReadTamagawaMultiTurn();
+                    break;
 
-                // 發送 DATA_ID_1
-                byte[] cmd = new byte[] { 0x8A };
 
-                SerialPortManager.WriteData(cmd);
+                case EncoderProtocol.ModbusRTU:
+                    data = ReadModbusRTUMultiTurn();
+                    break;
 
-                textBox1.AppendText(
-                    "TX: " + BitConverter.ToString(cmd) +
-                    Environment.NewLine);
 
-                // 等待回應
-                System.Threading.Thread.Sleep(50);
-
-                int count = SerialPortManager.sp.BytesToRead;
-
-                if (count < 6)
-                {
-                    textBox1.AppendText(
-                        $"接受数据错误" +
-                        Environment.NewLine);
-
-                    return;
-                }
-
-                byte[] rx = new byte[6];
-
-                SerialPortManager.sp.Read(rx, 0, 6);
-
-                textBox1.AppendText(
-                    "RX: " + BitConverter.ToString(rx) +
-                    Environment.NewLine);
-
-                byte cf = rx[0];
-                byte sf = rx[1];
-
-                uint abm =
-                     ((uint)rx[2] << 16) |
-                     ((uint)rx[3] << 8) |
-                     rx[4];
-
-                abm >>= 8;
-
-                byte recvCrc = rx[5];
-
-                byte calcCrc = CalcCRC(new byte[]
-                {
-                  rx[0],
-                  rx[1],
-                  rx[2],
-                  rx[3],
-                  rx[4]
-                });
-
-                textBox1.AppendText(
-                    $"ABM:{abm}/4095 " +
-                    $"CRC:{(recvCrc == calcCrc ? "PASS" : "FAIL")}" +
-                    Environment.NewLine
-              );
+                case EncoderProtocol.CAN:
+                    // data = ReadCAN();
+                    break;
             }
-            catch (Exception ex)
+
+            if (data != null)
             {
-                MessageBox.Show("通讯错误：" + ex.Message);
+                textBox1.AppendText(
+                    $"ABM:{data.MultiTurn}/4095 " +
+                    $"CRC:{(data.CRC_OK ? "PASS" : "FAIL")}" +
+                    Environment.NewLine);
             }
         }
         private void Read_Alldata(object sender, EventArgs e)
@@ -236,99 +239,37 @@ namespace TamagawaUSB
                 MessageBox.Show("请先打开串口！");
                 return;
             }
+            EncoderData data = null;
 
-            try
+            switch (currentProtocol)
             {
-                // 清空接收缓存
-                SerialPortManager.sp.DiscardInBuffer();
+                case EncoderProtocol.Tamagawa:
+                    data = ReadTamagawaAll();
+                    break;
 
-                // 发送 0x1A
-                byte[] cmd = new byte[] { 0x1A };
 
-                SerialPortManager.WriteData(cmd);
+                case EncoderProtocol.ModbusRTU:
+                    data = ReadModbusRTUAll();
+                    break;
 
-                textBox1.AppendText(
-                    "TX: " +
-                    BitConverter.ToString(cmd) +
-                    Environment.NewLine);
 
-                System.Threading.Thread.Sleep(100);
-
-                int count = SerialPortManager.sp.BytesToRead;
-
-                if (count <= 0)
-                {
-                    textBox1.AppendText(
-                        "未收到数据" +
-                        Environment.NewLine);
-                    return;
-                }
-
-                byte[] rx = new byte[count];
-
-                SerialPortManager.sp.Read(rx, 0, count);
-
-                textBox1.AppendText(
-                    "RX: " +
-                    BitConverter.ToString(rx) +
-                    Environment.NewLine);
-
-                if (rx.Length < 11)
-                {
-                    textBox1.AppendText(
-                        $"接受数据错误" +
-                        Environment.NewLine);
-                    return;
-                }
-
-                byte cf = rx[0];
-                byte sf = rx[1];
-
-                uint abs =
-                     ((uint)rx[2] << 16) |
-                     ((uint)rx[3] << 8) |
-                     rx[4];
-
-                abs &= 0x7FFFF;
-
-                byte enid = rx[5];
-
-                uint abm =
-                    ((uint)rx[6] << 16) |
-                    ((uint)rx[7] << 8) |
-                    rx[8];
-                abm >>= 8;
-                byte almc = rx[9];
-
-                byte recvCrc = rx[10];
-
-                byte calcCrc = CalcCRC(new byte[]
-                {
-                   rx[0],rx[1],rx[2],rx[3],
-                   rx[4],rx[5],rx[6],rx[7],
-                   rx[8],rx[9]
-                });
-
-                textBox1.AppendText(
-                   $"ABS:{abs}(0x{abs:X6}) " +
-                   $"ENID:0x{enid:X2} " +
-                   $"ABM:{abm}/4095 " +
-                   $"ALMC:0x{almc:X2} " +
-                   $"CRC:{(recvCrc == calcCrc ? "PASS" : "FAIL")}" +
-                   Environment.NewLine
-                );
-
-                double angle =
-                    abs * 360.0 / 524288.0;
-                    dialControl1.UpdateAngle(angle);
-
-                textBox1.AppendText(
-                    $"Angle : {angle:F4}°" +
-                    Environment.NewLine);
+                case EncoderProtocol.CAN:
+                   // data = ReadCAN();
+                    break;
             }
-            catch (Exception ex)
+            if (data != null)
             {
-                MessageBox.Show(ex.Message);
+                textBox1.AppendText(
+                    $"ABS: {data.Abs}\r\n" +
+                    $"MultiTurn: {data.MultiTurn}\r\n" +
+                    $"Angle: {data.Angle:F4}°\r\n" +
+                    $"CRC: {(data.CRC_OK ? "PASS" : "FAIL")}\r\n\r\n"
+                );
+                // 更新顯示窗口
+                if (data != null && dataWindow != null)
+                {
+                    dataWindow.UpdateEncoderData(data.Abs);
+                }
             }
         }
 
@@ -336,19 +277,94 @@ namespace TamagawaUSB
         {
 
         }
-        private void Element_WPF_Obj(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+
+        private void ContinuousTimer_Tick(object sender, EventArgs e)
+        {
+            bool oldShowFlag = showDebugInfo;
+            showDebugInfo = false;
+            EncoderData data = null;
+            switch (currentProtocol)
+            {
+                case EncoderProtocol.Tamagawa:
+                    data = ReadTamagawaSingleTurn();
+                    break;
+
+                case EncoderProtocol.ModbusRTU:
+
+                    data = ReadModbusRTUSingleTurn();
+                    break;
+
+                case EncoderProtocol.CAN:
+                    break;
+            }
+            if (data != null)
+            {
+                if (dataWindow != null)
+                {
+                    dataWindow.UpdateEncoderData(data.Abs);
+                }
+            }
+            showDebugInfo = oldShowFlag;
+        }
+        private void Model_Select(object sender, EventArgs e)
+        {
+            switch (ModelSelect.SelectedItem.ToString())
+            {
+                case "Tamagawa":
+                    currentProtocol = EncoderProtocol.Tamagawa;
+                    break;
+
+                case "Modbus RTU":
+                    currentProtocol = EncoderProtocol.ModbusRTU;
+                    break;
+
+                case "CAN":
+                    currentProtocol = EncoderProtocol.CAN;
+                    break;
+            }
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private byte CalcCRC(byte[] data)
+        private void Data_Dispaly_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked)
+            {
+                // 勾選，打開窗口
+                if (dataWindow == null || dataWindow.IsDisposed)
+                {
+                    dataWindow = new DataWindow();
+                    dataWindow.Show();
+                }
+                else
+                {
+                    dataWindow.Show();
+                }
+            }
+            else
+            {
+                // 取消勾選，關閉窗口
+                if (dataWindow != null)
+                {
+                    dataWindow.Close();
+                    dataWindow = null;
+                }
+            }
+        }
+
+        private byte TamagawaCalcCRC(byte[] data)
         {
             byte crc = 0;
-
             foreach (byte b in data)
             {
                 crc ^= b;
-
                 for (int i = 0; i < 8; i++)
                 {
                     if ((crc & 0x80) != 0)
@@ -357,90 +373,688 @@ namespace TamagawaUSB
                         crc = (byte)((crc << 1) & 0xFF);
                 }
             }
-
             return crc;
         }
-        private void ContinuousTimer_Tick(object sender, EventArgs e)
+        private ushort ModbusCalcCRC(byte[] data)
         {
-            // 临时关闭文本显示，避免大量输出
-            bool oldShowFlag = showDebugInfo;
-            showDebugInfo = false;
-
-            PerformSingleRead();   // 复用单次读取逻辑，但内部会检查 showDebugInfo 标志
-
-            showDebugInfo = oldShowFlag;
+            ushort crc = 0xFFFF;
+            foreach (byte b in data)
+            {
+                crc ^= b;
+                for (int i = 0; i < 8; i++)
+                {
+                    if ((crc & 0x0001) != 0)
+                    {
+                        crc >>= 1;
+                        crc ^= 0xA001;
+                    }
+                    else
+                    {
+                        crc >>= 1;
+                    }
+                }
+            }
+            return crc;
         }
-        private void PerformSingleRead()
+
+        private EncoderData ReadTamagawaSingleTurn()
         {
+            EncoderData data = new EncoderData();
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                if (showDebugInfo)
-                    MessageBox.Show("请先打开串口！");
-                return;
+                return null;
             }
-
             try
             {
                 SerialPortManager.sp.DiscardInBuffer();
                 byte[] cmd = new byte[] { 0x02 };
                 SerialPortManager.WriteData(cmd);
-
+                Thread.Sleep(50);
+                int count = SerialPortManager.sp.BytesToRead;
+                if (count < 6)
+                {
+                    return null;
+                }
+                byte[] rx = new byte[6];
+                SerialPortManager.sp.Read(rx, 0, 6);
+                uint abs =
+                    ((uint)rx[2] << 16) |
+                    ((uint)rx[3] << 8) |
+                    rx[4];
+                abs &= 0x7FFFF;
+                byte recvCrc = rx[5];
+                byte calcCrc =
+                    TamagawaCalcCRC(new byte[]
+                    {rx[0], rx[1],rx[2],rx[3],rx[4]});
+                data.Abs = abs;
+                data.Angle =
+                    abs * 360.0 / 524288.0;
+                data.CRC_OK = recvCrc == calcCrc;
+                return data;
+            }
+            catch (Exception ex)
+            {
                 if (showDebugInfo)
-                    textBox1.AppendText("TX: " + BitConverter.ToString(cmd) + Environment.NewLine);
+                    MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+        private EncoderData ReadTamagawaMultiTurn()
+        {
+            EncoderData data = new EncoderData();
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                if (showDebugInfo)
+                    MessageBox.Show("请先打开串口！");
 
+                return null;
+            }
+            try
+            {
+                SerialPortManager.sp.DiscardInBuffer();
+                byte[] cmd = new byte[] { 0x8A };
+                SerialPortManager.WriteData(cmd);
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "TX: " +
+                        BitConverter.ToString(cmd) +
+                        Environment.NewLine);
+                }
                 System.Threading.Thread.Sleep(50);
-
                 int count = SerialPortManager.sp.BytesToRead;
                 if (count < 6)
                 {
                     if (showDebugInfo)
-                        textBox1.AppendText("接受数据错误" + Environment.NewLine);
-                    return;
+                    {
+                        textBox1.AppendText(
+                            "接受数据错误" +
+                            Environment.NewLine);
+                    }
+                    return null;
                 }
-
                 byte[] rx = new byte[6];
                 SerialPortManager.sp.Read(rx, 0, 6);
-
                 if (showDebugInfo)
-                    textBox1.AppendText("RX: " + BitConverter.ToString(rx) + Environment.NewLine);
-
-                byte cf = rx[0];
-                byte sf = rx[1];
-
-                uint abs = ((uint)rx[2] << 16) | ((uint)rx[3] << 8) | rx[4];
-                abs &= 0x7FFFF;
-
+                {
+                    textBox1.AppendText(
+                        "RX: " +
+                        BitConverter.ToString(rx) +
+                        Environment.NewLine);
+                }
+                uint abm =
+                    ((uint)rx[2] << 16) |
+                    ((uint)rx[3] << 8) |
+                    rx[4];
+                // 12bit多圈
+                abm >>= 8;
                 byte recvCrc = rx[5];
-                byte calcCrc = CalcCRC(new byte[] { rx[0], rx[1], rx[2], rx[3], rx[4] });
-
-                if (showDebugInfo)
-                {
-                    textBox1.AppendText($"ABS:{abs}(0x{abs:X6}) CRC:{(recvCrc == calcCrc ? "PASS" : "FAIL")}" + Environment.NewLine);
-                }
-
-                double angle = abs * 360.0 / 524288.0;
-
-                // 更新仪表盘控件（确保 UI 线程安全）
-                /*if (dialControl1.InvokeRequired)
-                    dialControl1.Invoke(new Action(() => dialControl1.UpdateAngle(angle)));
-                else
-                    dialControl1.UpdateAngle(angle);*/
-
-                // 不需要任何 Invoke 或 Dispatcher
-                dialControl1.UpdateAngle(angle);
-
-                if (showDebugInfo)
-                {
-                    textBox1.AppendText($"Angle   : {angle:F4}°" + Environment.NewLine);
-                    textBox1.AppendText(Environment.NewLine);
-                }
+                byte calcCrc = TamagawaCalcCRC(new byte[]
+                {rx[0],rx[1],rx[2],rx[3],rx[4]
+                });
+                data.MultiTurn = abm;
+                data.CRC_OK =
+                    recvCrc == calcCrc;
+                return data;
             }
             catch (Exception ex)
             {
                 if (showDebugInfo)
                     MessageBox.Show("通讯错误：" + ex.Message);
+
+                return null;
             }
         }
+        private EncoderData ReadTamagawaAll()
+        {
+            EncoderData data = new EncoderData();
 
+
+            byte[] cmd = new byte[] { 0x1A };
+
+            SerialPortManager.WriteData(cmd);
+
+
+            System.Threading.Thread.Sleep(100);
+
+
+            int count = SerialPortManager.sp.BytesToRead;
+
+            if (count < 11)
+            {
+                return null;
+            }
+
+
+            byte[] rx = new byte[count];
+
+            SerialPortManager.sp.Read(rx, 0, count);
+
+
+
+            // CRC校驗
+            byte recvCrc = rx[10];
+
+
+            byte calcCrc = TamagawaCalcCRC(new byte[]
+            {
+        rx[0],
+        rx[1],
+        rx[2],
+        rx[3],
+        rx[4],
+        rx[5],
+        rx[6],
+        rx[7],
+        rx[8],
+        rx[9]
+            });
+
+
+
+            data.CRC_OK = (recvCrc == calcCrc);
+
+
+            if (!data.CRC_OK)
+            {
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "CRC FAIL" + Environment.NewLine);
+                }
+
+                return null;
+            }
+
+
+
+            uint abs =
+                ((uint)rx[2] << 16) |
+                ((uint)rx[3] << 8) |
+                rx[4];
+
+
+            abs &= 0x7FFFF;
+
+
+
+            uint abm =
+                ((uint)rx[6] << 16) |
+                ((uint)rx[7] << 8) |
+                rx[8];
+
+
+            abm >>= 8;
+
+
+
+            data.Abs = abs;
+
+            data.MultiTurn = abm;
+
+            data.EnID = rx[5];
+
+
+            data.Angle =
+                abs * 360.0 / 524288.0;
+
+
+
+            return data;
+        }
+
+        private EncoderData ReadModbusRTUSingleTurn()
+        {
+            EncoderData data = new EncoderData();
+
+
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                if (showDebugInfo)
+                    MessageBox.Show("请先打开串口！");
+
+                return null;
+            }
+
+
+            try
+            {
+                SerialPortManager.sp.DiscardInBuffer();
+
+
+                // Modbus RTU
+                // Slave ID: 01
+                // Function: 03
+                // Address: 0000H
+                // Length: 2 Registers (32bit)
+
+                byte[] cmd = new byte[]
+                {0x01,0x03,0x00,0x00,0x00,0x02};
+                // 添加CRC
+                ushort crc = ModbusCalcCRC(cmd);
+                byte[] tx = new byte[]
+                {cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
+                (byte)(crc & 0xFF),(byte)(crc >> 8)};
+                SerialPortManager.WriteData(tx);
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "TX: " +
+                        BitConverter.ToString(tx) +
+                        Environment.NewLine);
+                }
+                Thread.Sleep(50);
+                int count = SerialPortManager.sp.BytesToRead;
+                // 01 03 04 + 4byte数据 + CRC16
+                if (count < 9)
+                {
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "接受数据错误\r\n");
+
+                    return null;
+                }
+                byte[] rx = new byte[count];
+                SerialPortManager.sp.Read(rx, 0, count);
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "RX: " +
+                        BitConverter.ToString(rx) +
+                        Environment.NewLine);
+                }
+                // CRC校验
+                ushort recvCRC =
+                    (ushort)(rx[count - 2] |
+                    (rx[count - 1] << 8));
+                ushort calcCRC =
+                    ModbusCalcCRC(rx.Take(count - 2).ToArray());
+                if (recvCRC != calcCRC)
+                {
+                    data.CRC_OK = false;
+
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "CRC FAIL\r\n");
+                    return null;
+                }
+                data.CRC_OK = true;
+                // Modbus正常返回
+                if (rx.Length >= 7 &&
+                    rx[1] == 0x03 &&
+                    rx[2] == 0x04)
+                {
+                    uint raw =((uint)rx[3] << 8) | rx[4];
+                    raw = raw << 16 | ((uint)rx[5] << 8) | rx[6];
+                    // SingleTurn有效19bit
+                    uint abs =
+                        raw & 0x7FFFF;
+                    data.Abs = abs;
+                    data.Angle =
+                        abs * 360.0 / 524288.0;
+                    return data;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                if (showDebugInfo)
+                {
+                    MessageBox.Show(
+                        "Modbus通讯错误：" + ex.Message);
+                }
+                return null;
+            }
+        }
+        private EncoderData ReadModbusRTUMultiTurn()
+        {
+            EncoderData data = new EncoderData();
+
+
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                if (showDebugInfo)
+                    MessageBox.Show("请先打开串口！");
+
+                return null;
+            }
+
+
+            try
+            {
+                SerialPortManager.sp.DiscardInBuffer();
+
+
+                // Modbus RTU
+                // Slave ID: 01
+                // Function: 03
+                // Address: 0002H
+                // Length: 2 Registers (32bit)
+
+                byte[] cmd = new byte[]
+                {
+            0x01,
+            0x03,
+            0x00,
+            0x02,
+            0x00,
+            0x02
+                };
+
+
+                ushort crc = ModbusCalcCRC(cmd);
+
+
+                byte[] tx = new byte[]
+                {
+            cmd[0],
+            cmd[1],
+            cmd[2],
+            cmd[3],
+            cmd[4],
+            cmd[5],
+            (byte)(crc & 0xFF),
+            (byte)(crc >> 8)
+                };
+
+
+                SerialPortManager.WriteData(tx);
+
+
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "TX: " +
+                        BitConverter.ToString(tx) +
+                        Environment.NewLine);
+                }
+
+
+                Thread.Sleep(50);
+
+
+
+                int count = SerialPortManager.sp.BytesToRead;
+
+
+                // 01 03 04 + 4byte数据 + CRC16
+                if (count < 9)
+                {
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "接受数据错误\r\n");
+
+                    return null;
+                }
+
+
+
+                byte[] rx = new byte[count];
+
+                SerialPortManager.sp.Read(rx, 0, count);
+
+
+
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "RX: " +
+                        BitConverter.ToString(rx) +
+                        Environment.NewLine);
+                }
+
+
+
+                // CRC校验
+                ushort recvCRC =
+                    (ushort)(rx[count - 2] |
+                    (rx[count - 1] << 8));
+
+
+                byte[] crcData = new byte[count - 2];
+
+                Array.Copy(rx, crcData, count - 2);
+
+
+                ushort calcCRC =
+                    ModbusCalcCRC(crcData);
+
+
+
+                if (recvCRC != calcCRC)
+                {
+                    data.CRC_OK = false;
+
+
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "CRC FAIL\r\n");
+
+
+                    return null;
+                }
+
+
+                data.CRC_OK = true;
+
+
+
+                // Modbus正常返回
+                if (rx.Length >= 7 &&
+                   rx[1] == 0x03 &&
+                   rx[2] == 0x04)
+                {
+
+                    uint raw =
+                        ((uint)rx[3] << 24) |
+                        ((uint)rx[4] << 16) |
+                        ((uint)rx[5] << 8) |
+                        rx[6];
+
+
+
+                    // MultiTurn有效12bit
+                    uint multi =
+                        raw & 0xFFF;
+
+
+
+                    data.MultiTurn = multi;
+
+
+                    return data;
+                }
+
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                if (showDebugInfo)
+                {
+                    MessageBox.Show(
+                        "Modbus通讯错误：" + ex.Message);
+                }
+
+                return null;
+            }
+        }
+        private EncoderData ReadModbusRTUAll()
+        {
+            EncoderData data = new EncoderData();
+
+
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                if (showDebugInfo)
+                    MessageBox.Show("请先打开串口！");
+
+                return null;
+            }
+
+
+            try
+            {
+                SerialPortManager.sp.DiscardInBuffer();
+
+
+                // Modbus RTU
+                // Slave ID: 01
+                // Function: 03
+                // Address: 0000H
+                // Length: 4 Registers
+                //
+                // 0000~0001 SingleTurn
+                // 0002~0003 MultiTurn
+
+                byte[] cmd = new byte[]
+                {
+            0x01,
+            0x03,
+            0x00,
+            0x00,
+            0x00,
+            0x04
+                };
+
+
+                ushort crc = ModbusCalcCRC(cmd);
+
+
+                byte[] tx = new byte[]
+                {
+            cmd[0],
+            cmd[1],
+            cmd[2],
+            cmd[3],
+            cmd[4],
+            cmd[5],
+            (byte)(crc & 0xFF),
+            (byte)(crc >> 8)
+                };
+
+
+                SerialPortManager.WriteData(tx);
+
+
+
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "TX: " +
+                        BitConverter.ToString(tx) +
+                        Environment.NewLine);
+                }
+
+
+
+                Thread.Sleep(50);
+
+
+
+                int count = SerialPortManager.sp.BytesToRead;
+
+
+                // 01 03 08 + 8byte数据 + CRC16
+                // = 13 byte
+
+                if (count < 13)
+                {
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "接受数据错误\r\n");
+
+                    return null;
+                }
+
+
+
+                byte[] rx = new byte[count];
+
+                SerialPortManager.sp.Read(rx, 0, count);
+
+
+
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "RX: " +
+                        BitConverter.ToString(rx) +
+                        Environment.NewLine);
+                }
+
+
+
+                // CRC校验
+                ushort recvCRC =
+                    (ushort)(rx[count - 2] |
+                    (rx[count - 1] << 8));
+
+
+                byte[] crcData = new byte[count - 2];
+
+                Array.Copy(rx, crcData, count - 2);
+
+
+                ushort calcCRC =
+                    ModbusCalcCRC(crcData);
+
+
+
+                if (recvCRC != calcCRC)
+                {
+                    data.CRC_OK = false;
+
+
+                    if (showDebugInfo)
+                        textBox1.AppendText(
+                            "CRC FAIL\r\n");
+
+
+                    return null;
+                }
+
+
+                data.CRC_OK = true;
+
+
+
+                // Modbus正常返回
+                if (rx.Length >= 11 &&
+                   rx[1] == 0x03 &&
+                   rx[2] == 0x08)
+                {
+                    // SingleTurn_Data
+                    uint singleRaw = ((uint)rx[3] << 8) | rx[4];
+                    raw = raw << 16 | ((uint)rx[5] << 8) | rx[6];
+                    // MultiTurn_Data
+                    uint multiRaw =
+                        ((uint)rx[7] << 24) |
+                        ((uint)rx[8] << 16) |
+                        ((uint)rx[9] << 8) |
+                        rx[10];
+                    // 19bit SingleTurn
+                    data.Abs =
+                        singleRaw & 0x7FFFF;
+                    // 12bit MultiTurn
+                    data.MultiTurn =
+                        multiRaw & 0xFFF;
+                    data.Angle =
+                        data.Abs * 360.0 / 524288.0;
+                    return data;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                if (showDebugInfo)
+                {
+                    MessageBox.Show(
+                        "Modbus通讯错误：" + ex.Message);
+                }
+                return null;
+            }
+        }
     }
 }
