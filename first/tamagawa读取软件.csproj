@@ -49,10 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C82CC6B0D71246FED4C8EA2FEBF40442410BA30F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2A59D5C0F011261990ED9AFA75ADA62C5A369B9D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>first_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>tamagawa读取软件_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -87,6 +87,7 @@
     <Compile Include="DataWindow.Designer.cs">
       <DependentUpon>DataWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="EncoderConfig.cs" />
     <Compile Include="EncoderData.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
@@ -126,6 +127,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="tamagawa读取软件_2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
