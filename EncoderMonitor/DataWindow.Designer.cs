@@ -1,4 +1,4 @@
-﻿namespace TamagawaUSB
+﻿namespace EncoderMonitor
 {
     partial class DataWindow
     {
@@ -108,8 +108,9 @@
             this.textBox_Resolution.ReadOnly = true;
             this.textBox_Resolution.Size = new System.Drawing.Size(233, 30);
             this.textBox_Resolution.TabIndex = 7;
-            this.textBox_Resolution.Text = "524288";
+            this.textBox_Resolution.Text = "Max Resolution";
             this.textBox_Resolution.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_Resolution.TextChanged += new System.EventHandler(this.textBox_Resolution_TextChanged);
             // 
             // textBox_Angle
             // 

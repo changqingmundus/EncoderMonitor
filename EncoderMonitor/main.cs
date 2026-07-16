@@ -21,7 +21,7 @@ using System.Windows.Markup;
 using WPF;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace TamagawaUSB
+namespace EncoderMonitor
 {
     public partial class btnClickThis : Form
     {
@@ -32,7 +32,7 @@ namespace TamagawaUSB
         {
             Tamagawa,
             ModbusRTU,
-            CAN
+            CANopen
         }
         private EncoderProtocol currentProtocol; //當前選擇的協議
         public uint Abs;
@@ -58,7 +58,7 @@ namespace TamagawaUSB
             // 協議選擇
             ModelSelect.Items.Add("Tamagawa");
             ModelSelect.Items.Add("Modbus RTU");
-            ModelSelect.Items.Add("CAN");
+            ModelSelect.Items.Add("CANopen");
 
             ModelSelect.SelectedIndex = 0;
             currentProtocol = EncoderProtocol.Tamagawa;
@@ -68,6 +68,11 @@ namespace TamagawaUSB
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             continuousTimer.Stop();
+        }
+        private void DataWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            checkBox2.Checked = false;
+            dataWindow = null;
         }
 
         private void Serial_Port_Select(object sender, EventArgs e)
@@ -183,7 +188,7 @@ namespace TamagawaUSB
                     break;
 
 
-                case EncoderProtocol.CAN:
+                case EncoderProtocol.CANopen:
                     // data = ReadCAN();
                     break;
             }
@@ -221,7 +226,7 @@ namespace TamagawaUSB
                     break;
 
 
-                case EncoderProtocol.CAN:
+                case EncoderProtocol.CANopen:
                     // data = ReadCAN();
                     break;
             }
@@ -255,7 +260,7 @@ namespace TamagawaUSB
                     break;
 
 
-                case EncoderProtocol.CAN:
+                case EncoderProtocol.CANopen:
                    // data = ReadCAN();
                     break;
             }
@@ -296,7 +301,7 @@ namespace TamagawaUSB
                     data = ReadModbusRTUSingleTurn();
                     break;
 
-                case EncoderProtocol.CAN:
+                case EncoderProtocol.CANopen:
                     break;
             }
             if (data != null)
@@ -320,8 +325,8 @@ namespace TamagawaUSB
                     currentProtocol = EncoderProtocol.ModbusRTU;
                     break;
 
-                case "CAN":
-                    currentProtocol = EncoderProtocol.CAN;
+                case "CANopen":
+                    currentProtocol = EncoderProtocol.CANopen;
                     break;
             }
         }
@@ -345,6 +350,7 @@ namespace TamagawaUSB
                 if (dataWindow == null || dataWindow.IsDisposed)
                 {
                     dataWindow = new DataWindow();
+                    dataWindow.FormClosed += DataWindow_FormClosed;
                     dataWindow.Show();
                 }
                 else

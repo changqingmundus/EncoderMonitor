@@ -49,10 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>2A59D5C0F011261990ED9AFA75ADA62C5A369B9D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FB891CE4301918EF789702084D204CBEA16DC982</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>tamagawa读取软件_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>tamagawa读取软件_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -127,7 +127,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="tamagawa读取软件_2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

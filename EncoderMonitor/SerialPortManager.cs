@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TamagawaUSB
+namespace EncoderMonitor
 {
         public static class SerialPortManager
         {
