@@ -90,11 +90,11 @@
             // 
             // textBox_Binary
             // 
-            this.textBox_Binary.Font = new System.Drawing.Font("宋体", 15F);
+            this.textBox_Binary.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.textBox_Binary.Location = new System.Drawing.Point(135, 427);
             this.textBox_Binary.Name = "textBox_Binary";
             this.textBox_Binary.ReadOnly = true;
-            this.textBox_Binary.Size = new System.Drawing.Size(233, 30);
+            this.textBox_Binary.Size = new System.Drawing.Size(233, 26);
             this.textBox_Binary.TabIndex = 6;
             this.textBox_Binary.Text = "0000000000000000000";
             this.textBox_Binary.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

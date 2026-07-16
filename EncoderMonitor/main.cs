@@ -293,12 +293,12 @@ namespace EncoderMonitor
             switch (currentProtocol)
             {
                 case EncoderProtocol.Tamagawa:
-                    data = ReadTamagawaSingleTurn();
+                    data = ReadTamagawaAll();
                     break;
 
                 case EncoderProtocol.ModbusRTU:
 
-                    data = ReadModbusRTUSingleTurn();
+                    data = ReadModbusRTUAll();
                     break;
 
                 case EncoderProtocol.CANopen:
@@ -306,7 +306,14 @@ namespace EncoderMonitor
             }
             if (data != null)
             {
-                if (dataWindow != null)
+                // MainForm顯示
+                SingleTurnShow.Text =
+                    data.Abs.ToString();
+                MultiTurnShow.Text =
+                    data.MultiTurn.ToString();
+                // DataWindow顯示
+                if (dataWindow != null &&
+                   !dataWindow.IsDisposed)
                 {
                     dataWindow.UpdateEncoderData(data.Abs);
                 }
@@ -442,6 +449,7 @@ namespace EncoderMonitor
                 data.CRC_OK = recvCrc == calcCrc;
                 return data;
             }
+
             catch (Exception ex)
             {
                 if (showDebugInfo)
@@ -950,6 +958,16 @@ namespace EncoderMonitor
                 }
                 return null;
             }
+        }
+
+        private void MultiTurnShow_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SingleTurnShow_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

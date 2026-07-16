@@ -44,6 +44,10 @@
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.MultiTurnShow = new System.Windows.Forms.TextBox();
+            this.SingleTurnShow = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -265,11 +269,57 @@
             this.label2.TabIndex = 23;
             this.label2.Text = "Multiturn";
             // 
+            // MultiTurnShow
+            // 
+            this.MultiTurnShow.Font = new System.Drawing.Font("宋体", 15F);
+            this.MultiTurnShow.Location = new System.Drawing.Point(38, 274);
+            this.MultiTurnShow.Name = "MultiTurnShow";
+            this.MultiTurnShow.Size = new System.Drawing.Size(267, 30);
+            this.MultiTurnShow.TabIndex = 24;
+            this.MultiTurnShow.Text = "MultiTurn";
+            this.MultiTurnShow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MultiTurnShow.TextChanged += new System.EventHandler(this.MultiTurnShow_TextChanged);
+            // 
+            // SingleTurnShow
+            // 
+            this.SingleTurnShow.Font = new System.Drawing.Font("宋体", 15F);
+            this.SingleTurnShow.Location = new System.Drawing.Point(38, 316);
+            this.SingleTurnShow.Name = "SingleTurnShow";
+            this.SingleTurnShow.Size = new System.Drawing.Size(267, 30);
+            this.SingleTurnShow.TabIndex = 25;
+            this.SingleTurnShow.Text = "SingleTurn";
+            this.SingleTurnShow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.SingleTurnShow.TextChanged += new System.EventHandler(this.SingleTurnShow_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(12, 284);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(19, 20);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "M";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(12, 326);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 20);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "S";
+            // 
             // btnClickThis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 792);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.SingleTurnShow);
+            this.Controls.Add(this.MultiTurnShow);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox5);
@@ -312,6 +362,10 @@
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox MultiTurnShow;
+        private System.Windows.Forms.TextBox SingleTurnShow;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

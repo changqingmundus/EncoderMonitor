@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8B374205-7529-48DF-BBE5-77A4C9A5BBB6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TamagawaUSB</RootNamespace>
-    <AssemblyName>TamagawaUSB</AssemblyName>
+    <RootNamespace>EncoderMonitor</RootNamespace>
+    <AssemblyName>EncoderMonitor</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
