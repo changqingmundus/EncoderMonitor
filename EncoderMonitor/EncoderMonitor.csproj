@@ -49,10 +49,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FB891CE4301918EF789702084D204CBEA16DC982</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C38E8D58D5FAC5F72420A00D2AABA1CA913B52A0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>tamagawa读取软件_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>EncoderMonitor_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -117,6 +117,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="EncoderMonitor_TemporaryKey.pfx" />
     <None Include="first_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

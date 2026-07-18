@@ -33,7 +33,7 @@ namespace EncoderMonitor
             Tamagawa,
             ModbusRTU,
             CANopen
-        }
+        }                                                       
         private EncoderProtocol currentProtocol; //當前選擇的協議
         public uint Abs;
         public uint MultiTurn;
@@ -44,6 +44,10 @@ namespace EncoderMonitor
         public btnClickThis()
         {
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.Font;
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             // 根据你的需要调整（毫秒）
             continuousTimer = new System.Windows.Forms.Timer();
             continuousTimer.Interval = 1; 
