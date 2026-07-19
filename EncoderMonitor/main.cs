@@ -26,6 +26,7 @@ namespace EncoderMonitor
     public partial class btnClickThis : Form
     {
         private DataWindow dataWindow;   //聲明DataWindow
+        private EncoderSetup encoderSetup;
         private System.Windows.Forms.Timer continuousTimer;   // 用于连续读取的定时器
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
         private enum EncoderProtocol
@@ -972,6 +973,15 @@ namespace EncoderMonitor
         private void SingleTurnShow_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (encoderSetup == null || encoderSetup.IsDisposed)
+            {
+                encoderSetup = new EncoderSetup();
+            }
+
+            encoderSetup.Show();
         }
     }
 }
