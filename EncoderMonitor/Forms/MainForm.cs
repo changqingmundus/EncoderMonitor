@@ -597,14 +597,19 @@ namespace EncoderMonitor
             try
             {
                 SerialPortManager.sp.DiscardInBuffer();
-                // Modbus RTU
-                // Slave ID: 01
-                // Function: 03
-                // Address: 0000H
-                // Length: 2 Registers (32bit)
 
-                byte[] cmd = new byte[]
-                {0x01,0x03,0x00,0x00,0x00,0x02};
+                byte[] cmd =
+               {
+                  EncoderConfig.Modbus.SlaveID,
+
+                  EncoderConfig.Modbus.FunctionCode,
+
+                  (byte)(EncoderConfig.Modbus.StartAddress >> 8),
+                  (byte)(EncoderConfig.Modbus.StartAddress),
+
+                  (byte)(EncoderConfig.Modbus.RegisterCount >> 8),
+                  (byte)(EncoderConfig.Modbus.RegisterCount)
+               };
                 // 添加CRC
                 ushort crc = ModbusCalcCRC(cmd);
                 byte[] tx = new byte[]
@@ -620,7 +625,6 @@ namespace EncoderMonitor
                 }
                 Thread.Sleep(50);
                 int count = SerialPortManager.sp.BytesToRead;
-                // 01 03 04 + 4byte数据 + CRC16
                 if (count < 9)
                 {
                     if (showDebugInfo)
@@ -697,22 +701,17 @@ namespace EncoderMonitor
             try
             {
                 SerialPortManager.sp.DiscardInBuffer();
-
-
-                // Modbus RTU
-                // Slave ID: 01
-                // Function: 03
-                // Address: 0002H
-                // Length: 2 Registers (32bit)
-
                 byte[] cmd = new byte[]
                 {
-            0x01,
-            0x03,
-            0x00,
-            0x02,
-            0x00,
-            0x02
+                  EncoderConfig.Modbus.SlaveID,
+
+                  EncoderConfig.Modbus.FunctionCode,
+
+                  (byte)(EncoderConfig.Modbus.MultiTurnAddress >> 8),
+                  (byte)(EncoderConfig.Modbus.MultiTurnAddress),
+
+                  (byte)(EncoderConfig.Modbus.MultiTurnCount >> 8),
+                  (byte)(EncoderConfig.Modbus.MultiTurnCount)
                 };
 
 
@@ -868,17 +867,18 @@ namespace EncoderMonitor
             try
             {
                 SerialPortManager.sp.DiscardInBuffer();
-                // Modbus RTU
-                // Slave ID: 01
-                // Function: 03
-                // Address: 0000H
-                // Length: 4 Registers
-                //
-                // 0000~0001 SingleTurn
-                // 0002~0003 MultiTurn
+                byte[] cmd =
+                {
+                  EncoderConfig.Modbus.SlaveID,
 
-                byte[] cmd = new byte[]
-                {0x01,03,0x00,0x00,0x00,0x04};
+                  EncoderConfig.Modbus.FunctionCode,
+
+                  (byte)(EncoderConfig.Modbus.AllAddress >> 8),
+                  (byte)(EncoderConfig.Modbus.AllAddress),
+
+                  (byte)(EncoderConfig.Modbus.AllCount >> 8),
+                  (byte)(EncoderConfig.Modbus.AllCount)
+                };
                 ushort crc = ModbusCalcCRC(cmd);
                 byte[] tx = new byte[]
                 {cmd[0], cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],(byte)(crc & 0xFF),(byte)(crc >> 8)};

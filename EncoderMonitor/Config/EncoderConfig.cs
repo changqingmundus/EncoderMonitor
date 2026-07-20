@@ -30,4 +30,25 @@ namespace EncoderMonitor
             }
         }
     }
+    public class ModbusConfig
+    {
+        public byte SlaveID { get; set; } = 1;
+
+        public byte FunctionCode { get; set; } = 0x03;
+
+
+        // Single
+        public ushort SingleTurnAddress { get; set; } = 0x0000;
+        public ushort SingleTurnCount { get; set; } = 2;
+
+
+        // Multi
+        public ushort MultiTurnAddress { get; set; } = 0x0002;
+        public ushort MultiTurnCount { get; set; } = 2;
+
+
+        // All
+        public ushort AllAddress { get; set; } = 0x0000;
+        public ushort AllCount { get; set; } = 4;
+    }
 }
