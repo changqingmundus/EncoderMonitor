@@ -27,6 +27,7 @@ namespace EncoderMonitor
     {
         private DataWindow dataWindow;   //聲明DataWindow
         private EncoderSetup encoderSetup;
+        private Advance_Settings advancedSettingsForm;
         private System.Windows.Forms.Timer continuousTimer;   // 用于连续读取的定时器
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
         private enum EncoderProtocol
@@ -397,27 +398,6 @@ namespace EncoderMonitor
             }
             return crc;
         }
-        private ushort ModbusCalcCRC(byte[] data)
-        {
-            ushort crc = 0xFFFF;
-            foreach (byte b in data)
-            {
-                crc ^= b;
-                for (int i = 0; i < 8; i++)
-                {
-                    if ((crc & 0x0001) != 0)
-                    {
-                        crc >>= 1;
-                        crc ^= 0xA001;
-                    }
-                    else
-                    {
-                        crc >>= 1;
-                    }
-                }
-            }
-            return crc;
-        }
 
         private EncoderData ReadTamagawaSingleTurn()
         {
@@ -604,14 +584,14 @@ namespace EncoderMonitor
 
                   EncoderConfig.Modbus.FunctionCode,
 
-                  (byte)(EncoderConfig.Modbus.StartAddress >> 8),
-                  (byte)(EncoderConfig.Modbus.StartAddress),
+                  (byte)(EncoderConfig.Modbus.SingleTurnAddress >> 8),
+                  (byte)(EncoderConfig.Modbus.SingleTurnAddress),
 
-                  (byte)(EncoderConfig.Modbus.RegisterCount >> 8),
-                  (byte)(EncoderConfig.Modbus.RegisterCount)
+                  (byte)(EncoderConfig.Modbus.SingleTurnCount >> 8),
+                  (byte)(EncoderConfig.Modbus.SingleTurnCount)
                };
                 // 添加CRC
-                ushort crc = ModbusCalcCRC(cmd);
+                ushort crc = ModbusCRC.Calculate(cmd);
                 byte[] tx = new byte[]
                 {cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
                 (byte)(crc & 0xFF),(byte)(crc >> 8)};
@@ -647,7 +627,7 @@ namespace EncoderMonitor
                     (ushort)(rx[count - 2] |
                     (rx[count - 1] << 8));
                 ushort calcCRC =
-                    ModbusCalcCRC(rx.Take(count - 2).ToArray());
+                       ModbusCRC.Calculate(rx.Take(count - 2).ToArray());
                 if (recvCRC != calcCRC)
                 {
                     data.CRC_OK = false;
@@ -715,7 +695,7 @@ namespace EncoderMonitor
                 };
 
 
-                ushort crc = ModbusCalcCRC(cmd);
+                ushort crc = ModbusCRC.Calculate(cmd);
 
 
                 byte[] tx = new byte[]
@@ -789,8 +769,7 @@ namespace EncoderMonitor
                 Array.Copy(rx, crcData, count - 2);
 
 
-                ushort calcCRC =
-                    ModbusCalcCRC(crcData);
+                ushort calcCRC = ModbusCRC.Calculate(crcData);
 
 
 
@@ -879,7 +858,7 @@ namespace EncoderMonitor
                   (byte)(EncoderConfig.Modbus.AllCount >> 8),
                   (byte)(EncoderConfig.Modbus.AllCount)
                 };
-                ushort crc = ModbusCalcCRC(cmd);
+                ushort crc = ModbusCRC.Calculate(cmd);
                 byte[] tx = new byte[]
                 {cmd[0], cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],(byte)(crc & 0xFF),(byte)(crc >> 8)};
                 SerialPortManager.WriteData(tx);
@@ -917,8 +896,7 @@ namespace EncoderMonitor
                     (rx[count - 1] << 8));
                 byte[] crcData = new byte[count - 2];
                 Array.Copy(rx, crcData, count - 2);
-                ushort calcCRC =
-                    ModbusCalcCRC(crcData);
+                ushort calcCRC = ModbusCRC.Calculate(crcData);
                 if (recvCRC != calcCRC)
                 {
                     data.CRC_OK = false;
@@ -982,6 +960,20 @@ namespace EncoderMonitor
             }
 
             encoderSetup.Show();
+        }
+
+        private void advanceReadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (advancedSettingsForm == null ||
+        advancedSettingsForm.IsDisposed)
+            {
+                advancedSettingsForm = new Advance_Settings();
+                advancedSettingsForm.Show();
+            }
+            else
+            {
+                advancedSettingsForm.Activate();
+            }
         }
     }
 }

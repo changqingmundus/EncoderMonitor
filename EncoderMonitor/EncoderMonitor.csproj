@@ -81,6 +81,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\FactoryConfig.cs" />
+    <Compile Include="Communication\ModbusCRC.cs" />
     <Compile Include="Forms\Advance Settings.cs">
       <SubType>Form</SubType>
     </Compile>

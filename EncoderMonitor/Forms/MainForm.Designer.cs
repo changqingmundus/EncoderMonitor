@@ -54,11 +54,12 @@
             this.loadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutEncoderMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.advanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advanceReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -353,13 +354,13 @@
             // saveConfigToolStripMenuItem
             // 
             this.saveConfigToolStripMenuItem.Name = "saveConfigToolStripMenuItem";
-            this.saveConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveConfigToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.saveConfigToolStripMenuItem.Text = "Save Config";
             // 
             // loadConfigToolStripMenuItem
             // 
             this.loadConfigToolStripMenuItem.Name = "loadConfigToolStripMenuItem";
-            this.loadConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadConfigToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.loadConfigToolStripMenuItem.Text = "Load Config";
             // 
             // encoderSetupToolStripMenuItem
@@ -373,9 +374,17 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.openToolStripMenuItem.Text = "EncoderSetup";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // advanceToolStripMenuItem
+            // 
+            this.advanceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.advanceReadToolStripMenuItem});
+            this.advanceToolStripMenuItem.Name = "advanceToolStripMenuItem";
+            this.advanceToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
+            this.advanceToolStripMenuItem.Text = "Advance";
             // 
             // toolsToolStripMenuItem
             // 
@@ -404,11 +413,12 @@
             this.aboutEncoderMonitorToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.aboutEncoderMonitorToolStripMenuItem.Text = "About EncoderMonitor";
             // 
-            // advanceToolStripMenuItem
+            // advanceReadToolStripMenuItem
             // 
-            this.advanceToolStripMenuItem.Name = "advanceToolStripMenuItem";
-            this.advanceToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
-            this.advanceToolStripMenuItem.Text = "Advance";
+            this.advanceReadToolStripMenuItem.Name = "advanceReadToolStripMenuItem";
+            this.advanceReadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.advanceReadToolStripMenuItem.Text = "Advance Read";
+            this.advanceReadToolStripMenuItem.Click += new System.EventHandler(this.advanceReadToolStripMenuItem_Click);
             // 
             // btnClickThis
             // 
@@ -479,6 +489,7 @@
         private System.Windows.Forms.ToolStripMenuItem releaseNotesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutEncoderMonitorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem advanceReadToolStripMenuItem;
     }
 }
 

@@ -12,6 +12,10 @@ namespace EncoderMonitor
 {
     public partial class Advance_Settings : Form
     {
+        public Advance_Settings()
+        {
+            InitializeComponent();
+        }
         private void Advance_Settings_Load(object sender, EventArgs e)
         {
 
@@ -25,23 +29,23 @@ namespace EncoderMonitor
         private void SaveConfig_Click(object sender, EventArgs e)
         {
             EncoderConfig.Modbus.SlaveID =
-        (byte)numericSlaveID.Value;
+        (byte)SetSlaveID.Value;
 
 
             EncoderConfig.Modbus.FunctionCode =
                 Convert.ToByte(
-                    comboFunctionCode.SelectedItem.ToString(),
+                    SetFunctionCode.SelectedItem.ToString(),
                     16);
 
 
-            EncoderConfig.Modbus.StartAddress =
+            EncoderConfig.Modbus.AllAddress =
                 Convert.ToUInt16(
-                    textAddress.Text,
+                    SetAddress.Text,
                     16);
 
 
-            EncoderConfig.Modbus.RegisterCount =
-                (ushort)numericCount.Value;
+            EncoderConfig.Modbus.AllCount =
+                (ushort)SetRegisterCount.Value;
 
 
             MessageBox.Show("Save OK");
