@@ -47,5 +47,35 @@ namespace EncoderMonitor
             }
             return buffer.ToArray();
         }
+        public static byte[] ReadResponse(int timeout = 100)
+        {
+            List<byte> buffer = new List<byte>();
+
+            Stopwatch sw = Stopwatch.StartNew();
+
+            while (sw.ElapsedMilliseconds < timeout)
+            {
+                if (SerialPortManager.sp != null &&
+                    SerialPortManager.sp.IsOpen)
+                {
+                    while (SerialPortManager.sp.BytesToRead > 0)
+                    {
+                        buffer.Add((byte)SerialPortManager.sp.ReadByte());
+                    }
+
+                    if (buffer.Count > 0)
+                        break;
+                }
+            }
+
+
+            if (buffer.Count == 0)
+            {
+                return null;
+            }
+
+
+            return buffer.ToArray();
+        }
     }
 }

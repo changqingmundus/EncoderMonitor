@@ -975,5 +975,10 @@ namespace EncoderMonitor
                 advancedSettingsForm.Activate();
             }
         }
+
+        private void advanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

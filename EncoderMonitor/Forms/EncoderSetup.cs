@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace EncoderMonitor
@@ -20,7 +19,7 @@ namespace EncoderMonitor
             Factory_ST.SelectedItem = "19";
             Factory_MT.SelectedItem = "12";
             Factory_CRC.SelectedItem = "6";
-            
+
             StatusLabel.Text = "Status: Ready";
         }
         private void tabPage2_Click(object sender, EventArgs e)
@@ -31,38 +30,44 @@ namespace EncoderMonitor
         {
             try
             {
+                // 檢查參數
                 if (Factory_ST.SelectedItem == null ||
                     Factory_MT.SelectedItem == null ||
-                    Factory_CRC.SelectedItem == null ||
-                    Factory_BaudRate.SelectedItem == null ||
-                    Factory_Parity.SelectedItem == null)
+                    Factory_CRC.SelectedItem == null)
                 {
-                    MessageBox.Show("請選擇配置參數");
+                    UpdateStatusError("請選擇配置參數");
                     return;
                 }
 
-                FactoryConfig.WriteEncoder(
-                   (byte)Factory_SlaveID.Value,
-                   byte.Parse(Factory_ST.SelectedItem.ToString()),
-                   byte.Parse(Factory_MT.SelectedItem.ToString()),
-                   byte.Parse(Factory_CRC.SelectedItem.ToString()));
 
-                   // 等待設備回覆
-                   byte[] response = ModbusReceiver.ReadResponse();
-      
-                   // 解析回覆
-                   CheckFactoryResponse(response);
+                if (tabControl1.SelectedTab == TabTamagawa)
+                {
+                    UpdateStatusError(
+                    "Tamagawa Factory Config: Not Implemented");
+                    //WriteTamagawaFactory();
+                }
+                else if (tabControl1.SelectedTab == TabModBusRTU)
+                {
+                    WriteModbusFactory();
+                }
+                else if (tabControl1.SelectedTab == TabCANopen)
+                {
+                    UpdateStatusError(
+                    "CAN Factory Config: Not Implemented");
+                    //WriteCANFactory();
+                }
             }
             catch (Exception ex)
             {
-                UpdateStatusError("Write Error: " + ex.Message);
+                UpdateStatusError(
+                    $"Factory Config Error: {ex.Message}");
             }
         }
         private bool CheckFactoryResponse(byte[] response)
         {
             if (response == null || response.Length < 5)
             {
-                UpdateStatusError("Factory Config No Response");
+                UpdateStatusError("Factory Config: No Response");
                 return false;
             }
 
@@ -81,19 +86,24 @@ namespace EncoderMonitor
 
             if (calcCRC != recvCRC)
             {
-                UpdateStatusError("Factory Config CRC Error");
+                UpdateStatusError("Factory Config: CRC Error");
                 return false;
             }
 
-
             // Slave
+            if (response[0] != (byte)Factory_SlaveID.Value)
+            {
+                UpdateStatusError("Slave ID Error");
+                return false;
+            }
+
             // Function
             if (response[1] == 0x66)
             {
                 // 成功
                 if (response[2] == 0x88)
                 {
-                    UpdateStatusSuccess("Factory Config Success");
+                    UpdateStatusSuccess("Factory Config: Success");
                     return true;
                 }
 
@@ -133,11 +143,36 @@ namespace EncoderMonitor
             StatusLabel.ForeColor = Color.Green;
         }
 
-
         private void UpdateStatusError(string text)
         {
             StatusLabel.Text = text;
             StatusLabel.ForeColor = Color.Red;
+        }
+        private void WriteModbusFactory()
+        {
+            FactoryConfig.WriteEncoder(
+
+                (byte)Factory_SlaveID.Value,
+
+                byte.Parse(Factory_ST.SelectedItem.ToString()),
+
+                byte.Parse(Factory_MT.SelectedItem.ToString()),
+
+                byte.Parse(Factory_CRC.SelectedItem.ToString())
+            );
+
+
+            byte[] response = ModbusReceiver.ReadResponse();
+
+
+            if (response == null)
+            {
+                UpdateStatusError("Factory Config Timeout");
+                return;
+            }
+
+
+            CheckFactoryResponse(response);
         }
     }
 }

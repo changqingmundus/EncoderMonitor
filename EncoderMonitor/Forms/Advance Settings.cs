@@ -50,5 +50,10 @@ namespace EncoderMonitor
 
             MessageBox.Show("Save OK");
         }
+
+        private void SetFunctionCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
