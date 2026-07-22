@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataWindow));
             this.elementHost_AngleShow = new System.Windows.Forms.Integration.ElementHost();
             this.label1 = new System.Windows.Forms.Label();
             this.label_Binary = new System.Windows.Forms.Label();
@@ -137,6 +138,7 @@
             this.Controls.Add(this.label_Binary);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.elementHost_AngleShow);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataWindow";
             this.Text = "DataWindow";
             this.Load += new System.EventHandler(this.DataWindow_Load);

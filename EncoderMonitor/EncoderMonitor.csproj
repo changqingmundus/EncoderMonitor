@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Communication\FactoryConfig.cs" />
     <Compile Include="Communication\ModbusCRC.cs" />
+    <Compile Include="Communication\ModbusReceiver.cs" />
     <Compile Include="Forms\Advance Settings.cs">
       <SubType>Form</SubType>
     </Compile>

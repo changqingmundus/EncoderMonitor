@@ -13,12 +13,6 @@ namespace EncoderMonitor.Communication
               byte multiBits,
               byte crcBits)
         {
-            MessageBox.Show(
-        $"Slave={slaveID}\r\n" +
-        $"Single={singleBits}\r\n" +
-        $"Multi={multiBits}\r\n" +
-        $"CRC={crcBits}"
-    );
             byte[] frame =
             {
                 slaveID,
@@ -113,16 +107,36 @@ namespace EncoderMonitor.Communication
         }
         private static void Send(byte[] frame)
         {
+            if (frame == null || frame.Length == 0)
+            {
+                throw new ArgumentException("Modbus frame is empty");
+            }
+
+
             ushort crc = ModbusCRC.Calculate(frame);
+
 
             byte[] crcBytes =
             {
-             (byte)(crc & 0xFF),        // CRC Low
-             (byte)(crc >> 8)           // CRC High
+               (byte)(crc & 0xFF),   // CRC Low
+               (byte)(crc >> 8)      // CRC High
              };
+
+
             byte[] tx = frame
                 .Concat(crcBytes)
                 .ToArray();
+
+            if (SerialPortManager.sp == null)
+            {
+                throw new InvalidOperationException(
+                    "Serial port is not initialized");
+            }
+            if (!SerialPortManager.sp.IsOpen)
+            {
+                throw new InvalidOperationException(
+                    "Serial port is not open");
+            }
             SerialPortManager.sp.Write(
                 tx,
                 0,

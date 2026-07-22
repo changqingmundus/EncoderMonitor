@@ -55,11 +55,11 @@
             this.encoderSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advanceReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutEncoderMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.advanceReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -223,7 +223,7 @@
             "24",
             "25",
             "26"});
-            this.comboBox4.Location = new System.Drawing.Point(29, 426);
+            this.comboBox4.Location = new System.Drawing.Point(184, 426);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 28);
             this.comboBox4.TabIndex = 20;
@@ -253,7 +253,7 @@
             "22",
             "23",
             "24"});
-            this.comboBox5.Location = new System.Drawing.Point(184, 426);
+            this.comboBox5.Location = new System.Drawing.Point(29, 426);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(121, 28);
             this.comboBox5.TabIndex = 21;
@@ -264,7 +264,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(34, 398);
+            this.label1.Location = new System.Drawing.Point(189, 398);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 20);
@@ -275,7 +275,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(193, 398);
+            this.label2.Location = new System.Drawing.Point(38, 398);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 20);
@@ -386,6 +386,13 @@
             this.advanceToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
             this.advanceToolStripMenuItem.Text = "Advance";
             // 
+            // advanceReadToolStripMenuItem
+            // 
+            this.advanceReadToolStripMenuItem.Name = "advanceReadToolStripMenuItem";
+            this.advanceReadToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.advanceReadToolStripMenuItem.Text = "Advance Read";
+            this.advanceReadToolStripMenuItem.Click += new System.EventHandler(this.advanceReadToolStripMenuItem_Click);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -412,13 +419,6 @@
             this.aboutEncoderMonitorToolStripMenuItem.Name = "aboutEncoderMonitorToolStripMenuItem";
             this.aboutEncoderMonitorToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.aboutEncoderMonitorToolStripMenuItem.Text = "About EncoderMonitor";
-            // 
-            // advanceReadToolStripMenuItem
-            // 
-            this.advanceReadToolStripMenuItem.Name = "advanceReadToolStripMenuItem";
-            this.advanceReadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.advanceReadToolStripMenuItem.Text = "Advance Read";
-            this.advanceReadToolStripMenuItem.Click += new System.EventHandler(this.advanceReadToolStripMenuItem_Click);
             // 
             // btnClickThis
             // 

@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusLabel_Status = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EncoderSetup));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
             this.Factory_Parity = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Factory_SlaveID = new System.Windows.Forms.NumericUpDown();
@@ -49,30 +49,14 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.statusLabel_Status.SuspendLayout();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Factory_SlaveID)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // statusLabel_Status
-            // 
-            this.statusLabel_Status.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusLabel_Status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusLabel_Status.Location = new System.Drawing.Point(0, 358);
-            this.statusLabel_Status.Name = "statusLabel_Status";
-            this.statusLabel_Status.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
-            this.statusLabel_Status.Size = new System.Drawing.Size(342, 22);
-            this.statusLabel_Status.TabIndex = 0;
-            this.statusLabel_Status.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(86, 17);
-            this.toolStripStatusLabel1.Text = "Status: Ready";
             // 
             // tabControl1
             // 
@@ -112,6 +96,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.Factory_Parity);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.Factory_SlaveID);
@@ -133,6 +118,16 @@
             this.tabPage2.Text = "ModBusRTU";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label8.Location = new System.Drawing.Point(144, 219);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(100, 25);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Default : 6";
             // 
             // Factory_Parity
             // 
@@ -190,7 +185,6 @@
             this.Factory_CRC.Name = "Factory_CRC";
             this.Factory_CRC.Size = new System.Drawing.Size(121, 26);
             this.Factory_CRC.TabIndex = 27;
-            this.Factory_CRC.Text = "Default： 6";
             // 
             // label6
             // 
@@ -287,6 +281,7 @@
             this.Factory_ST.Name = "Factory_ST";
             this.Factory_ST.Size = new System.Drawing.Size(120, 33);
             this.Factory_ST.TabIndex = 19;
+            this.Factory_ST.Text = "單圈位數";
             // 
             // Factory_MT
             // 
@@ -313,6 +308,7 @@
             this.Factory_MT.Name = "Factory_MT";
             this.Factory_MT.Size = new System.Drawing.Size(120, 33);
             this.Factory_MT.TabIndex = 18;
+            this.Factory_MT.Text = "多圈位數";
             // 
             // tabPage3
             // 
@@ -347,35 +343,51 @@
             this.button1.Text = "Read";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 358);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(342, 22);
+            this.statusStrip1.TabIndex = 16;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // StatusLabel
+            // 
+            this.StatusLabel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(86, 17);
+            this.StatusLabel.Text = "Status: Ready";
+            // 
             // EncoderSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(342, 380);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.statusLabel_Status);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EncoderSetup";
             this.Text = "EncoderSetup";
-            this.statusLabel_Status.ResumeLayout(false);
-            this.statusLabel_Status.PerformLayout();
+            this.Load += new System.EventHandler(this.EncoderSetup_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Factory_SlaveID)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.StatusStrip statusLabel_Status;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -395,5 +407,8 @@
         private System.Windows.Forms.NumericUpDown Factory_SlaveID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox Factory_Parity;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
     }
 }
