@@ -174,5 +174,23 @@ namespace EncoderMonitor
 
             CheckFactoryResponse(response);
         }
+
+        private void Change_FreeMode_Click(object sender, EventArgs e)
+        {
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                    MessageBox.Show("请先打开串口！");
+                return;
+            }
+            byte[] cmd =
+             {EncoderConfig.Modbus.SlaveID,0x06,0x00,0x08,0x00,0x02};
+            ushort crc = ModbusCRC.Calculate(cmd);
+
+            byte[] frame =
+            {cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
+             (byte)(crc & 0xff),
+             (byte)(crc >> 8)};
+            SerialPortManager.WriteData(frame);
+        }
     }
 }

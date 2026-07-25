@@ -51,6 +51,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Change_FreeMode = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.TabTamagawa.SuspendLayout();
             this.TabModBusRTU.SuspendLayout();
@@ -75,7 +79,7 @@
             this.TabTamagawa.Controls.Add(this.label4);
             this.TabTamagawa.Location = new System.Drawing.Point(4, 31);
             this.TabTamagawa.Name = "TabTamagawa";
-            this.TabTamagawa.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TabTamagawa.Padding = new System.Windows.Forms.Padding(3);
             this.TabTamagawa.Size = new System.Drawing.Size(448, 368);
             this.TabTamagawa.TabIndex = 0;
             this.TabTamagawa.Text = "Tamagawa";
@@ -108,7 +112,7 @@
             this.TabModBusRTU.Controls.Add(this.Factory_MT);
             this.TabModBusRTU.Location = new System.Drawing.Point(4, 31);
             this.TabModBusRTU.Name = "TabModBusRTU";
-            this.TabModBusRTU.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TabModBusRTU.Padding = new System.Windows.Forms.Padding(3);
             this.TabModBusRTU.Size = new System.Drawing.Size(448, 368);
             this.TabModBusRTU.TabIndex = 1;
             this.TabModBusRTU.Text = "ModBusRTU";
@@ -136,7 +140,7 @@
             "Mark",
             "Space"});
             this.Factory_Parity.Location = new System.Drawing.Point(289, 73);
-            this.Factory_Parity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Factory_Parity.Margin = new System.Windows.Forms.Padding(4);
             this.Factory_Parity.Name = "Factory_Parity";
             this.Factory_Parity.Size = new System.Drawing.Size(127, 30);
             this.Factory_Parity.TabIndex = 30;
@@ -155,7 +159,7 @@
             // Factory_SlaveID
             // 
             this.Factory_SlaveID.Location = new System.Drawing.Point(23, 76);
-            this.Factory_SlaveID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Factory_SlaveID.Margin = new System.Windows.Forms.Padding(4);
             this.Factory_SlaveID.Maximum = new decimal(new int[] {
             247,
             0,
@@ -182,7 +186,7 @@
             "6",
             "16"});
             this.Factory_CRC.Location = new System.Drawing.Point(23, 292);
-            this.Factory_CRC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Factory_CRC.Margin = new System.Windows.Forms.Padding(4);
             this.Factory_CRC.Name = "Factory_CRC";
             this.Factory_CRC.Size = new System.Drawing.Size(160, 30);
             this.Factory_CRC.TabIndex = 27;
@@ -340,7 +344,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 481);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip1.Size = new System.Drawing.Size(456, 26);
@@ -354,11 +358,56 @@
             this.StatusLabel.Size = new System.Drawing.Size(107, 20);
             this.StatusLabel.Text = "Status: Ready";
             // 
+            // Change_FreeMode
+            // 
+            this.Change_FreeMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Change_FreeMode.Location = new System.Drawing.Point(12, 403);
+            this.Change_FreeMode.Name = "Change_FreeMode";
+            this.Change_FreeMode.Size = new System.Drawing.Size(125, 55);
+            this.Change_FreeMode.TabIndex = 17;
+            this.Change_FreeMode.Text = "Change FreeMode";
+            this.Change_FreeMode.UseVisualStyleBackColor = true;
+            this.Change_FreeMode.Click += new System.EventHandler(this.Change_FreeMode_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(13, 461);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(124, 20);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Only Modbus!";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(160, 461);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(112, 20);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Read Config";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(306, 461);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(114, 20);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Write Config";
+            // 
             // EncoderSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 507);
+            this.ClientSize = new System.Drawing.Size(456, 519);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Change_FreeMode);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button1);
@@ -403,5 +452,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
+        private System.Windows.Forms.Button Change_FreeMode;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }

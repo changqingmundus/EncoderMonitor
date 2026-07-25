@@ -46,5 +46,9 @@ namespace EncoderMonitor
 
         public ushort AllAddress { get; set; } = 0x0000;
         public ushort AllCount { get; set; } = 4;
+
+        public byte FreeData1 { get; set; } = 0xAB;
+        public byte FreeData2 { get; set; } = 0xCD;
+        public byte FreeData3 { get; set; } = 0x3D;
     }
 }

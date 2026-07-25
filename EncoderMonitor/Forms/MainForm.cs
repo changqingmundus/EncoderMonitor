@@ -35,7 +35,7 @@ namespace EncoderMonitor
             Tamagawa,
             ModbusRTU,
             CANopen
-        }                                                       
+        }
         private EncoderProtocol currentProtocol; //當前選擇的協議
         public uint Abs;
         public uint MultiTurn;
@@ -52,7 +52,7 @@ namespace EncoderMonitor
             this.MaximizeBox = false;
             // 根据你的需要调整（毫秒）
             continuousTimer = new System.Windows.Forms.Timer();
-            continuousTimer.Interval = 1; 
+            continuousTimer.Interval = 1;
             continuousTimer.Tick += ContinuousTimer_Tick;
         }
         private void Main_Form_Load(object sender, EventArgs e)
@@ -267,7 +267,7 @@ namespace EncoderMonitor
 
 
                 case EncoderProtocol.CANopen:
-                   // data = ReadCAN();
+                    // data = ReadCAN();
                     break;
             }
             if (data != null)
@@ -283,6 +283,50 @@ namespace EncoderMonitor
                 {
                     dataWindow.UpdateEncoderData(data.Abs);
                 }
+            }
+        }
+        private void FreeModeReceive_Click(object sender, EventArgs e)
+        {
+            EncoderData data = new EncoderData();
+
+
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            {
+                if (showDebugInfo)
+                    MessageBox.Show("请先打开串口！");
+
+                return;
+            }
+            try
+            {
+                int length = SerialPortManager.sp.BytesToRead;
+                if (length == 0)
+                {
+                    if (showDebugInfo)
+                        textBox1.AppendText("未接收到數據\r\n");
+
+                    return;
+                }
+
+                byte[] rx = new byte[length];
+                SerialPortManager.sp.Read(rx, 0, length);
+                ReadFreeMode(rx);
+                if (showDebugInfo)
+                {
+                    textBox1.AppendText(
+                        "RX: " +
+                        BitConverter.ToString(rx) +
+                        Environment.NewLine);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (showDebugInfo)
+                {
+                    MessageBox.Show(
+                        "Modbus通讯错误：" + ex.Message);
+                }
+                return;
             }
         }
 
@@ -471,7 +515,7 @@ namespace EncoderMonitor
                     if (showDebugInfo)
                     {
                         textBox1.AppendText(
-                            "接受数据错误" +
+                            "接收數據錯誤" +
                             Environment.NewLine);
                     }
                     return null;
@@ -609,7 +653,7 @@ namespace EncoderMonitor
                 {
                     if (showDebugInfo)
                         textBox1.AppendText(
-                            "接受数据错误\r\n");
+                            "接收數據錯誤\r\n");
 
                     return null;
                 }
@@ -643,7 +687,7 @@ namespace EncoderMonitor
                     rx[1] == 0x03 &&
                     rx[2] == 0x04)
                 {
-                    uint raw =((uint)rx[3] << 8) | rx[4];
+                    uint raw = ((uint)rx[3] << 8) | rx[4];
                     raw = raw << 16 | ((uint)rx[5] << 8) | rx[6];
                     uint abs =
                         raw & EncoderConfig.SingleTurnMax;
@@ -735,7 +779,7 @@ namespace EncoderMonitor
                 {
                     if (showDebugInfo)
                         textBox1.AppendText(
-                            "接受数据错误\r\n");
+                            "接收數據錯誤\r\n");
 
                     return null;
                 }
@@ -877,7 +921,7 @@ namespace EncoderMonitor
                 {
                     if (showDebugInfo)
                         textBox1.AppendText(
-                            "接受数据错误\r\n");
+                            "接收數據錯誤\r\n");
                     return null;
                 }
                 byte[] rx = new byte[count];
@@ -979,6 +1023,122 @@ namespace EncoderMonitor
         private void advanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+        private void ReadFreeMode(byte[] rx)
+        {
+            // 1. 基礎長度與包頭包尾校驗
+            if (rx == null || rx.Length < 8) return;
+
+            if (rx[0] != EncoderConfig.Modbus.FreeData1 || rx[1] != EncoderConfig.Modbus.FreeData2) return;
+            if (rx[rx.Length - 1] != EncoderConfig.Modbus.FreeData3) return;
+
+            // 2. 累加和與異或校驗
+            byte recvSum = rx[rx.Length - 3];
+            byte recvXor = rx[rx.Length - 2];
+            byte sum = 0;
+            byte xor = 0;
+
+            for (int i = 2; i < rx.Length - 3; i++)
+            {
+                sum += rx[i];
+                xor ^= rx[i];
+            }
+
+            if (sum != recvSum || xor != recvXor)
+            {
+                LogToUI("FreeMode Check Error\r\n");
+                return;
+            }
+
+            // 3. 安全獲取下拉框位數
+            int multiBits = 0;
+            int singleBits = 0;
+
+            // 跨線程安全讀取 UI 下拉框
+            this.Invoke(new Action(() => {
+                if (comboBox5.SelectedItem != null) int.TryParse(comboBox5.SelectedItem.ToString(), out multiBits);
+                if (comboBox4.SelectedItem != null) int.TryParse(comboBox4.SelectedItem.ToString(), out singleBits);
+            }));
+
+            if (multiBits == 0 || singleBits == 0)
+            {
+                LogToUI("請先選擇多圈與單圈位數！\r\n");
+                return;
+            }
+
+            // 4. 計算所需字節數並檢查數據長度，防止數組越界
+            int multiBytes = multiBits > 16 ? 3 : 2;
+            int singleBytes = singleBits > 16 ? 3 : 2;
+            int expectedMinLen = 3 + multiBytes + singleBytes + 3; // 頭(3) + 數據 + 尾校驗(3)
+
+            if (rx.Length < expectedMinLen)
+            {
+                LogToUI("接收到的數據包長度不足！\r\n");
+                return;
+            }
+
+            // 5. 解析多圈數據
+            int index = 3;
+            uint multiturn = 0;
+            if (multiBytes == 3)
+            {
+                multiturn = ((uint)rx[index] << 16) | ((uint)rx[index + 1] << 8) | rx[index + 2];
+                index += 3;
+            }
+            else
+            {
+                multiturn = ((uint)rx[index] << 8) | rx[index + 1];
+                index += 2;
+            }
+
+            // 6. 解析單圈數據
+            uint singleturn = 0;
+            if (singleBytes == 3)
+            {
+                singleturn = ((uint)rx[index] << 16) | ((uint)rx[index + 1] << 8) | rx[index + 2];
+                index += 3;
+            }
+            else
+            {
+                singleturn = ((uint)rx[index] << 8) | rx[index + 1];
+                index += 2;
+            }
+
+            // 7. 數據掩碼與角度轉換
+            uint multiMask = (1U << multiBits) - 1;
+            uint singleMask = (1U << singleBits) - 1;
+
+            multiturn &= multiMask;
+            singleturn &= singleMask;
+
+            double angle = (double)singleturn / (1U << singleBits) * 360.0;
+
+            // 安全更新 WinForms 文本框 與 WPF 角度盤
+            this.Invoke(new Action(() =>
+            {
+                // 1. 更新 WinForms 文本框
+                if (MultiTurnShow != null) MultiTurnShow.Text = multiturn.ToString();
+                if (SingleTurnShow != null) SingleTurnShow.Text = singleturn.ToString();
+
+                // 2. 調用 WPF 角度盤原本設計的方法更新
+                // 如果 dataWindow 就是你的 WPF 控件實例（或者 dialControl1 內部包含 dataWindow）：
+                if (dataWindow != null)
+                {
+                    // 將解析出來的單圈值 (singleturn) 或計算好的角度傳進去
+                    dataWindow.UpdateEncoderData(singleturn);
+                }
+            }));
+        }
+        private void LogToUI(string message)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => textBox1.AppendText(message)));
+            }
+            else
+            {
+                textBox1.AppendText(message);
+            }
         }
     }
 }

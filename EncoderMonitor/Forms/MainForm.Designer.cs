@@ -60,6 +60,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutEncoderMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FreeModeReceive = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +69,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.Location = new System.Drawing.Point(84, 800);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(227, 37);
             this.button1.TabIndex = 0;
@@ -79,7 +81,7 @@
             // 
             this.button2.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button2.Location = new System.Drawing.Point(84, 867);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(227, 37);
             this.button2.TabIndex = 5;
@@ -91,7 +93,7 @@
             // 
             this.button3.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button3.Location = new System.Drawing.Point(84, 935);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(227, 37);
             this.button3.TabIndex = 6;
@@ -103,7 +105,7 @@
             // 
             this.textBox1.Font = new System.Drawing.Font("SimSun", 12F);
             this.textBox1.Location = new System.Drawing.Point(443, 16);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -116,7 +118,7 @@
             // 
             this.button6.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button6.Location = new System.Drawing.Point(443, 980);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(464, 45);
             this.button6.TabIndex = 11;
@@ -129,7 +131,7 @@
             this.comboBox1.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(39, 93);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 33);
             this.comboBox1.TabIndex = 12;
@@ -141,7 +143,7 @@
             // 
             this.button4.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button4.Location = new System.Drawing.Point(39, 240);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(368, 59);
             this.button4.TabIndex = 13;
@@ -168,7 +170,7 @@
             "2000000",
             "2500000"});
             this.comboBox2.Location = new System.Drawing.Point(256, 93);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(149, 33);
             this.comboBox2.TabIndex = 14;
@@ -181,7 +183,7 @@
             this.ModelSelect.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ModelSelect.FormattingEnabled = true;
             this.ModelSelect.Location = new System.Drawing.Point(39, 149);
-            this.ModelSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ModelSelect.Margin = new System.Windows.Forms.Padding(4);
             this.ModelSelect.Name = "ModelSelect";
             this.ModelSelect.Size = new System.Drawing.Size(160, 33);
             this.ModelSelect.TabIndex = 17;
@@ -192,7 +194,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(279, 696);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(95, 20);
             this.checkBox1.TabIndex = 18;
@@ -204,7 +206,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(279, 647);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(107, 20);
             this.checkBox2.TabIndex = 19;
@@ -235,7 +237,7 @@
             "25",
             "26"});
             this.comboBox4.Location = new System.Drawing.Point(245, 568);
-            this.comboBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(160, 33);
             this.comboBox4.TabIndex = 20;
@@ -266,7 +268,7 @@
             "23",
             "24"});
             this.comboBox5.Location = new System.Drawing.Point(39, 568);
-            this.comboBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(160, 33);
             this.comboBox5.TabIndex = 21;
@@ -297,7 +299,7 @@
             // 
             this.MultiTurnShow.Font = new System.Drawing.Font("SimSun", 15F);
             this.MultiTurnShow.Location = new System.Drawing.Point(51, 365);
-            this.MultiTurnShow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MultiTurnShow.Margin = new System.Windows.Forms.Padding(4);
             this.MultiTurnShow.Name = "MultiTurnShow";
             this.MultiTurnShow.ReadOnly = true;
             this.MultiTurnShow.Size = new System.Drawing.Size(355, 36);
@@ -310,7 +312,7 @@
             // 
             this.SingleTurnShow.Font = new System.Drawing.Font("SimSun", 15F);
             this.SingleTurnShow.Location = new System.Drawing.Point(51, 421);
-            this.SingleTurnShow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SingleTurnShow.Margin = new System.Windows.Forms.Padding(4);
             this.SingleTurnShow.Name = "SingleTurnShow";
             this.SingleTurnShow.ReadOnly = true;
             this.SingleTurnShow.Size = new System.Drawing.Size(355, 36);
@@ -389,7 +391,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.openToolStripMenuItem.Text = "EncoderSetup";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -405,7 +407,7 @@
             // advanceReadToolStripMenuItem
             // 
             this.advanceReadToolStripMenuItem.Name = "advanceReadToolStripMenuItem";
-            this.advanceReadToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.advanceReadToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
             this.advanceReadToolStripMenuItem.Text = "Advanced Read";
             this.advanceReadToolStripMenuItem.Click += new System.EventHandler(this.advanceReadToolStripMenuItem_Click);
             // 
@@ -436,11 +438,34 @@
             this.aboutEncoderMonitorToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.aboutEncoderMonitorToolStripMenuItem.Text = "About EncoderMonitor";
             // 
+            // FreeModeReceive
+            // 
+            this.FreeModeReceive.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.FreeModeReceive.Location = new System.Drawing.Point(21, 647);
+            this.FreeModeReceive.Name = "FreeModeReceive";
+            this.FreeModeReceive.Size = new System.Drawing.Size(189, 59);
+            this.FreeModeReceive.TabIndex = 29;
+            this.FreeModeReceive.Text = "Start Receive";
+            this.FreeModeReceive.UseVisualStyleBackColor = true;
+            this.FreeModeReceive.Click += new System.EventHandler(this.FreeModeReceive_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("KaiTi", 15F);
+            this.label5.Location = new System.Drawing.Point(16, 709);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(194, 25);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "Only ModBusRTU";
+            // 
             // btnClickThis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 1056);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.FreeModeReceive);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.SingleTurnShow);
@@ -462,7 +487,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "btnClickThis";
             this.Text = "EncoderMonitor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
@@ -507,6 +532,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutEncoderMonitorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advanceReadToolStripMenuItem;
+        private System.Windows.Forms.Button FreeModeReceive;
+        private System.Windows.Forms.Label label5;
     }
 }
 
