@@ -37,16 +37,19 @@ namespace EncoderMonitor
                     sp = null;
                 }
             }
-            public static void WriteData(byte[] data)
+        public static void WriteData(byte[] data)
+        {
+            if (sp == null)
             {
-                if (sp != null && sp.IsOpen)
-                {
-                    sp.Write(data, 0, data.Length);
-                }
-                else
-                {
-                    throw new InvalidOperationException("串口未打开");
-                }
+                throw new InvalidOperationException(
+                    "Serial port is not initialized");
             }
+            if (!sp.IsOpen)
+            {
+                throw new InvalidOperationException(
+                    "Serial port is not open");
+            }
+            sp.Write(data,0,data.Length);
         }
+    }
 }

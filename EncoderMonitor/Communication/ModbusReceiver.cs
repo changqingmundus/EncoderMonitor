@@ -1,80 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 namespace EncoderMonitor
 {
     public static class ModbusReceiver
     {
-        public static byte[] ReadResponse()
+        public static byte[] ReadResponse(int timeout = 500)
         {
             List<byte> buffer = new List<byte>();
-
-            // 先收前3 byte
-            while (buffer.Count < 3)
-            {
-                if (SerialPortManager.sp.BytesToRead > 0)
-                {
-                    buffer.Add((byte)SerialPortManager.sp.ReadByte());
-                }
-            }
-            int length;
-            // Modbus讀取
-            if (buffer[1] == 0x03)
-            {
-                length = 3 + buffer[2] + 2;
-            }
-            // Factory
-            else if (buffer[1] == 0x66)
-            {
-                length = 5;
-            }
-            // 異常
-            else if ((buffer[1] & 0x80) != 0)
-            {
-                length = 5;
-            }
-            else
-            {
-                length = 5;
-            }
-            while (buffer.Count < length)
-            {
-                if (SerialPortManager.sp.BytesToRead > 0)
-                {
-                    buffer.Add((byte)SerialPortManager.sp.ReadByte());
-                }
-            }
-            return buffer.ToArray();
-        }
-        public static byte[] ReadResponse(int timeout = 100)
-        {
-            List<byte> buffer = new List<byte>();
-
             Stopwatch sw = Stopwatch.StartNew();
-
             while (sw.ElapsedMilliseconds < timeout)
             {
                 if (SerialPortManager.sp != null &&
-                    SerialPortManager.sp.IsOpen)
+                   SerialPortManager.sp.IsOpen)
                 {
                     while (SerialPortManager.sp.BytesToRead > 0)
                     {
                         buffer.Add((byte)SerialPortManager.sp.ReadByte());
                     }
 
-                    if (buffer.Count > 0)
+                    // Factory成功
+                    if (buffer.Count >= 5)
+                    {
                         break;
+                    }
+
+                    // Modbus異常
+                    if (buffer.Count >= 5 &&
+                       (buffer[1] & 0x80) != 0)
+                    {
+                        break;
+                    }
                 }
+                Thread.Sleep(1);
             }
-
-
             if (buffer.Count == 0)
-            {
                 return null;
-            }
-
-
             return buffer.ToArray();
         }
     }

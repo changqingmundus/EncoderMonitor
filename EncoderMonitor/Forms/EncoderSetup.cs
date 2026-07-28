@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EncoderMonitor
 {
@@ -20,7 +21,7 @@ namespace EncoderMonitor
             Factory_MT.SelectedItem = "12";
             Factory_CRC.SelectedItem = "6";
 
-            StatusLabel.Text = "Status: Ready";
+            UpdateStatusSuccess("Load Complete!");
         }
         private void tabPage2_Click(object sender, EventArgs e)
         {
@@ -137,60 +138,89 @@ namespace EncoderMonitor
 
             return false;
         }
+        private void LogToUI(string msg)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string>(LogToUI), msg);
+                return;
+            }
+
+
+            string time =
+                DateTime.Now.ToString("HH:mm:ss.fff");
+
+
+            LogShowbox.AppendText(
+                $"[{time}] {msg}\r\n"
+            );
+
+
+            // 自動滾動到底部
+            LogShowbox.SelectionStart = LogShowbox.Text.Length;
+            LogShowbox.ScrollToCaret();
+        }
         private void UpdateStatusSuccess(string text)
         {
-            StatusLabel.Text = text;
-            StatusLabel.ForeColor = Color.Green;
+            LogToUI(text + "[OK] ");
         }
-
         private void UpdateStatusError(string text)
         {
-            StatusLabel.Text = text;
-            StatusLabel.ForeColor = Color.Red;
+            LogToUI(text + "[ERROR] ");
         }
         private void WriteModbusFactory()
         {
             FactoryConfig.WriteEncoder(
-
                 (byte)Factory_SlaveID.Value,
-
                 byte.Parse(Factory_ST.SelectedItem.ToString()),
-
                 byte.Parse(Factory_MT.SelectedItem.ToString()),
-
                 byte.Parse(Factory_CRC.SelectedItem.ToString())
             );
-
-
-            byte[] response = ModbusReceiver.ReadResponse();
-
-
+            byte[] response = ModbusReceiver.ReadResponse(500);
             if (response == null)
             {
                 UpdateStatusError("Factory Config Timeout");
                 return;
             }
-
-
             CheckFactoryResponse(response);
         }
 
         private void Change_FreeMode_Click(object sender, EventArgs e)
         {
-            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
-            {
-                    MessageBox.Show("请先打开串口！");
-                return;
-            }
-            byte[] cmd =
-             {EncoderConfig.Modbus.SlaveID,0x06,0x00,0x08,0x00,0x02};
+            byte[] cmd ={EncoderConfig.Modbus.SlaveID,0x06,0x00,0x08,0x00,0x02};
             ushort crc = ModbusCRC.Calculate(cmd);
-
-            byte[] frame =
-            {cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
-             (byte)(crc & 0xff),
-             (byte)(crc >> 8)};
-            SerialPortManager.WriteData(frame);
+            byte[] frame ={cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
+                           (byte)(crc & 0xff),(byte)(crc >> 8)};
+            try
+            {
+                SerialPortManager.WriteData(frame);
+                UpdateStatusSuccess("FreeMode Enable Command Sent");
+                // 等待設備回覆 500ms
+                byte[] response =
+                    ModbusReceiver.ReadResponse(500);
+                if (response == null)
+                {
+                    UpdateStatusSuccess(
+                        "FreeMode Enable Timeout"
+                    );
+                    return;
+                }
+                //UpdateStatusSuccess("RX: " + BitConverter.ToString(response));
+                if (response.Length == 8)
+                {
+                    UpdateStatusSuccess("FreeMode Enable Success");
+                }
+                else
+                {
+                    UpdateStatusError("FreeMode Response Length Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatusError(
+                    "FreeMode Send Error: " + ex.Message
+                );
+            }
         }
     }
 }
