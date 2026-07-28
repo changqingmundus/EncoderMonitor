@@ -30,6 +30,7 @@ namespace EncoderMonitor
         private Advance_Settings advancedSettingsForm;
         private System.Windows.Forms.Timer continuousTimer;   // 用于连续读取的定时器
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
+        private bool freemodeEnable = false; //按鈕狀態更新
         private enum EncoderProtocol
         {
             Tamagawa,
@@ -287,46 +288,28 @@ namespace EncoderMonitor
         }
         private void FreeModeReceive_Click(object sender, EventArgs e)
         {
-            EncoderData data = new EncoderData();
-
-
-            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            if (SerialPortManager.sp == null ||
+                !SerialPortManager.sp.IsOpen)
             {
                 if (showDebugInfo)
                     MessageBox.Show("请先打开串口！");
 
                 return;
             }
-            try
+            freemodeEnable = !freemodeEnable;
+
+            if (freemodeEnable)
             {
-                int length = SerialPortManager.sp.BytesToRead;
-                if (length == 0)
-                {
-                    if (showDebugInfo)
-                        textBox1.AppendText("未接收到數據\r\n");
-
-                    return;
-                }
-
-                byte[] rx = new byte[length];
-                SerialPortManager.sp.Read(rx, 0, length);
-                ReadFreeMode(rx);
-                if (showDebugInfo)
-                {
-                    textBox1.AppendText(
-                        "RX: " +
-                        BitConverter.ToString(rx) +
-                        Environment.NewLine);
-                }
+                // 按鈕狀態
+                FreeModeReceive.Text = "Stop";
+                FreeModeReceive.BackColor = Color.Green;
+                FreeModeReceive.ForeColor = Color.White;
             }
-            catch (Exception ex)
+            else
             {
-                if (showDebugInfo)
-                {
-                    MessageBox.Show(
-                        "Modbus通讯错误：" + ex.Message);
-                }
-                return;
+                FreeModeReceive.Text = "Reading";
+                FreeModeReceive.BackColor = SystemColors.Control;
+                FreeModeReceive.ForeColor = SystemColors.ControlText;
             }
         }
 
@@ -339,6 +322,12 @@ namespace EncoderMonitor
         {
             bool oldShowFlag = showDebugInfo;
             showDebugInfo = false;
+            if(freemodeEnable)
+            {
+                ReadFreeModeFromSerial();
+                showDebugInfo = oldShowFlag;
+                return;
+            }
             EncoderData data = null;
             switch (currentProtocol)
             {
@@ -986,7 +975,17 @@ namespace EncoderMonitor
                 return null;
             }
         }
-
+        private void ReadFreeModeFromSerial()
+        {
+            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            return;
+            int cnt = SerialPortManager.sp.BytesToRead;
+            if(cnt<=0) 
+             return;
+            byte[]rx = new byte[cnt];
+            SerialPortManager.sp.Read(rx, 0, cnt );
+            ReadFreeMode(rx);
+        }
         private void MultiTurnShow_TextChanged(object sender, EventArgs e)
         {
 
