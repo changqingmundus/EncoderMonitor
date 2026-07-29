@@ -30,6 +30,8 @@ namespace EncoderMonitor
         private Advance_Settings advancedSettingsForm;
         private System.Windows.Forms.Timer continuousTimer;   // 用于连续读取的定时器
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
+        private bool freemodeEnable = false;
+        private List<byte> freeModeBuffer = new List<byte>();
         private enum EncoderProtocol
         {
             Tamagawa,
@@ -287,46 +289,28 @@ namespace EncoderMonitor
         }
         private void FreeModeReceive_Click(object sender, EventArgs e)
         {
-            EncoderData data = new EncoderData();
-
-
-            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            if (SerialPortManager.sp == null ||
+                !SerialPortManager.sp.IsOpen)
             {
                 if (showDebugInfo)
                     MessageBox.Show("请先打开串口！");
 
                 return;
             }
-            try
+            freemodeEnable = !freemodeEnable;
+
+            if (freemodeEnable)
             {
-                int length = SerialPortManager.sp.BytesToRead;
-                if (length == 0)
-                {
-                    if (showDebugInfo)
-                        textBox1.AppendText("未接收到數據\r\n");
-
-                    return;
-                }
-
-                byte[] rx = new byte[length];
-                SerialPortManager.sp.Read(rx, 0, length);
-                ReadFreeMode(rx);
-                if (showDebugInfo)
-                {
-                    textBox1.AppendText(
-                        "RX: " +
-                        BitConverter.ToString(rx) +
-                        Environment.NewLine);
-                }
+                // 按鈕狀態
+                FreeModeReceive.Text = "Stop";
+                FreeModeReceive.BackColor = Color.Green;
+                FreeModeReceive.ForeColor = Color.White;
             }
-            catch (Exception ex)
+            else
             {
-                if (showDebugInfo)
-                {
-                    MessageBox.Show(
-                        "Modbus通讯错误：" + ex.Message);
-                }
-                return;
+                FreeModeReceive.Text = "Reading";
+                FreeModeReceive.BackColor = SystemColors.Control;
+                FreeModeReceive.ForeColor = SystemColors.ControlText;
             }
         }
 
@@ -339,6 +323,13 @@ namespace EncoderMonitor
         {
             bool oldShowFlag = showDebugInfo;
             showDebugInfo = false;
+            if (freemodeEnable)
+            {
+                ReadFreeModeFromSerial();
+
+                showDebugInfo = oldShowFlag;
+                return;
+            }
             EncoderData data = null;
             switch (currentProtocol)
             {
@@ -1024,8 +1015,33 @@ namespace EncoderMonitor
         {
 
         }
+        private void ReadFreeModeFromSerial()
+        {
+            if (SerialPortManager.sp == null ||
+                !SerialPortManager.sp.IsOpen)
+                return;
+
+
+            int cnt = SerialPortManager.sp.BytesToRead;
+
+            if (cnt <= 0)
+                return;
+
+
+            byte[] rx = new byte[cnt];
+
+            SerialPortManager.sp.Read(
+                rx,
+                0,
+                cnt);
+            freeModeBuffer.AddRange(rx);
+
+
+            ParseFreeModeBuffer();
+        }
         private void ReadFreeMode(byte[] rx)
         {
+            
             // 1. 基礎長度與包頭包尾校驗
             if (rx == null || rx.Length < 8) return;
 
@@ -1037,18 +1053,17 @@ namespace EncoderMonitor
             byte recvXor = rx[rx.Length - 2];
             byte sum = 0;
             byte xor = 0;
-
             for (int i = 2; i < rx.Length - 3; i++)
             {
                 sum += rx[i];
                 xor ^= rx[i];
             }
-
             if (sum != recvSum || xor != recvXor)
             {
-                LogToUI("FreeMode Check Error\r\n");
+                LogToUImain("FreeMode Check Error");
                 return;
             }
+            
 
             // 3. 安全獲取下拉框位數
             int multiBits = 0;
@@ -1062,7 +1077,7 @@ namespace EncoderMonitor
 
             if (multiBits == 0 || singleBits == 0)
             {
-                LogToUI("請先選擇多圈與單圈位數！\r\n");
+                LogToUImain("請先選擇多圈與單圈位數！\r\n");
                 return;
             }
 
@@ -1073,7 +1088,7 @@ namespace EncoderMonitor
 
             if (rx.Length < expectedMinLen)
             {
-                LogToUI("接收到的數據包長度不足！\r\n");
+                LogToUImain("接收到的數據包長度不足！\r\n");
                 return;
             }
 
@@ -1129,15 +1144,63 @@ namespace EncoderMonitor
                 }
             }));
         }
-        private void LogToUI(string message)
+        private void LogToUImain(string message)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => textBox1.AppendText(message)));
+                this.Invoke(new Action<string>(LogToUImain), message);
+                return;
             }
-            else
+            textBox1.AppendText(
+                message + Environment.NewLine
+            );
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
+        }
+        private void ParseFreeModeBuffer()
+        {
+            while (true)
             {
-                textBox1.AppendText(message);
+                // 找 AB
+                int start = freeModeBuffer.IndexOf(0xAB);
+                if (start < 0)
+                {
+                    freeModeBuffer.Clear();
+                    return;
+                }
+                // 移除前面垃圾
+                if (start > 0)
+                {
+                    freeModeBuffer.RemoveRange(0, start);
+                }
+                // 至少要有 AB CD LEN
+                if (freeModeBuffer.Count < 3)
+                    return;
+                // 確認 CD
+                if (freeModeBuffer[1] != 0xCD)
+                {
+                    freeModeBuffer.RemoveAt(0);
+                    continue;
+                }
+                int dataLen = freeModeBuffer[2];
+                // 幀長：
+                // AB CD + LEN + DATA + SUM + XOR + END
+                int frameLen = 2 + 1 + dataLen + 3;
+                // 還沒收完整
+                if (freeModeBuffer.Count < frameLen)
+                    return;
+                // 取一幀
+                byte[] frame =
+                    freeModeBuffer
+                    .Take(frameLen)
+                    .ToArray();
+                // 移除已處理
+                freeModeBuffer.RemoveRange(0, frameLen);
+                // 確認尾巴
+                if (frame[frame.Length - 1] != 0x3D)
+                    continue;
+                // 這裡才是真正一幀
+                ReadFreeMode(frame);
             }
         }
     }

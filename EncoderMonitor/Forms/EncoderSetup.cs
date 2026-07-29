@@ -138,11 +138,11 @@ namespace EncoderMonitor
 
             return false;
         }
-        private void LogToUI(string msg)
+        private void LogToUIsetup(string msg)
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(LogToUI), msg);
+                Invoke(new Action<string>(LogToUIsetup), msg);
                 return;
             }
 
@@ -162,11 +162,11 @@ namespace EncoderMonitor
         }
         private void UpdateStatusSuccess(string text)
         {
-            LogToUI(text + "[OK] ");
+            LogToUIsetup(text + "[OK] ");
         }
         private void UpdateStatusError(string text)
         {
-            LogToUI(text + "[ERROR] ");
+            LogToUIsetup(text + "[ERROR] ");
         }
         private void WriteModbusFactory()
         {
