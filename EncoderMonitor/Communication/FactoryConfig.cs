@@ -15,15 +15,7 @@ namespace EncoderMonitor.Communication
         {
             byte[] frame =
             {
-                slaveID,
-                0x66,
-                0x50,
-                0x0A,
-                0x00,
-                0x01,
-                0x00,
-                0x04,
-                0x08,
+                slaveID,0x66,0x50,0x0A, 0x00,0x01,0x00,0x04,0x08,
                 0x00,singleBits,
                 0x00,multiBits,
                 0x00,crcBits,

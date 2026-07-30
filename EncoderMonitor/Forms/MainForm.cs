@@ -242,7 +242,7 @@ namespace EncoderMonitor
             if (data != null)
             {
                 textBox1.AppendText(
-                    $"ABM:{data.MultiTurn}/4095 " +
+                    $"MultiTurn:{data.MultiTurn}/4095 " +
                     $"CRC:{(data.CRC_OK ? "PASS" : "FAIL")}" +
                     Environment.NewLine);
             }
@@ -275,7 +275,7 @@ namespace EncoderMonitor
             if (data != null)
             {
                 textBox1.AppendText(
-                    $"ABS: {data.Abs}\r\n" +
+                    $"SingleTurn: {data.Abs}\r\n" +
                     $"MultiTurn: {data.MultiTurn}\r\n" +
                     $"Angle: {data.Angle:F4}°\r\n" +
                     $"CRC: {(data.CRC_OK ? "PASS" : "FAIL")}\r\n\r\n"
@@ -640,7 +640,7 @@ namespace EncoderMonitor
                 }
                 Thread.Sleep(50);
                 int count = SerialPortManager.sp.BytesToRead;
-                if (count < 9)
+                if (count < 7)
                 {
                     if (showDebugInfo)
                         textBox1.AppendText(
@@ -674,17 +674,27 @@ namespace EncoderMonitor
                 }
                 data.CRC_OK = true;
                 // Modbus正常返回
-                if (rx.Length >= 7 &&
-                    rx[1] == 0x03 &&
-                    rx[2] == 0x04)
+                if (rx.Length >= 5 &&
+                    rx[1] == EncoderConfig.Modbus.FunctionCode)
                 {
-                    uint raw = ((uint)rx[3] << 8) | rx[4];
-                    raw = raw << 16 | ((uint)rx[5] << 8) | rx[6];
-                    uint abs =
-                        raw & EncoderConfig.SingleTurnMax;
+                    int byteCount = EncoderConfig.Modbus.SingleTurnCount * 2;
+
+                    // 檢查返回數據長度
+                    if (rx[2] != byteCount)
+                    {
+                        return null;
+                    }
+                    uint raw = 0;
+                    // 根據寄存器數量自動組合數據
+                    for (int i = 0; i < byteCount; i++)
+                    {
+                        raw = (raw << 8) | rx[3 + i];
+                    }
+                    uint abs = raw & EncoderConfig.SingleTurnMax;
                     data.Abs = abs;
                     data.Angle =
-                        abs * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
+                        abs * 360.0 /
+                        Math.Pow(2, EncoderConfig.SingleTurnBits);
                     return data;
                 }
                 return null;
@@ -906,9 +916,8 @@ namespace EncoderMonitor
                 }
                 Thread.Sleep(50);
                 int count = SerialPortManager.sp.BytesToRead;
-                // 01 03 08 + 8byte数据 + CRC16
-                // = 13 byte
-                if (count < 13)
+
+                if (count < 7)
                 {
                     if (showDebugInfo)
                         textBox1.AppendText(
@@ -941,28 +950,45 @@ namespace EncoderMonitor
                     return null;
                 }
                 data.CRC_OK = true;
-                // Modbus正常返回
-                if (rx.Length >= 11 &&
-                   rx[1] == 0x03 &&
-                   rx[2] == 0x08)
+                // Modbus All 返回
+                if (rx.Length >= 7 &&
+                    rx[1] == EncoderConfig.Modbus.FunctionCode)
                 {
-                    // SingleTurn_Data
-                    uint singleRaw = ((uint)rx[3] << 8) | rx[4];
-                    singleRaw = singleRaw << 16 | ((uint)rx[5] << 8) | rx[6];
-                    // MultiTurn_Data
-                    uint multiRaw =
-                        ((uint)rx[7] << 24) |
-                        ((uint)rx[8] << 16) |
-                        ((uint)rx[9] << 8) |
-                        rx[10];
-                    // 19bit SingleTurn
+                    int byteCount =
+                        (EncoderConfig.Modbus.SingleTurnCount +
+                         EncoderConfig.Modbus.MultiTurnCount) * 2;
+                    if (rx[2] != byteCount)
+                    {
+                        return null;
+                    }
+                    int index = 3;
+                    // SingleTurn
+                    uint singleRaw = 0;
+
+                    for (int i = 0;
+                         i < EncoderConfig.Modbus.SingleTurnCount * 2;
+                         i++)
+                    {
+                        singleRaw <<= 8;
+                        singleRaw |= rx[index++];
+                    }
+                    // MultiTurn
+                    uint multiRaw = 0;
+
+                    for (int i = 0;
+                         i < EncoderConfig.Modbus.MultiTurnCount * 2;
+                         i++)
+                    {
+                        multiRaw <<= 8;
+                        multiRaw |= rx[index++];
+                    }
                     data.Abs =
                         singleRaw & EncoderConfig.SingleTurnMax;
-                    // 12bit MultiTurn
                     data.MultiTurn =
                         multiRaw & 0xFFF;
                     data.Angle =
-                        data.Abs * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
+                        data.Abs * 360.0 /
+                        Math.Pow(2, EncoderConfig.SingleTurnBits);
                     return data;
                 }
                 return null;
