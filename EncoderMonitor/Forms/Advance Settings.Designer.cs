@@ -29,238 +29,143 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Advance_Settings));
-            this.SetSlaveID = new System.Windows.Forms.NumericUpDown();
-            this.SetFunctionCode = new System.Windows.Forms.ComboBox();
-            this.SetAddress = new System.Windows.Forms.TextBox();
-            this.SetRegisterCount = new System.Windows.Forms.NumericUpDown();
-            this.SlaveID = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ModBusRTUMode = new System.Windows.Forms.Label();
-            this.LoadConfig = new System.Windows.Forms.Button();
             this.SaveConfig = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            ((System.ComponentModel.ISupportInitialize)(this.SetSlaveID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SetRegisterCount)).BeginInit();
+            this.TabTamagawa = new System.Windows.Forms.TabPage();
+            this.TabModBusRTU = new System.Windows.Forms.TabPage();
+            this.TabCANopen = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabCommandConfig = new System.Windows.Forms.TabPage();
+            this.tabRegisterMap = new System.Windows.Forms.TabPage();
+            this.dgvRegisterMap = new System.Windows.Forms.DataGridView();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.TabModBusRTU.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabCommandConfig.SuspendLayout();
+            this.tabRegisterMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRegisterMap)).BeginInit();
             this.SuspendLayout();
-            // 
-            // SetSlaveID
-            // 
-            this.SetSlaveID.Location = new System.Drawing.Point(51, 163);
-            this.SetSlaveID.Margin = new System.Windows.Forms.Padding(4);
-            this.SetSlaveID.Maximum = new decimal(new int[] {
-            247,
-            0,
-            0,
-            0});
-            this.SetSlaveID.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.SetSlaveID.Name = "SetSlaveID";
-            this.SetSlaveID.Size = new System.Drawing.Size(83, 36);
-            this.SetSlaveID.TabIndex = 0;
-            this.SetSlaveID.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // SetFunctionCode
-            // 
-            this.SetFunctionCode.Font = new System.Drawing.Font("KaiTi", 12F);
-            this.SetFunctionCode.FormattingEnabled = true;
-            this.SetFunctionCode.Items.AddRange(new object[] {
-            "01 Read Coil",
-            "02 Read Discrete Input",
-            "03 Read Holding Register",
-            "04 Read Input Register",
-            "06 Write Single Register",
-            "16 Write Multiple Register"});
-            this.SetFunctionCode.Location = new System.Drawing.Point(155, 165);
-            this.SetFunctionCode.Margin = new System.Windows.Forms.Padding(4);
-            this.SetFunctionCode.Name = "SetFunctionCode";
-            this.SetFunctionCode.Size = new System.Drawing.Size(386, 28);
-            this.SetFunctionCode.TabIndex = 1;
-            this.SetFunctionCode.SelectedIndexChanged += new System.EventHandler(this.SetFunctionCode_SelectedIndexChanged);
-            // 
-            // SetAddress
-            // 
-            this.SetAddress.Location = new System.Drawing.Point(559, 162);
-            this.SetAddress.Margin = new System.Windows.Forms.Padding(4);
-            this.SetAddress.Name = "SetAddress";
-            this.SetAddress.Size = new System.Drawing.Size(96, 36);
-            this.SetAddress.TabIndex = 2;
-            // 
-            // SetRegisterCount
-            // 
-            this.SetRegisterCount.Location = new System.Drawing.Point(791, 162);
-            this.SetRegisterCount.Margin = new System.Windows.Forms.Padding(4);
-            this.SetRegisterCount.Maximum = new decimal(new int[] {
-            125,
-            0,
-            0,
-            0});
-            this.SetRegisterCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.SetRegisterCount.Name = "SetRegisterCount";
-            this.SetRegisterCount.Size = new System.Drawing.Size(79, 36);
-            this.SetRegisterCount.TabIndex = 3;
-            this.SetRegisterCount.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // SlaveID
-            // 
-            this.SlaveID.AutoSize = true;
-            this.SlaveID.Font = new System.Drawing.Font("KaiTi", 12F);
-            this.SlaveID.Location = new System.Drawing.Point(55, 116);
-            this.SlaveID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.SlaveID.Name = "SlaveID";
-            this.SlaveID.Size = new System.Drawing.Size(79, 20);
-            this.SlaveID.TabIndex = 4;
-            this.SlaveID.Text = "SlaveID";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("KaiTi", 12F);
-            this.label2.Location = new System.Drawing.Point(281, 116);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 20);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "FunctionCode";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("KaiTi", 12F);
-            this.label3.Location = new System.Drawing.Point(576, 116);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 20);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Address";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("KaiTi", 12F);
-            this.label4.Location = new System.Drawing.Point(811, 116);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 20);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Count";
-            // 
-            // ModBusRTUMode
-            // 
-            this.ModBusRTUMode.AutoSize = true;
-            this.ModBusRTUMode.Font = new System.Drawing.Font("KaiTi", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ModBusRTUMode.Location = new System.Drawing.Point(244, 47);
-            this.ModBusRTUMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ModBusRTUMode.Name = "ModBusRTUMode";
-            this.ModBusRTUMode.Size = new System.Drawing.Size(177, 34);
-            this.ModBusRTUMode.TabIndex = 8;
-            this.ModBusRTUMode.Text = "ModBusRTU";
-            // 
-            // LoadConfig
-            // 
-            this.LoadConfig.Location = new System.Drawing.Point(715, 567);
-            this.LoadConfig.Name = "LoadConfig";
-            this.LoadConfig.Size = new System.Drawing.Size(100, 57);
-            this.LoadConfig.TabIndex = 9;
-            this.LoadConfig.Text = "Laod";
-            this.LoadConfig.UseVisualStyleBackColor = true;
-            this.LoadConfig.Click += new System.EventHandler(this.LoadConfig_Click);
             // 
             // SaveConfig
             // 
-            this.SaveConfig.Location = new System.Drawing.Point(836, 567);
+            this.SaveConfig.Location = new System.Drawing.Point(768, 454);
             this.SaveConfig.Name = "SaveConfig";
             this.SaveConfig.Size = new System.Drawing.Size(100, 57);
             this.SaveConfig.TabIndex = 10;
-            this.SaveConfig.Text = "Save";
+            this.SaveConfig.Text = "Send";
             this.SaveConfig.UseVisualStyleBackColor = true;
             this.SaveConfig.Click += new System.EventHandler(this.SaveConfig_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Controls.Add(this.TabTamagawa);
+            this.tabControl1.Controls.Add(this.TabModBusRTU);
+            this.tabControl1.Controls.Add(this.TabCANopen);
+            this.tabControl1.Font = new System.Drawing.Font("KaiTi", 15F);
+            this.tabControl1.Location = new System.Drawing.Point(12, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(928, 549);
+            this.tabControl1.Size = new System.Drawing.Size(928, 639);
             this.tabControl1.TabIndex = 14;
             // 
-            // tabPage1
+            // TabTamagawa
             // 
-            this.tabPage1.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(647, 515);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Tamagawa";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TabTamagawa.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TabTamagawa.Location = new System.Drawing.Point(4, 30);
+            this.TabTamagawa.Name = "TabTamagawa";
+            this.TabTamagawa.Padding = new System.Windows.Forms.Padding(3);
+            this.TabTamagawa.Size = new System.Drawing.Size(920, 515);
+            this.TabTamagawa.TabIndex = 0;
+            this.TabTamagawa.Text = "Tamagawa";
+            this.TabTamagawa.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // TabModBusRTU
             // 
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.ModBusRTUMode);
-            this.tabPage2.Controls.Add(this.SetSlaveID);
-            this.tabPage2.Controls.Add(this.SetFunctionCode);
-            this.tabPage2.Controls.Add(this.SetAddress);
-            this.tabPage2.Controls.Add(this.SetRegisterCount);
-            this.tabPage2.Controls.Add(this.SlaveID);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(920, 515);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "ModbusRTU";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.TabModBusRTU.Controls.Add(this.tabControl2);
+            this.TabModBusRTU.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold);
+            this.TabModBusRTU.Location = new System.Drawing.Point(4, 35);
+            this.TabModBusRTU.Name = "TabModBusRTU";
+            this.TabModBusRTU.Padding = new System.Windows.Forms.Padding(3);
+            this.TabModBusRTU.Size = new System.Drawing.Size(920, 600);
+            this.TabModBusRTU.TabIndex = 1;
+            this.TabModBusRTU.Text = "ModbusRTU";
+            this.TabModBusRTU.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // TabCANopen
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 252);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(404, 225);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Description:(Default Config)\r\n\r\nSlaveID:01\r\n\r\nFunctionCode:0x03\r\n\r\nRegisterCount:" +
-    "02\r\n\r\nStartAddress:0x00";
+            this.TabCANopen.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold);
+            this.TabCANopen.Location = new System.Drawing.Point(4, 30);
+            this.TabCANopen.Name = "TabCANopen";
+            this.TabCANopen.Padding = new System.Windows.Forms.Padding(3);
+            this.TabCANopen.Size = new System.Drawing.Size(920, 515);
+            this.TabCANopen.TabIndex = 2;
+            this.TabCANopen.Text = "CANopen";
+            this.TabCANopen.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tabControl2
             // 
-            this.tabPage3.Font = new System.Drawing.Font("KaiTi", 15F, System.Drawing.FontStyle.Bold);
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(647, 515);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "CANopen";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabControl2.Controls.Add(this.tabCommandConfig);
+            this.tabControl2.Controls.Add(this.tabRegisterMap);
+            this.tabControl2.Font = new System.Drawing.Font("KaiTi", 12F);
+            this.tabControl2.Location = new System.Drawing.Point(6, 23);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(908, 568);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabCommandConfig
+            // 
+            this.tabCommandConfig.Controls.Add(this.SaveConfig);
+            this.tabCommandConfig.Font = new System.Drawing.Font("KaiTi", 10F, System.Drawing.FontStyle.Bold);
+            this.tabCommandConfig.Location = new System.Drawing.Point(4, 30);
+            this.tabCommandConfig.Name = "tabCommandConfig";
+            this.tabCommandConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCommandConfig.Size = new System.Drawing.Size(900, 534);
+            this.tabCommandConfig.TabIndex = 0;
+            this.tabCommandConfig.Text = "Command Config";
+            this.tabCommandConfig.UseVisualStyleBackColor = true;
+            // 
+            // tabRegisterMap
+            // 
+            this.tabRegisterMap.Controls.Add(this.dgvRegisterMap);
+            this.tabRegisterMap.Font = new System.Drawing.Font("KaiTi", 15F);
+            this.tabRegisterMap.Location = new System.Drawing.Point(4, 30);
+            this.tabRegisterMap.Name = "tabRegisterMap";
+            this.tabRegisterMap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRegisterMap.Size = new System.Drawing.Size(900, 534);
+            this.tabRegisterMap.TabIndex = 1;
+            this.tabRegisterMap.Text = "Register Map";
+            this.tabRegisterMap.UseVisualStyleBackColor = true;
+            // 
+            // dgvRegisterMap
+            // 
+            this.dgvRegisterMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRegisterMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colName,
+            this.colAddress});
+            this.dgvRegisterMap.Location = new System.Drawing.Point(16, 6);
+            this.dgvRegisterMap.Name = "dgvRegisterMap";
+            this.dgvRegisterMap.RowHeadersWidth = 51;
+            this.dgvRegisterMap.RowTemplate.Height = 24;
+            this.dgvRegisterMap.Size = new System.Drawing.Size(494, 522);
+            this.dgvRegisterMap.TabIndex = 0;
+            this.dgvRegisterMap.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRegisterMap_CellContentClick);
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Name";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.Width = 125;
+            // 
+            // colAddress
+            // 
+            this.colAddress.HeaderText = "Address";
+            this.colAddress.MinimumWidth = 6;
+            this.colAddress.Name = "colAddress";
+            this.colAddress.Width = 125;
             // 
             // Advance_Settings
             // 
@@ -268,40 +173,33 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 645);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.SaveConfig);
-            this.Controls.Add(this.LoadConfig);
             this.Font = new System.Drawing.Font("KaiTi", 12F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Advance_Settings";
             this.Text = "Advanced Settings";
             this.Load += new System.EventHandler(this.Advance_Settings_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.SetSlaveID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SetRegisterCount)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.TabModBusRTU.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabCommandConfig.ResumeLayout(false);
+            this.tabRegisterMap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRegisterMap)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.NumericUpDown SetSlaveID;
-        private System.Windows.Forms.ComboBox SetFunctionCode;
-        private System.Windows.Forms.TextBox SetAddress;
-        private System.Windows.Forms.NumericUpDown SetRegisterCount;
-        private System.Windows.Forms.Label SlaveID;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label ModBusRTUMode;
-        private System.Windows.Forms.Button LoadConfig;
         private System.Windows.Forms.Button SaveConfig;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage TabTamagawa;
+        private System.Windows.Forms.TabPage TabModBusRTU;
+        private System.Windows.Forms.TabPage TabCANopen;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabCommandConfig;
+        private System.Windows.Forms.TabPage tabRegisterMap;
+        private System.Windows.Forms.DataGridView dgvRegisterMap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAddress;
     }
 }

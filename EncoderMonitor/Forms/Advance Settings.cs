@@ -18,7 +18,11 @@ namespace EncoderMonitor
         }
         private void Advance_Settings_Load(object sender, EventArgs e)
         {
-
+            InitRegisterMap();
+            dgvRegisterMap.AutoSizeColumnsMode =
+                            DataGridViewAutoSizeColumnsMode.Fill;
+            dgvRegisterMap.Columns["colName"].FillWeight = 70;
+            dgvRegisterMap.Columns["colAddress"].FillWeight = 30;
         }
 
         private void LoadConfig_Click(object sender, EventArgs e)
@@ -28,32 +32,61 @@ namespace EncoderMonitor
 
         private void SaveConfig_Click(object sender, EventArgs e)
         {
-            EncoderConfig.Modbus.SlaveID =
-        (byte)SetSlaveID.Value;
 
-
-            EncoderConfig.Modbus.FunctionCode =
-                Convert.ToByte(
-                    SetFunctionCode.SelectedItem.ToString(),
-                    16);
-
-
-            EncoderConfig.Modbus.AllAddress =
-                Convert.ToUInt16(
-                    SetAddress.Text,
-                    16);
-
-
-            EncoderConfig.Modbus.AllCount =
-                (ushort)SetRegisterCount.Value;
-
-
-            MessageBox.Show("Save OK");
         }
 
         private void SetFunctionCode_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void SlaveID_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetSlaveID_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvRegisterMap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void InitRegisterMap()
+        {
+            dgvRegisterMap.Rows.Clear();
+            dgvRegisterMap.RowHeadersVisible = false;
+
+            dgvRegisterMap.Rows.Add(
+                "SingleTurn",
+                "0x0000"
+            );
+            dgvRegisterMap.Rows.Add(
+                "MultiTurn",
+                "0x0001"
+            );
+            dgvRegisterMap.Rows.Add(
+                "Count Direction",
+                "0x0006"
+            );
+            dgvRegisterMap.Rows.Add(
+                "Rotation Direction",
+                "0x000B"
+            );
+            dgvRegisterMap.Rows.Add(
+                "Rotation Speed",
+                "0x000C"
+            );
+            // 補空行
+            for (int i = 0; i < 15; i++)
+            {
+                dgvRegisterMap.Rows.Add(
+                    "",
+                    ""
+                );
+            }
         }
     }
 }
