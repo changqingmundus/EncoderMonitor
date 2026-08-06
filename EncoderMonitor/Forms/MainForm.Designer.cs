@@ -33,7 +33,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.ClearReceive = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -62,6 +62,8 @@
             this.aboutEncoderMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FreeModeReceive = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.Parity_Select = new System.Windows.Forms.ComboBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,25 +103,25 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("宋体", 12F);
-            this.textBox1.Location = new System.Drawing.Point(332, 12);
+            this.textBox1.Location = new System.Drawing.Point(332, 180);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(348, 717);
+            this.textBox1.Size = new System.Drawing.Size(348, 549);
             this.textBox1.TabIndex = 10;
             this.textBox1.TextChanged += new System.EventHandler(this.Messagesbox_TextChanged);
             // 
-            // button6
+            // ClearReceive
             // 
-            this.button6.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button6.Location = new System.Drawing.Point(332, 735);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(348, 34);
-            this.button6.TabIndex = 11;
-            this.button6.Text = "清除接收区";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Clean_Messagebox);
+            this.ClearReceive.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ClearReceive.Location = new System.Drawing.Point(531, 735);
+            this.ClearReceive.Name = "ClearReceive";
+            this.ClearReceive.Size = new System.Drawing.Size(149, 34);
+            this.ClearReceive.TabIndex = 11;
+            this.ClearReceive.Text = "Clear";
+            this.ClearReceive.UseVisualStyleBackColor = true;
+            this.ClearReceive.Click += new System.EventHandler(this.Clean_Messagebox);
             // 
             // comboBox1
             // 
@@ -149,6 +151,11 @@
             this.comboBox2.Font = new System.Drawing.Font("楷体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
+            "300",
+            "600",
+            "1200",
+            "2400",
+            "4800",
             "9600",
             "19200",
             "38400",
@@ -427,7 +434,7 @@
             // 
             this.FreeModeReceive.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.FreeModeReceive.Location = new System.Drawing.Point(16, 485);
-            this.FreeModeReceive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FreeModeReceive.Margin = new System.Windows.Forms.Padding(2);
             this.FreeModeReceive.Name = "FreeModeReceive";
             this.FreeModeReceive.Size = new System.Drawing.Size(142, 44);
             this.FreeModeReceive.TabIndex = 29;
@@ -446,11 +453,39 @@
             this.label5.TabIndex = 30;
             this.label5.Text = "Only ModBusRTU";
             // 
+            // Parity_Select
+            // 
+            this.Parity_Select.Font = new System.Drawing.Font("楷体", 15F);
+            this.Parity_Select.FormattingEnabled = true;
+            this.Parity_Select.Items.AddRange(new object[] {
+            "None",
+            "Odd",
+            "Even",
+            "Mark"});
+            this.Parity_Select.Location = new System.Drawing.Point(192, 112);
+            this.Parity_Select.Name = "Parity_Select";
+            this.Parity_Select.Size = new System.Drawing.Size(113, 28);
+            this.Parity_Select.TabIndex = 31;
+            this.Parity_Select.Text = "校驗位";
+            this.Parity_Select.SelectedIndexChanged += new System.EventHandler(this.Parity_Select_SelectedIndexChanged);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("楷体", 15F);
+            this.button5.Location = new System.Drawing.Point(332, 735);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(149, 34);
+            this.button5.TabIndex = 32;
+            this.button5.Text = "SendData";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
             // btnClickThis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 792);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.Parity_Select);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.FreeModeReceive);
             this.Controls.Add(this.label4);
@@ -467,7 +502,7 @@
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.ClearReceive);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -491,7 +526,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button ClearReceive;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox2;
@@ -520,6 +555,8 @@
         private System.Windows.Forms.ToolStripMenuItem advanceReadToolStripMenuItem;
         private System.Windows.Forms.Button FreeModeReceive;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox Parity_Select;
+        private System.Windows.Forms.Button button5;
     }
 }
 

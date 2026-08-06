@@ -15,9 +15,9 @@ namespace EncoderMonitor
         }
         private void EncoderSetup_Load(object sender, EventArgs e)
         {
-            Factory_BaudRate.SelectedItem = "38400";
+            Factory_BaudRate.SelectedItem = "9600";
             Factory_Parity.SelectedIndex = 0;
-            Factory_ST.SelectedItem = "19";
+            Factory_ST.SelectedItem = "16";
             Factory_MT.SelectedItem = "12";
             Factory_CRC.SelectedItem = "6";
 

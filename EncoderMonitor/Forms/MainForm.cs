@@ -39,7 +39,7 @@ namespace EncoderMonitor
             CANopen
         }
         private EncoderProtocol currentProtocol; //當前選擇的協議
-        public uint Abs;
+        public uint SingleTurn;
         public uint MultiTurn;
         public byte EnID;
         public byte Status;
@@ -102,6 +102,10 @@ namespace EncoderMonitor
         {
 
         }
+        private void Parity_Select_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         private void Baud(object sender, EventArgs e)
         {
 
@@ -124,10 +128,8 @@ namespace EncoderMonitor
 
         private void Open_SerialPort(object sender, EventArgs e)
         {
-            // 判断当前串口是否已经打开
             if (SerialPortManager.sp != null && SerialPortManager.sp.IsOpen)
             {
-                // === 关闭串口 ===
                 SerialPortManager.ClosePort();
                 // 更新按钮文本和状态
                 button4.Text = "打开串口";
@@ -151,9 +153,41 @@ namespace EncoderMonitor
                     MessageBox.Show("波特率无效", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (Parity_Select.SelectedItem == null)
+                {
+                    MessageBox.Show("请选择校验方式",
+                        "提示",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+                Parity parity;
+                switch (Parity_Select.Text)
+                {
+                    case "None":
+                        parity = Parity.None;
+                        break;
+
+                    case "Odd":
+                        parity = Parity.Odd;
+                        break;
+
+                    case "Even":
+                        parity = Parity.Even;
+                        break;
+
+                    case "Mark":
+                        parity = Parity.Mark;
+                        break;
+                        
+                    default:
+                        MessageBox.Show("校验方式无效");
+                        return;
+                }
 
                 string comPort = comboBox1.SelectedItem.ToString();
-                bool success = SerialPortManager.OpenPort(comPort, baudRate, null);
+                bool success = SerialPortManager.OpenPort(comboBox1.Text,baudRate,
+                                                          parity);
                 if (success)
                 {
                     button4.Text = "关闭串口";
@@ -203,13 +237,13 @@ namespace EncoderMonitor
             if (data != null)
             {
                 textBox1.AppendText(
-                    $"SingleTurn: {data.Abs}\r\n" +
+                    $"SingleTurn: {data.SingleTurn}\r\n" +
                     $"Angle: {data.Angle:F4}°\r\n" +
                     $"CRC: {(data.CRC_OK ? "PASS" : "FAIL")}\r\n\r\n"
                 );
                 if (data != null)
                 {
-                    dataWindow.UpdateEncoderData(data.Abs);
+                    dataWindow.UpdateEncoderData(data.SingleTurn);
                 }
             }
             showDebugInfo = oldFlag;
@@ -275,7 +309,7 @@ namespace EncoderMonitor
             if (data != null)
             {
                 textBox1.AppendText(
-                    $"SingleTurn: {data.Abs}\r\n" +
+                    $"SingleTurn: {data.SingleTurn}\r\n" +
                     $"MultiTurn: {data.MultiTurn}\r\n" +
                     $"Angle: {data.Angle:F4}°\r\n" +
                     $"CRC: {(data.CRC_OK ? "PASS" : "FAIL")}\r\n\r\n"
@@ -283,7 +317,7 @@ namespace EncoderMonitor
                 // 更新顯示窗口
                 if (data != null && dataWindow != null)
                 {
-                    dataWindow.UpdateEncoderData(data.Abs);
+                    dataWindow.UpdateEncoderData(data.SingleTurn);
                 }
             }
         }
@@ -349,14 +383,14 @@ namespace EncoderMonitor
             {
                 // MainForm顯示
                 SingleTurnShow.Text =
-                    data.Abs.ToString();
+                    data.SingleTurn.ToString();
                 MultiTurnShow.Text =
                     data.MultiTurn.ToString();
                 // DataWindow顯示
                 if (dataWindow != null &&
                    !dataWindow.IsDisposed)
                 {
-                    dataWindow.UpdateEncoderData(data.Abs);
+                    dataWindow.UpdateEncoderData(data.SingleTurn);
                 }
             }
             showDebugInfo = oldShowFlag;
@@ -454,18 +488,18 @@ namespace EncoderMonitor
                 }
                 byte[] rx = new byte[6];
                 SerialPortManager.sp.Read(rx, 0, 6);
-                uint abs =
+                uint SingleTurn =
                     ((uint)rx[2] << 16) |
                     ((uint)rx[3] << 8) |
                     rx[4];
-                abs &= EncoderConfig.SingleTurnMax;
+                SingleTurn &= EncoderConfig.SingleTurnMax;
                 byte recvCrc = rx[5];
                 byte calcCrc =
                     TamagawaCalcCRC(new byte[]
                     {rx[0], rx[1],rx[2],rx[3],rx[4]});
-                data.Abs = abs;
+                data.SingleTurn = SingleTurn;
                 data.Angle =
-                    abs * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
+                    SingleTurn * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
                 data.CRC_OK = recvCrc == calcCrc;
                 return data;
             }
@@ -577,22 +611,22 @@ namespace EncoderMonitor
                 }
                 return null;
             }
-            uint abs =
+            uint SingleTurn =
                 ((uint)rx[2] << 16) |
                 ((uint)rx[3] << 8) |
                 rx[4];
-            abs &= EncoderConfig.SingleTurnMax;
+            SingleTurn &= EncoderConfig.SingleTurnMax;
             uint abm =
                 ((uint)rx[6] << 16) |
                 ((uint)rx[7] << 8) |
                 rx[8];
             abm >>= 8;
             abm &= EncoderConfig.MultiTurnMax;
-            data.Abs = abs;
+            data.SingleTurn = SingleTurn;
             data.MultiTurn = abm;
             data.EnID = rx[5];
             data.Angle =
-                abs * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
+                SingleTurn * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
 
             return data;
         }
@@ -690,10 +724,10 @@ namespace EncoderMonitor
                     {
                         raw = (raw << 8) | rx[3 + i];
                     }
-                    uint abs = raw & EncoderConfig.SingleTurnMax;
-                    data.Abs = abs;
+                    uint SingleTurn = raw & EncoderConfig.SingleTurnMax;
+                    data.SingleTurn = SingleTurn;
                     data.Angle =
-                        abs * 360.0 /
+                        SingleTurn * 360.0 /
                         Math.Pow(2, EncoderConfig.SingleTurnBits);
                     return data;
                 }
@@ -945,8 +979,7 @@ namespace EncoderMonitor
                 {
                     data.CRC_OK = false;
                     if (showDebugInfo)
-                        textBox1.AppendText(
-                            "CRC FAIL\r\n");
+                        textBox1.AppendText("CRC FAIL\r\n");
                     return null;
                 }
                 data.CRC_OK = true;
@@ -982,12 +1015,12 @@ namespace EncoderMonitor
                         multiRaw <<= 8;
                         multiRaw |= rx[index++];
                     }
-                    data.Abs =
+                    data.SingleTurn =
                         singleRaw & EncoderConfig.SingleTurnMax;
                     data.MultiTurn =
                         multiRaw & 0xFFF;
                     data.Angle =
-                        data.Abs * 360.0 /
+                        data.SingleTurn * 360.0 /
                         Math.Pow(2, EncoderConfig.SingleTurnBits);
                     return data;
                 }

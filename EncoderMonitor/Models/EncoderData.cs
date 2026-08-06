@@ -8,7 +8,7 @@ namespace EncoderMonitor
 {
     public class EncoderData
     {
-        public uint Abs { get; set; }
+        public uint SingleTurn { get; set; }
 
         public uint MultiTurn { get; set; }
 

@@ -11,15 +11,18 @@ namespace EncoderMonitor
         public static class SerialPortManager
         {
             public static SerialPort sp;
-            public static bool OpenPort(string comPort, int baudRate, SerialDataReceivedEventHandler dataReceivedHandler)
+            public static bool OpenPort(
+                string comPort, 
+                int baudRate, 
+                Parity parity)
             {
                 try
                 {
                     if (sp != null && sp.IsOpen)
                         sp.Close();
-                    sp = new SerialPort(comPort, baudRate, Parity.None, 8, StopBits.One);
+                    sp = new SerialPort(comPort, baudRate, parity, 8, StopBits.One);
                     sp.Handshake = Handshake.None;   // 统一设置
-                    sp.Open();
+                sp.Open();
                     return true;
                 }
                 catch (Exception ex)
