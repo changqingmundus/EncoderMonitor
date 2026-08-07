@@ -1,25 +1,10 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using System.Windows.Markup;
-using WPF;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace EncoderMonitor
 {
@@ -179,14 +164,14 @@ namespace EncoderMonitor
                     case "Mark":
                         parity = Parity.Mark;
                         break;
-                        
+
                     default:
                         MessageBox.Show("校验方式无效");
                         return;
                 }
 
                 string comPort = comboBox1.SelectedItem.ToString();
-                bool success = SerialPortManager.OpenPort(comboBox1.Text,baudRate,
+                bool success = SerialPortManager.OpenPort(comboBox1.Text, baudRate,
                                                           parity);
                 if (success)
                 {
@@ -1100,7 +1085,7 @@ namespace EncoderMonitor
         }
         private void ReadFreeMode(byte[] rx)
         {
-            
+
             // 1. 基礎長度與包頭包尾校驗
             if (rx == null || rx.Length < 8) return;
 
@@ -1122,14 +1107,15 @@ namespace EncoderMonitor
                 LogToUImain("FreeMode Check Error");
                 return;
             }
-            
+
 
             // 3. 安全獲取下拉框位數
             int multiBits = 0;
             int singleBits = 0;
 
             // 跨線程安全讀取 UI 下拉框
-            this.Invoke(new Action(() => {
+            this.Invoke(new Action(() =>
+            {
                 if (comboBox5.SelectedItem != null) int.TryParse(comboBox5.SelectedItem.ToString(), out multiBits);
                 if (comboBox4.SelectedItem != null) int.TryParse(comboBox4.SelectedItem.ToString(), out singleBits);
             }));

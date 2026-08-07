@@ -26,5 +26,24 @@ namespace EncoderMonitor
             }
             return crc;
         }
+        public static byte[] AppendCRC(byte[] frame)
+        {
+            ushort crc = Calculate(frame);
+
+            byte[] result = new byte[frame.Length + 2];
+
+            Array.Copy(
+                frame,
+                result,
+                frame.Length);
+
+            // CRC低位在前，高位在後
+            result[result.Length - 2] =
+                (byte)(crc & 0xFF);
+            result[result.Length - 1] =
+                (byte)(crc >> 8);
+
+            return result;
+        }
     }
 }

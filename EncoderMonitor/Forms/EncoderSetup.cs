@@ -1,9 +1,7 @@
 ﻿using EncoderMonitor.Communication;
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace EncoderMonitor
 {
@@ -187,7 +185,7 @@ namespace EncoderMonitor
 
         private void Change_FreeMode_Click(object sender, EventArgs e)
         {
-            byte[] cmd ={EncoderConfig.Modbus.SlaveID,0x06,0x00,0x08,0x00,0x02};
+            byte[] cmd = { EncoderConfig.Modbus.SlaveID, 0x06, 0x00, 0x08, 0x00, 0x02 };
             ushort crc = ModbusCRC.Calculate(cmd);
             byte[] frame ={cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
                            (byte)(crc & 0xff),(byte)(crc >> 8)};

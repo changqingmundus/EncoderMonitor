@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
 
 namespace EncoderMonitor
 {
@@ -35,7 +27,7 @@ namespace EncoderMonitor
                 .PadLeft(EncoderConfig.SingleTurnBits, '0');
             // 实时位置 / 分辨率
             textBox_Resolution.Text =
-                $"{abs} / {resolution -1}";
+                $"{abs} / {resolution - 1}";
             // 角度显示
             textBox_Angle.Text =
                 angle.ToString("000.000") + " deg";
@@ -51,7 +43,7 @@ namespace EncoderMonitor
         }
         private void DataWindow_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
