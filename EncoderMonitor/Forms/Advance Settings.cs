@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Windows.Forms;
 
 namespace EncoderMonitor
@@ -29,6 +30,7 @@ namespace EncoderMonitor
         {
             InitFunctionCode();
             InitRegisterMap();
+            InitWrite10Grid();
 
             // 列寬自動填滿
             dgvRegisterMap.AutoSizeColumnsMode =
@@ -61,6 +63,14 @@ namespace EncoderMonitor
             dgvRegisterMap.AllowUserToAddRows = false;
             dgvRegisterMap.SelectionMode =
                           DataGridViewSelectionMode.FullRowSelect;
+
+            panelRead.Visible = true;
+            panelWriteSingle.Visible = false;
+            panelWriteMultiple.Visible = false;
+
+            panelRead.BorderStyle = BorderStyle.FixedSingle;
+            panelWriteSingle.BorderStyle = BorderStyle.FixedSingle;
+            panelWriteMultiple.BorderStyle = BorderStyle.FixedSingle;
 
         }
         public class ModbusFunctionItem
@@ -213,35 +223,88 @@ namespace EncoderMonitor
 
             dgvWrite10Registers.Columns.Add(
                 "Address",
-                "寄存器地址");
+                "Register Address");
 
 
             DataGridViewComboBoxColumn typeColumn =
                 new DataGridViewComboBoxColumn();
 
             typeColumn.Name = "DataType";
-            typeColumn.HeaderText = "數據類型";
+            typeColumn.HeaderText = "Data Type";
 
-            typeColumn.Items.Add("UINT16");
-            typeColumn.Items.Add("INT16");
+            typeColumn.Items.AddRange("UINT16","INT16","UINT32",
+                                      "INT32","FLOAT32","UINT64","INT64");
 
             dgvWrite10Registers.Columns.Add(typeColumn);
 
+            DataGridViewComboBoxColumn endian = new DataGridViewComboBoxColumn();
+
+            endian.Name = "Endian";
+            endian.HeaderText = "Byte Order";
+
+            endian.Items.AddRange(
+                "ABCD",
+                "BADC",
+                "CDAB",
+                "DCBA");
+            dgvWrite10Registers.Columns.Add(endian);
 
             dgvWrite10Registers.Columns.Add(
                 "Value",
-                "數值(十進制)");
+                "Value(Decimal)");
 
+            dgvWrite10Registers.Columns["Address"].FillWeight = 30;
+            dgvWrite10Registers.Columns["DataType"].FillWeight = 20;
+            dgvWrite10Registers.Columns["Endian"].FillWeight = 20;
+            dgvWrite10Registers.Columns["Value"].FillWeight = 30;
+            dgvWrite10Registers.AllowUserToResizeRows = false;
+            dgvWrite10Registers.AllowUserToResizeColumns = false;
+
+            // 隱藏左側行標
+            dgvWrite10Registers.RowHeadersVisible = false;
+
+            // 固定行高度
+            foreach (DataGridViewRow row in dgvWrite10Registers.Rows)
+            {
+                row.Height = 20;
+            }
+
+            // 禁止新增空白行
+            dgvWrite10Registers.AllowUserToAddRows = false;
+            dgvWrite10Registers.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+
+            dgvWrite10Registers.MultiSelect = false;
+            dgvWrite10Registers.Columns["Address"].ReadOnly = true;
             dgvWrite10Registers.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
         }
         private void cmbFunctionCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbFunctionCode.SelectedItem is ModbusFunctionItem item)
-            {
-                byte function = item.Code;
+            ModbusFunctionItem item =
+                cmbFunctionCode.SelectedItem
+                as ModbusFunctionItem;
 
-                Console.WriteLine(function.ToString("X2"));
+            if (item == null)
+                return;
+
+            panelRead.Visible = false;
+            panelWriteSingle.Visible = false;
+            panelWriteMultiple.Visible = false;
+
+            switch (item.Code)
+            {
+                case 0x03:
+                    panelRead.Visible = true;
+                    break;
+
+                case 0x06:
+                    panelWriteSingle.Visible = true;
+                    break;
+
+                case 0x10:
+                    panelWriteMultiple.Visible = true;
+                    break;
             }
         }
         private byte[] GenerateCommand()
@@ -284,7 +347,7 @@ namespace EncoderMonitor
         {
             byte slave = EncoderConfig.Modbus.SlaveID;
             ushort address =
-                Convert.ToUInt16(txtStartAddress.Text, 16);
+                Convert.ToUInt16(txtStartAddress03.Text, 16);
             ushort quantity = (ushort)numQuantity.Value;
             byte[] frame =
             {slave,0x03,(byte)(address >> 8),
@@ -297,8 +360,8 @@ namespace EncoderMonitor
         {
             byte slave = EncoderConfig.Modbus.SlaveID;
             ushort address =
-                Convert.ToUInt16(txtStartAddress.Text, 16);
-            ushort quantity = (ushort)numQuantity.Value;
+                Convert.ToUInt16(txtStartAddress06.Text, 16);
+            ushort value = (ushort)Convert.ToInt32(t_bvalue06.Text);
             byte[] frame =
             {slave,0x06,(byte)(address >> 8),
                         (byte)address,
@@ -308,7 +371,7 @@ namespace EncoderMonitor
         }
         private byte[] BuildWrite10()
         {
-            List<byte> frame = new();
+            List<byte> frame = new List<byte>();
 
             frame.Add(
                 EncoderConfig.Modbus.SlaveID);
@@ -363,6 +426,187 @@ namespace EncoderMonitor
         private void rdoDec_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvWrite10Registers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void dgvWrite10Registers_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvWrite10Registers.IsCurrentCellDirty)
+            {
+                dgvWrite10Registers.CommitEdit(
+                    DataGridViewDataErrorContexts.Commit);
+            }
+        }
+        private void dgvWrite10Registers_CellValueChanged(object sender,DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+
+            if (e.ColumnIndex ==
+                dgvWrite10Registers.Columns["DataType"].Index)
+            {
+
+                string type =
+                    dgvWrite10Registers.Rows[e.RowIndex]
+                    .Cells["DataType"].Value?.ToString();
+
+
+                DataGridViewCell endianCell =
+                    dgvWrite10Registers.Rows[e.RowIndex]
+                    .Cells["Endian"];
+
+
+                if (type == "UINT16" ||
+                    type == "INT16")
+                {
+                    endianCell.Value = "";
+
+                    endianCell.ReadOnly = true;
+                }
+                else
+                {
+                    endianCell.Value = "ABCD";
+
+                    endianCell.ReadOnly = false;
+                }
+
+
+                UpdateRegisterAddress();
+            }
+        }
+        private void dgvWrite10Registers_CellBeginEdit_1(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.ColumnIndex ==
+               dgvWrite10Registers.Columns["Endian"].Index)
+            {
+
+                string type =
+                    dgvWrite10Registers.Rows[e.RowIndex]
+                    .Cells["DataType"].Value?.ToString();
+
+
+                if (type == "UINT16" ||
+                   type == "INT16")
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void Button_AddRegister_Click(object sender, EventArgs e)
+        {
+            UpdateRegisterAddress();
+            int index = dgvWrite10Registers.Rows.Count;
+
+            dgvWrite10Registers.Rows.Add(
+                "",
+                "UINT16",
+                "ABCD",
+                "0"
+            );
+            UpdateRegisterAddress();
+        }
+
+        private void Button_DelRegister_Click(object sender, EventArgs e)
+        {
+            if (dgvWrite10Registers.SelectedRows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Please Select A Register");
+                return;
+            }
+
+
+            foreach (DataGridViewRow row
+                in dgvWrite10Registers.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                {
+                    dgvWrite10Registers.Rows.Remove(row);
+                }
+            }
+        }
+        private void UpdateRegisterAddress()
+        {
+            ushort address;
+
+            if (!ushort.TryParse(
+                txtStartAddress10.Text,
+                System.Globalization.NumberStyles.HexNumber,
+                null,
+                out address))
+            {
+                return;
+            }
+
+
+            foreach (DataGridViewRow row in dgvWrite10Registers.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+
+                string type =
+                    row.Cells["DataType"].Value?.ToString();
+
+
+                ushort length = GetRegisterLength(type);
+                row.Cells["Address"].Value =
+                    string.Format("{0:X4} ({1})",
+                    address,
+                    length);
+
+                address += length;
+            }
+
+            txtWrite10Quantity.Text =
+                GetTotalRegisterCount().ToString();
+        }
+        private ushort GetRegisterLength(string type)
+        {
+            switch (type)
+            {
+                case "UINT16":
+                case "INT16":
+                    return 1;
+
+
+                case "UINT32":
+                case "INT32":
+                case "FLOAT32":
+                    return 2;
+
+
+                case "UINT64":
+                case "INT64":
+                    return 4;
+
+
+                default:
+                    return 1;
+            }
+        }
+        private int GetTotalRegisterCount()
+        {
+            int count = 0;
+
+
+            foreach (DataGridViewRow row
+                in dgvWrite10Registers.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+
+                count += GetRegisterLength(
+                    row.Cells["DataType"].Value.ToString());
+            }
+
+
+            return count;
         }
     }
 }
