@@ -8,7 +8,9 @@
 
         public byte EnID { get; set; }
 
-        public byte Status { get; set; }
+        public ushort Speed { get; set; }
+
+        public byte Direction { get; set; }
 
         public bool CRC_OK { get; set; }
 

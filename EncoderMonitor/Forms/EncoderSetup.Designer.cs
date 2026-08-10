@@ -67,7 +67,7 @@
             this.tabControl1.Controls.Add(this.TabCANopen);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(342, 302);
@@ -77,9 +77,9 @@
             // 
             this.TabTamagawa.Controls.Add(this.label4);
             this.TabTamagawa.Location = new System.Drawing.Point(4, 27);
-            this.TabTamagawa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabTamagawa.Margin = new System.Windows.Forms.Padding(2);
             this.TabTamagawa.Name = "TabTamagawa";
-            this.TabTamagawa.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabTamagawa.Padding = new System.Windows.Forms.Padding(2);
             this.TabTamagawa.Size = new System.Drawing.Size(334, 271);
             this.TabTamagawa.TabIndex = 0;
             this.TabTamagawa.Text = "Tamagawa";
@@ -112,9 +112,9 @@
             this.TabModBusRTU.Controls.Add(this.Factory_ST);
             this.TabModBusRTU.Controls.Add(this.Factory_MT);
             this.TabModBusRTU.Location = new System.Drawing.Point(4, 27);
-            this.TabModBusRTU.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabModBusRTU.Margin = new System.Windows.Forms.Padding(2);
             this.TabModBusRTU.Name = "TabModBusRTU";
-            this.TabModBusRTU.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabModBusRTU.Padding = new System.Windows.Forms.Padding(2);
             this.TabModBusRTU.Size = new System.Drawing.Size(334, 271);
             this.TabModBusRTU.TabIndex = 1;
             this.TabModBusRTU.Text = "ModBusRTU";
@@ -209,7 +209,7 @@
             "57600",
             "115200"});
             this.Factory_BaudRate.Location = new System.Drawing.Point(111, 55);
-            this.Factory_BaudRate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Factory_BaudRate.Margin = new System.Windows.Forms.Padding(2);
             this.Factory_BaudRate.Name = "Factory_BaudRate";
             this.Factory_BaudRate.Size = new System.Drawing.Size(93, 26);
             this.Factory_BaudRate.TabIndex = 25;
@@ -279,7 +279,7 @@
             "23",
             "24"});
             this.Factory_ST.Location = new System.Drawing.Point(195, 139);
-            this.Factory_ST.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Factory_ST.Margin = new System.Windows.Forms.Padding(2);
             this.Factory_ST.Name = "Factory_ST";
             this.Factory_ST.Size = new System.Drawing.Size(120, 33);
             this.Factory_ST.TabIndex = 19;
@@ -306,7 +306,7 @@
             "23",
             "24"});
             this.Factory_MT.Location = new System.Drawing.Point(17, 139);
-            this.Factory_MT.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Factory_MT.Margin = new System.Windows.Forms.Padding(2);
             this.Factory_MT.Name = "Factory_MT";
             this.Factory_MT.Size = new System.Drawing.Size(120, 33);
             this.Factory_MT.TabIndex = 18;
@@ -315,7 +315,7 @@
             // TabCANopen
             // 
             this.TabCANopen.Location = new System.Drawing.Point(4, 27);
-            this.TabCANopen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabCANopen.Margin = new System.Windows.Forms.Padding(2);
             this.TabCANopen.Name = "TabCANopen";
             this.TabCANopen.Size = new System.Drawing.Size(334, 271);
             this.TabCANopen.TabIndex = 2;
@@ -326,7 +326,7 @@
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.button2.Location = new System.Drawing.Point(223, 302);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 41);
             this.button2.TabIndex = 15;
@@ -338,7 +338,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.button1.Location = new System.Drawing.Point(116, 302);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 41);
             this.button1.TabIndex = 14;
@@ -349,7 +349,7 @@
             // 
             this.Change_FreeMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.Change_FreeMode.Location = new System.Drawing.Point(9, 302);
-            this.Change_FreeMode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Change_FreeMode.Margin = new System.Windows.Forms.Padding(2);
             this.Change_FreeMode.Name = "Change_FreeMode";
             this.Change_FreeMode.Size = new System.Drawing.Size(94, 41);
             this.Change_FreeMode.TabIndex = 17;
@@ -393,7 +393,7 @@
             // LogShowbox
             // 
             this.LogShowbox.Location = new System.Drawing.Point(3, 364);
-            this.LogShowbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LogShowbox.Margin = new System.Windows.Forms.Padding(2);
             this.LogShowbox.Multiline = true;
             this.LogShowbox.Name = "LogShowbox";
             this.LogShowbox.ReadOnly = true;
@@ -415,8 +415,10 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimizeBox = false;
             this.Name = "EncoderSetup";
             this.Text = "EncoderSetup";
             this.Load += new System.EventHandler(this.EncoderSetup_Load);

@@ -13,7 +13,7 @@ namespace EncoderMonitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new btnClickThis());
+            Application.Run(new MainForm());
         }
     }
 }

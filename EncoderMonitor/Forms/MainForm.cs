@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 
 namespace EncoderMonitor
 {
-    public partial class btnClickThis : Form
+    public partial class MainForm : Form
     {
         private DataWindow dataWindow;   //聲明DataWindow
         private EncoderSetup encoderSetup;
@@ -17,6 +18,7 @@ namespace EncoderMonitor
         private bool showDebugInfo = true; // 是否输出调试信息到文本框
         private bool freemodeEnable = false;
         private List<byte> freeModeBuffer = new List<byte>();
+        private bool isReading = false;
         private enum EncoderProtocol
         {
             Tamagawa,
@@ -30,16 +32,13 @@ namespace EncoderMonitor
         public byte Status;
         public bool CRC_OK;
         public double Angle;
-        public btnClickThis()
+        public MainForm()
         {
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.Font;
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            // 根据你的需要调整（毫秒）
             continuousTimer = new System.Windows.Forms.Timer();
-            continuousTimer.Interval = 1;
+            continuousTimer.Interval = 80;    //讀取間隔 80ms
             continuousTimer.Tick += ContinuousTimer_Tick;
         }
         private void Main_Form_Load(object sender, EventArgs e)
@@ -99,15 +98,18 @@ namespace EncoderMonitor
         {
             if (checkBox1.Checked)
             {
-                // 开启连续读取
-                showDebugInfo = false;           // 连续模式下不输出文本
+                if (SerialPortManager.sp == null ||
+                   !SerialPortManager.sp.IsOpen)
+                {
+                    checkBox1.Checked = false;
+                    return;
+                }
+                showDebugInfo = false;
                 continuousTimer.Start();
             }
             else
             {
-                // 关闭连续读取
                 continuousTimer.Stop();
-                showDebugInfo = true;            // 恢复显示
             }
         }
 
@@ -340,45 +342,114 @@ namespace EncoderMonitor
 
         private void ContinuousTimer_Tick(object sender, EventArgs e)
         {
-            bool oldShowFlag = showDebugInfo;
-            showDebugInfo = false;
-            if (freemodeEnable)
-            {
-                ReadFreeModeFromSerial();
-
-                showDebugInfo = oldShowFlag;
+            if (isReading)
                 return;
-            }
-            EncoderData data = null;
-            switch (currentProtocol)
+            if (SerialPortManager.sp == null ||
+                !SerialPortManager.sp.IsOpen)
+                return;
+            isReading = true;
+
+            bool oldShowFlag = showDebugInfo;
+            try
             {
-                case EncoderProtocol.Tamagawa:
-                    data = ReadTamagawaAll();
-                    break;
+                showDebugInfo = false;
 
-                case EncoderProtocol.ModbusRTU:
 
-                    data = ReadModbusRTUAll();
-                    break;
-
-                case EncoderProtocol.CANopen:
-                    break;
-            }
-            if (data != null)
-            {
-                // MainForm顯示
-                SingleTurnShow.Text =
-                    data.SingleTurn.ToString();
-                MultiTurnShow.Text =
-                    data.MultiTurn.ToString();
-                // DataWindow顯示
-                if (dataWindow != null &&
-                   !dataWindow.IsDisposed)
+                if (freemodeEnable)
                 {
-                    dataWindow.UpdateEncoderData(data.SingleTurn);
+                    ReadFreeModeFromSerial();
+                    return;
+                }
+                EncoderData data = null;
+                switch (currentProtocol)
+                {
+                    case EncoderProtocol.Tamagawa:
+
+                        data = ReadTamagawaAll();
+
+                        break;
+
+                    case EncoderProtocol.ModbusRTU:
+
+                        if (chkShowSpeed.Checked || chkShowDirection.Checked)
+                        {
+                            // 讀取 0x0009~0x000C
+                            data = ReadModbusRTU_Monitor();
+                        }
+                        else
+                        {
+                            // 原來讀單圈、多圈
+                            data = ReadModbusRTUAll();
+                        }
+
+                        break;
+
+                    case EncoderProtocol.CANopen:
+
+                        break;
+                }
+                if (data != null)
+                {
+                    // 單圈
+                    SingleTurnShow.Text =
+                        data.SingleTurn.ToString();
+
+                    // 多圈
+                    MultiTurnShow.Text =
+                        data.MultiTurn.ToString();
+
+                    // 速度
+                    if (chkShowSpeed.Checked)
+                    {
+                        lblSpeed.Text =
+                            data.Speed.ToString()
+                            + " rpm";
+                    }
+
+                    // 方向
+                    if (chkShowDirection.Checked)
+                    {
+                        switch (data.Direction)
+                        {
+                            case 0:
+                                lblDirection.Text = "Stop";
+                                break;
+
+                            case 1:
+                                lblDirection.Text = "CCW";
+                                break;
+
+                            case 2:
+                                lblDirection.Text = "CW";
+                                break;
+
+                            default:
+                                lblDirection.Text = "Unknown";
+                                break;
+                        }
+                    }
+                    directionIndicator1.UpdateDirection(data.Direction,data.Speed);
+                    // DataWindow
+                    if (dataWindow != null &&
+                        !dataWindow.IsDisposed)
+                    {
+                        dataWindow.UpdateEncoderData(
+                            data.SingleTurn);
+                    }
                 }
             }
-            showDebugInfo = oldShowFlag;
+            catch (Exception ex)
+            {
+                Debug.WriteLine(
+                    "Continuous Read Error: "
+                    + ex.Message);
+            }
+            finally
+            {
+                showDebugInfo = oldShowFlag;
+
+                isReading = false;
+            }
         }
         private void Model_Select(object sender, EventArgs e)
         {
@@ -730,39 +801,30 @@ namespace EncoderMonitor
         }
         private EncoderData ReadModbusRTUMultiTurn()
         {
-            EncoderData data = new EncoderData();
-
-
-            if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+            if (SerialPortManager.sp == null ||
+                !SerialPortManager.sp.IsOpen)
             {
-                if (showDebugInfo)
-                    MessageBox.Show("请先打开串口！");
-
                 return null;
             }
-
-
             try
             {
+                EncoderData data = new EncoderData();
                 SerialPortManager.sp.DiscardInBuffer();
-                byte[] cmd = new byte[]
+                byte[] cmd =
                 {
-                  EncoderConfig.Modbus.SlaveID,
+            EncoderConfig.Modbus.SlaveID,
+            0x03,
 
-                  EncoderConfig.Modbus.FunctionCode,
+            (byte)(EncoderConfig.Modbus.MultiTurnAddress >> 8),
+            (byte)(EncoderConfig.Modbus.MultiTurnAddress),
 
-                  (byte)(EncoderConfig.Modbus.MultiTurnAddress >> 8),
-                  (byte)(EncoderConfig.Modbus.MultiTurnAddress),
-
-                  (byte)(EncoderConfig.Modbus.MultiTurnCount >> 8),
-                  (byte)(EncoderConfig.Modbus.MultiTurnCount)
-                };
-
-
-                ushort crc = ModbusCRC.Calculate(cmd);
+            0x00,
+            0x01};
+                ushort crc =
+                    ModbusCRC.Calculate(cmd);
 
 
-                byte[] tx = new byte[]
+                byte[] tx =
                 {
             cmd[0],
             cmd[1],
@@ -770,127 +832,76 @@ namespace EncoderMonitor
             cmd[3],
             cmd[4],
             cmd[5],
+
             (byte)(crc & 0xFF),
-            (byte)(crc >> 8)
-                };
-
-
+            (byte)(crc >> 8)};
                 SerialPortManager.WriteData(tx);
-
 
                 if (showDebugInfo)
                 {
                     textBox1.AppendText(
                         "TX: " +
-                        BitConverter.ToString(tx) +
-                        Environment.NewLine);
+                        BitConverter.ToString(tx)
+                        + "\r\n");
                 }
+                // 等待設備返回
+                Thread.Sleep(10);
 
-
-                Thread.Sleep(50);
-
-
-
-                int count = SerialPortManager.sp.BytesToRead;
-
-
-                // 01 03 04 + 4byte数据 + CRC16
-                if (count < 9)
+                int count =
+                    SerialPortManager.sp.BytesToRead;
+                if (count < 7)
                 {
-                    if (showDebugInfo)
-                        textBox1.AppendText(
-                            "接收數據錯誤\r\n");
-
                     return null;
                 }
-
-
-
                 byte[] rx = new byte[count];
-
-                SerialPortManager.sp.Read(rx, 0, count);
-
-
-
+                SerialPortManager.sp.Read(
+                    rx,
+                    0,
+                    count);
                 if (showDebugInfo)
                 {
                     textBox1.AppendText(
                         "RX: " +
-                        BitConverter.ToString(rx) +
-                        Environment.NewLine);
+                        BitConverter.ToString(rx)
+                        + "\r\n");
                 }
-
-
-
-                // CRC校验
                 ushort recvCRC =
                     (ushort)(rx[count - 2] |
                     (rx[count - 1] << 8));
 
 
-                byte[] crcData = new byte[count - 2];
-
-                Array.Copy(rx, crcData, count - 2);
-
-
-                ushort calcCRC = ModbusCRC.Calculate(crcData);
+                byte[] crcData =
+                    new byte[count - 2];
 
 
-
+                Array.Copy(
+                    rx,
+                    crcData,
+                    count - 2);
+                ushort calcCRC =
+                    ModbusCRC.Calculate(crcData);
                 if (recvCRC != calcCRC)
                 {
                     data.CRC_OK = false;
-
-
-                    if (showDebugInfo)
-                        textBox1.AppendText(
-                            "CRC FAIL\r\n");
-
-
                     return null;
                 }
-
-
                 data.CRC_OK = true;
-
-
-
-                // Modbus正常返回
-                if (rx.Length >= 7 &&
-                   rx[1] == 0x03 &&
-                   rx[2] == 0x04)
+                if (rx[1] == 0x03 &&
+                   rx[2] == 0x02)
                 {
-
-                    uint raw =
-                        ((uint)rx[3] << 24) |
-                        ((uint)rx[4] << 16) |
-                        ((uint)rx[5] << 8) |
-                        rx[6];
-
-
-
-                    // MultiTurn有效12bit
-                    uint multi =
-                        raw & 0xFFF;
-
-
-
-                    data.MultiTurn = multi;
-
-
+                    data.MultiTurn = (uint)((rx[3] << 8)|rx[4]);
+                    data.MultiTurn &= 0xFFF;
                     return data;
                 }
-
-
                 return null;
-
             }
             catch (Exception ex)
             {
                 if (showDebugInfo)
                 {
                     MessageBox.Show(
-                        "Modbus通讯错误：" + ex.Message);
+                        "Modbus错误:"
+                        + ex.Message);
                 }
 
                 return null;
@@ -1021,6 +1032,48 @@ namespace EncoderMonitor
                 return null;
             }
         }
+        private EncoderData ReadModbusRTU_Monitor()
+        {
+            EncoderData data = new EncoderData();
+            byte[] cmd =
+            {
+            EncoderConfig.Modbus.SlaveID,0x03,0x00,0x09,0x00,0x04};
+            cmd = ModbusCRC.AppendCRC(cmd);
+            SerialPortManager.WriteData(cmd);
+            byte[] rx = SerialPortManager.ReadData();
+            if (rx == null)
+                return null;
+
+            // CRC檢查
+            int count = rx.Length;
+            ushort recvCRC =
+                (ushort)(rx[count - 2] |
+                (rx[count - 1] << 8));
+
+            ushort calcCRC =
+                ModbusCRC.Calculate(
+                    rx.Take(count - 2)
+                    .ToArray());
+
+            if (recvCRC != calcCRC)
+                return null;
+
+            ushort high = (ushort)((rx[3] << 8) | rx[4]);
+            ushort low = (ushort)((rx[5] << 8) | rx[6]);
+
+            uint raw = ((uint)high << 16) | low;
+            uint SingleTurnResolution = 1U << EncoderConfig.SingleTurnBits;
+            data.MultiTurn = raw / SingleTurnResolution;
+            data.SingleTurn = raw % SingleTurnResolution;
+
+            data.Direction =
+                (byte)((rx[7] << 8) | rx[8]);
+
+            data.Speed =
+                (ushort)((rx[9] << 8) | rx[10]);
+
+            return data;
+        }
 
         private void MultiTurnShow_TextChanged(object sender, EventArgs e)
         {
@@ -1046,7 +1099,7 @@ namespace EncoderMonitor
             if (advancedSettingsForm == null ||
         advancedSettingsForm.IsDisposed)
             {
-                advancedSettingsForm = new Advance_Settings();
+                advancedSettingsForm = new Advance_Settings(this);
                 advancedSettingsForm.Show();
             }
             else
@@ -1247,6 +1300,56 @@ namespace EncoderMonitor
                 // 這裡才是真正一幀
                 ReadFreeMode(frame);
             }
+        }
+
+        public void AppendLog(string text)
+        {
+            if (textBox1.InvokeRequired)
+            {
+                textBox1.Invoke(new Action(() =>
+                {
+                    textBox1.AppendText(text);
+                }));
+            }
+            else
+            {
+                textBox1.AppendText(text);
+            }
+        }
+
+        private void chkShowSpeed_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDisplay();
+        }
+        private void UpdateDisplay()
+        {
+            if (chkShowSpeed.Checked)
+            {
+                lblSpeed.Visible = true;
+            }
+            else
+            {
+                lblSpeed.Visible = false;
+            }
+
+
+            if (chkShowDirection.Checked)
+            {
+                lblDirection.Visible = true;
+            }
+            else
+            {
+                lblDirection.Visible = false;
+            }
+        }
+        private void chkShowDirection_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDisplay();
+        }
+
+        private void directionIndicator1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

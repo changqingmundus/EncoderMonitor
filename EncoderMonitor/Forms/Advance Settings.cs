@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace EncoderMonitor
 {
     public partial class Advance_Settings : Form
     {
-        public Advance_Settings()
+        public Advance_Settings(MainForm main)
         {
             InitializeComponent();
+            mainForm = main;
         }
         public enum ModbusFunction : byte
         {
@@ -26,6 +31,8 @@ namespace EncoderMonitor
             ReadWriteMultipleRegisters = 0x17, // 17H - Read/Write Multiple Registers
             ReadFIFOQueue = 0x18               // 18H - Read FIFO Queue
         }
+        private MainForm mainForm;
+        private Color copyOriginalColor;
         private void Advance_Settings_Load(object sender, EventArgs e)
         {
             InitFunctionCode();
@@ -83,6 +90,37 @@ namespace EncoderMonitor
             {
                 return $"{Code:X2}H - {Name}";
             }
+        }
+        private bool TryGetHexAddress(System.Windows.Forms.TextBox textBox,out ushort address)
+        {
+            address = 0;
+
+
+            if (textBox == null)
+                return false;
+
+
+            string text = textBox.Text.Trim();
+
+
+            // 支持 0x0001 / 0001 兩種格式
+            if (text.StartsWith("0x") ||
+                text.StartsWith("0X"))
+            {
+                text = text.Substring(2);
+            }
+
+
+            return ushort.TryParse(
+                text,
+                System.Globalization.NumberStyles.HexNumber,
+                null,
+                out address);
+        }
+        private void txtStartAddress10_TextChanged(object sender, EventArgs e)
+        {
+            UpdateRegisterAddress();
+            UpdateCommandPreview();
         }
         private void InitFunctionCode()
         {
@@ -279,6 +317,7 @@ namespace EncoderMonitor
             dgvWrite10Registers.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
         }
+
         private void cmbFunctionCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             ModbusFunctionItem item =
@@ -306,85 +345,158 @@ namespace EncoderMonitor
                     panelWriteMultiple.Visible = true;
                     break;
             }
+            UpdateCommandPreview();
         }
+        private void txtStartAddress03_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCommandPreview();
+        }
+        private void txtStartAddress06_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCommandPreview();
+        }
+        private void numQuantity_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateCommandPreview();
+        }
+        private void t_bvalue06_TextChanged(object sender, EventArgs e)
+        {
+            UpdateCommandPreview();
+        }
+        private void numSlaveID_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateCommandPreview();
+        }
+
         private byte[] GenerateCommand()
         {
-            ModbusFunctionItem item =
-                cmbFunctionCode.SelectedItem as ModbusFunctionItem;
-
-
+            ModbusFunctionItem item = cmbFunctionCode.SelectedItem as ModbusFunctionItem;
             if (item == null)
                 return null;
-
-
+            byte[] frame = null;
             switch (item.Code)
             {
                 case 0x03:
-                    return BuildRead03();
+                    frame = BuildRead03();
+                    break;
 
                 case 0x06:
-                    return BuildWrite06();
+                    frame = BuildWrite06();
+                    break;
 
                 case 0x10:
-                    return BuildWrite10();
+                    frame = BuildWrite10();
+                    break;
 
                 default:
                     return null;
             }
+            if (frame != null)
+            {
+                txtGeneratedCommand.Text = BitConverter.ToString(frame).Replace("-", " ");
+            }
+            return frame;
         }
-        private void SaveConfig_Click(object sender, EventArgs e)
+        private void UpdateCommandPreview()
         {
+            if (cmbFunctionCode.SelectedItem == null)
+                return;
+
+            if (dgvWrite10Registers == null)
+                return;
+
             byte[] frame = GenerateCommand();
             if (frame == null)
             {
-                MessageBox.Show("Command Error");
+                txtGeneratedCommand.Clear();
                 return;
             }
-            SerialPortManager.WriteData(frame);
+            txtGeneratedCommand.Text =
+                BitConverter.ToString(frame)
+                .Replace("-", " ");
         }
 
         private byte[] BuildRead03()
         {
-            byte slave = EncoderConfig.Modbus.SlaveID;
-            ushort address =
-                Convert.ToUInt16(txtStartAddress03.Text, 16);
-            ushort quantity = (ushort)numQuantity.Value;
-            byte[] frame =
-            {slave,0x03,(byte)(address >> 8),
-                        (byte)address,
-                        (byte)(quantity >> 8),
-                        (byte)quantity};
-            return ModbusCRC.AppendCRC(frame);
+            byte slave = GetSlaveID();
+            ushort address;
+            if (!TryGetHexAddress(
+                txtStartAddress03,
+                out address))
+            {
+                return null;
+            }
+            ushort quantity =
+                (ushort)numQuantity.Value;
+
+            List<byte> frame = new List<byte>();
+
+            frame.Add(slave);
+            frame.Add(0x03);
+
+            frame.Add((byte)(address >> 8));
+            frame.Add((byte)address);
+
+            frame.Add((byte)(quantity >> 8));
+            frame.Add((byte)quantity);
+
+            return ModbusCRC.AppendCRC(
+                frame.ToArray());
         }
         private byte[] BuildWrite06()
         {
-            byte slave = EncoderConfig.Modbus.SlaveID;
-            ushort address =
-                Convert.ToUInt16(txtStartAddress06.Text, 16);
-            ushort value = (ushort)Convert.ToInt32(t_bvalue06.Text);
-            byte[] frame =
-            {slave,0x06,(byte)(address >> 8),
-                        (byte)address,
-                        (byte)(value >> 8),
-                        (byte)value};
-            return ModbusCRC.AppendCRC(frame);
+            byte slave = GetSlaveID();
+            ushort address;
+
+            if (!TryGetHexAddress(
+                txtStartAddress06,
+                out address))
+            {
+                return null;
+            }
+
+            ushort value;
+
+            if (!TryGetUInt16Value(
+                t_bvalue06,
+                out value))
+            {
+                return null;
+            }
+            List<byte> frame = new List<byte>();
+
+            frame.Add(slave);
+            frame.Add(0x06);
+
+
+            frame.Add((byte)(address >> 8));
+            frame.Add((byte)address);
+
+
+            frame.Add((byte)(value >> 8));
+            frame.Add((byte)value);
+
+
+            return ModbusCRC.AppendCRC(
+                frame.ToArray());
         }
         private byte[] BuildWrite10()
         {
             List<byte> frame = new List<byte>();
 
-            frame.Add(
-                EncoderConfig.Modbus.SlaveID);
-
+            frame.Add(GetSlaveID());
+            ushort startAddress;
+            if (!TryGetHexAddress(
+                txtStartAddress10,
+                out startAddress))
+            {
+                return null;
+            }
             frame.Add(0x10);
 
-            ushort startAddress =
-                Convert.ToUInt16(
-                    dgvWrite10Registers.Rows[0]
-                    .Cells["Address"].Value.ToString(),16);
-
+            // 真正Modbus Register數量
             ushort quantity =
-                (ushort)dgvWrite10Registers.Rows.Count;
+                (ushort)GetTotalRegisterCount();
 
             frame.Add((byte)(startAddress >> 8));
             frame.Add((byte)startAddress);
@@ -392,42 +504,83 @@ namespace EncoderMonitor
             frame.Add((byte)(quantity >> 8));
             frame.Add((byte)quantity);
 
+            // byte count = register數量 * 2
             frame.Add((byte)(quantity * 2));
 
             foreach (DataGridViewRow row
                 in dgvWrite10Registers.Rows)
             {
+                if (row.IsNewRow)
+                    continue;
+
                 ushort value =
                     Convert.ToUInt16(
                         row.Cells["Value"].Value);
 
-
                 frame.Add((byte)(value >> 8));
                 frame.Add((byte)value);
             }
-
             return ModbusCRC.AppendCRC(frame.ToArray());
         }
-        private void dgvRegisterMap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private async void button_Copy_Click(object sender, EventArgs e)
         {
+            Clipboard.SetText(txtGeneratedCommand.Text);
 
+            button_Copy.BackColor = Color.Green;
+
+            await Task.Delay(1000);
+
+            button_Copy.BackColor = SystemColors.Control;
         }
-
         private void tabCommandConfig_Click(object sender, EventArgs e)
         {
 
         }
+        private void SendConfig_Click(object sender, EventArgs e)
+        {
+            if (SerialPortManager.sp == null ||
+               !SerialPortManager.sp.IsOpen)
+            {
+                MessageBox.Show(
+                    "Please open serial port first!");
+                return;
+            }
+            byte[] frame = GenerateCommand();
 
-        private void rdoHex_CheckedChanged(object sender, EventArgs e)
+            if (frame == null)
+            {
+                MessageBox.Show(
+                    "Command Error");
+                return;
+            }
+            txtGeneratedCommand.Text = BitConverter.ToString(frame).Replace("-", " ");
+            SerialPortManager.WriteData(frame);
+
+            mainForm?.AppendLog("TX: " + BitConverter.ToString(frame).Replace("-", " ") + "\r\n");
+
+            // 等待設備返回
+            Thread.Sleep(20);
+            // FC06返回8字節
+            byte[] rx =
+                SerialPortManager.ReadData();
+
+            if (rx != null)
+            {
+                mainForm?.AppendLog(
+                    "RX: " +
+                    BitConverter.ToString(rx)
+                    .Replace("-", " ")
+                    +
+                    "\r\n");
+            }
+            EncoderConfig.Modbus.SlaveID = GetSlaveID();
+        }
+
+        private void dgvRegisterMap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
-        private void rdoDec_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void dgvWrite10Registers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -473,9 +626,8 @@ namespace EncoderMonitor
 
                     endianCell.ReadOnly = false;
                 }
-
-
                 UpdateRegisterAddress();
+                UpdateCommandPreview();
             }
         }
         private void dgvWrite10Registers_CellBeginEdit_1(object sender, DataGridViewCellCancelEventArgs e)
@@ -496,20 +648,23 @@ namespace EncoderMonitor
                 }
             }
         }
-        private void Button_AddRegister_Click(object sender, EventArgs e)
+        private void dgvWrite10Registers_CellEndEdit(object sender,DataGridViewCellEventArgs e)
         {
             UpdateRegisterAddress();
-            int index = dgvWrite10Registers.Rows.Count;
+            UpdateCommandPreview();
+        }
 
+        private void Button_AddRegister_Click(object sender, EventArgs e)
+        {
             dgvWrite10Registers.Rows.Add(
                 "",
                 "UINT16",
-                "ABCD",
+                "",
                 "0"
             );
             UpdateRegisterAddress();
+            UpdateCommandPreview();
         }
-
         private void Button_DelRegister_Click(object sender, EventArgs e)
         {
             if (dgvWrite10Registers.SelectedRows.Count == 0)
@@ -518,8 +673,6 @@ namespace EncoderMonitor
                     "Please Select A Register");
                 return;
             }
-
-
             foreach (DataGridViewRow row
                 in dgvWrite10Registers.SelectedRows)
             {
@@ -528,7 +681,9 @@ namespace EncoderMonitor
                     dgvWrite10Registers.Rows.Remove(row);
                 }
             }
+            UpdateCommandPreview();
         }
+
         private void UpdateRegisterAddress()
         {
             ushort address;
@@ -607,6 +762,48 @@ namespace EncoderMonitor
 
 
             return count;
+        }
+
+        private bool TryGetUInt16Value(System.Windows.Forms.TextBox textBox,out ushort value)
+        {
+            value = 0;
+            string text = textBox.Text.Trim();
+            if (text.Length == 0)
+                return false;
+            if (rdoHex.Checked)
+            {
+                // 十六進制
+                if (text.StartsWith("0x") ||
+                   text.StartsWith("0X"))
+                {
+                    text = text.Substring(2);
+                }
+
+                return ushort.TryParse(
+                    text,
+                    System.Globalization.NumberStyles.HexNumber,
+                    null,
+                    out value);
+            }
+            else
+            {
+                // 十進制
+                return ushort.TryParse(
+                    text,
+                    out value);
+            }
+        }
+
+        private byte GetSlaveID()
+        {
+            if (numSlaveID.Value < 1 ||
+               numSlaveID.Value > 247)
+            {
+                throw new Exception(
+                    "Slave ID range error");
+            }
+
+            return (byte)numSlaveID.Value;
         }
     }
 }
