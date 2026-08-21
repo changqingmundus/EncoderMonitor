@@ -3,6 +3,10 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
+using Encoder.Core.Configuration;
+using Encoder.Core.Protocol;
+using Encoder.Core.Communication;
+
 namespace EncoderMonitor
 {
     public partial class EncoderSetup : Form
@@ -191,7 +195,7 @@ namespace EncoderMonitor
                            (byte)(crc & 0xff),(byte)(crc >> 8)};
             try
             {
-                SerialPortManager.WriteData(frame);
+                SerialPortManager.Send(frame);
                 UpdateStatusSuccess("FreeMode Enable Command Sent");
                 // 等待設備回覆 500ms
                 byte[] response =

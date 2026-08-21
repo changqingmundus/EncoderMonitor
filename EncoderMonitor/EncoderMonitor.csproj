@@ -85,14 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\FactoryConfig.cs" />
-    <Compile Include="Communication\ModbusCRC.cs" />
     <Compile Include="Communication\ModbusReceiver.cs" />
-    <Compile Include="Forms\DirectionIndicator.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\DirectionIndicator.Designer.cs">
-      <DependentUpon>DirectionIndicator.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Advance Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,8 +98,6 @@
     <Compile Include="Forms\DataWindow.Designer.cs">
       <DependentUpon>DataWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Config\EncoderConfig.cs" />
-    <Compile Include="Models\EncoderData.cs" />
     <Compile Include="Forms\EncoderSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,13 +112,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DialControl.xaml.cs">
-      <DependentUpon>DialControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Communication\SerialPortManager.cs" />
-    <EmbeddedResource Include="Forms\DirectionIndicator.resx">
-      <DependentUpon>DirectionIndicator.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Advance Settings.resx">
       <DependentUpon>Advance Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,17 +162,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DialControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EncoderMonitor.ico" />
     <Content Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dashboard.UI\Dashboard.UI.csproj">
+      <Project>{5f5124c3-f942-480f-8aac-2bc0000c74d9}</Project>
+      <Name>Dashboard.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Encoder.Core\Encoder.Core.csproj">
+      <Project>{b915b781-bf2f-4f43-90d0-69805ae5c088}</Project>
+      <Name>Encoder.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -33,7 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label_Binary = new System.Windows.Forms.Label();
             this.label_Resolution = new System.Windows.Forms.Label();
-            this.label_Angel = new System.Windows.Forms.Label();
+            this.label_Angle = new System.Windows.Forms.Label();
             this.textBox_Binary = new System.Windows.Forms.TextBox();
             this.textBox_Resolution = new System.Windows.Forms.TextBox();
             this.textBox_Angle = new System.Windows.Forms.TextBox();
@@ -63,7 +63,7 @@
             // 
             this.label_Binary.AutoSize = true;
             this.label_Binary.Font = new System.Drawing.Font("隶书", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_Binary.Location = new System.Drawing.Point(10, 437);
+            this.label_Binary.Location = new System.Drawing.Point(12, 427);
             this.label_Binary.Name = "label_Binary";
             this.label_Binary.Size = new System.Drawing.Size(75, 20);
             this.label_Binary.TabIndex = 3;
@@ -73,21 +73,21 @@
             // 
             this.label_Resolution.AutoSize = true;
             this.label_Resolution.Font = new System.Drawing.Font("隶书", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_Resolution.Location = new System.Drawing.Point(10, 483);
+            this.label_Resolution.Location = new System.Drawing.Point(10, 476);
             this.label_Resolution.Name = "label_Resolution";
             this.label_Resolution.Size = new System.Drawing.Size(119, 20);
             this.label_Resolution.TabIndex = 4;
             this.label_Resolution.Text = "Resolution";
             // 
-            // label_Angel
+            // label_Angle
             // 
-            this.label_Angel.AutoSize = true;
-            this.label_Angel.Font = new System.Drawing.Font("隶书", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_Angel.Location = new System.Drawing.Point(10, 528);
-            this.label_Angel.Name = "label_Angel";
-            this.label_Angel.Size = new System.Drawing.Size(64, 20);
-            this.label_Angel.TabIndex = 5;
-            this.label_Angel.Text = "Angel";
+            this.label_Angle.AutoSize = true;
+            this.label_Angle.Font = new System.Drawing.Font("隶书", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_Angle.Location = new System.Drawing.Point(12, 521);
+            this.label_Angle.Name = "label_Angle";
+            this.label_Angle.Size = new System.Drawing.Size(64, 20);
+            this.label_Angle.TabIndex = 5;
+            this.label_Angle.Text = "Angle";
             // 
             // textBox_Binary
             // 
@@ -133,7 +133,7 @@
             this.Controls.Add(this.textBox_Angle);
             this.Controls.Add(this.textBox_Resolution);
             this.Controls.Add(this.textBox_Binary);
-            this.Controls.Add(this.label_Angel);
+            this.Controls.Add(this.label_Angle);
             this.Controls.Add(this.label_Resolution);
             this.Controls.Add(this.label_Binary);
             this.Controls.Add(this.label1);
@@ -153,7 +153,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label_Binary;
         private System.Windows.Forms.Label label_Resolution;
-        private System.Windows.Forms.Label label_Angel;
+        private System.Windows.Forms.Label label_Angle;
         private System.Windows.Forms.TextBox textBox_Binary;
         private System.Windows.Forms.TextBox textBox_Resolution;
         private System.Windows.Forms.TextBox textBox_Angle;

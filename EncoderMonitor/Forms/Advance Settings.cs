@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
+using Encoder.Core.Configuration;
+using Encoder.Core.Protocol;
+using Encoder.Core.Communication;
+
 namespace EncoderMonitor
 {
     public partial class Advance_Settings : Form
@@ -555,7 +559,7 @@ namespace EncoderMonitor
                 return;
             }
             txtGeneratedCommand.Text = BitConverter.ToString(frame).Replace("-", " ");
-            SerialPortManager.WriteData(frame);
+            SerialPortManager.Send(frame);
 
             mainForm?.AppendLog("TX: " + BitConverter.ToString(frame).Replace("-", " ") + "\r\n");
 
@@ -563,7 +567,7 @@ namespace EncoderMonitor
             Thread.Sleep(20);
             // FC06返回8字節
             byte[] rx =
-                SerialPortManager.ReadData();
+                SerialPortManager.Read();
 
             if (rx != null)
             {

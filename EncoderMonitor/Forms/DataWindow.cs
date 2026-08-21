@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using Encoder.Core.Configuration;
+using Dashboard.UI;
+
 namespace EncoderMonitor
 {
     public partial class DataWindow : Form
     {
-        private WPF.DialControl dialControl1;
+        private Dashboard.UI.DialControl dialControl1;
         public DataWindow()
         {
             InitializeComponent();
-            dialControl1 = new WPF.DialControl();           //調用角度盤
+            dialControl1 = new Dashboard.UI.DialControl();           //調用角度盤
             elementHost_AngleShow.Child = dialControl1;     //調用角度盤
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -32,13 +35,13 @@ namespace EncoderMonitor
             textBox_Angle.Text =
                 angle.ToString("000.000") + " deg";
             // 更新表盘
-            dialControl1.UpdateAngle(angle);
+            dialControl1.Angle = angle;
         }
         public void UpdateAngle(double angle)
         {
             if (dialControl1 != null)
             {
-                dialControl1.UpdateAngle(angle);
+                dialControl1.Angle = angle;
             }
         }
         private void DataWindow_Load(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-﻿namespace EncoderMonitor
+﻿namespace Encoder.Core.Data
 {
     public class EncoderData
     {

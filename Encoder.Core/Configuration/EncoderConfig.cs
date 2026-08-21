@@ -1,4 +1,4 @@
-﻿namespace EncoderMonitor
+﻿namespace Encoder.Core.Configuration
 {
     public static class EncoderConfig
     {

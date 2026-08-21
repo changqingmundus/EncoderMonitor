@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 
+using Encoder.Core.Communication;
+
 namespace EncoderMonitor
 {
     public static class ModbusReceiver

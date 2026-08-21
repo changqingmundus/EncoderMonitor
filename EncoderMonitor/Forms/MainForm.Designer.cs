@@ -70,7 +70,8 @@
             this.lblDirection = new System.Windows.Forms.Label();
             this.lblSpeedTitle = new System.Windows.Forms.Label();
             this.lblDirectionTitle = new System.Windows.Forms.Label();
-            this.directionIndicator1 = new EncoderMonitor.DirectionIndicator();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.directionIndicator1 = new Dashboard.UI.DirectionIndicator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -554,20 +555,22 @@
             this.lblDirectionTitle.TabIndex = 38;
             this.lblDirectionTitle.Text = "Direction:";
             // 
-            // directionIndicator1
+            // elementHost1
             // 
-            this.directionIndicator1.Location = new System.Drawing.Point(511, 100);
-            this.directionIndicator1.Name = "directionIndicator1";
-            this.directionIndicator1.Size = new System.Drawing.Size(85, 74);
-            this.directionIndicator1.TabIndex = 39;
-            this.directionIndicator1.Load += new System.EventHandler(this.directionIndicator1_Load);
+            this.elementHost1.Location = new System.Drawing.Point(513, 99);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(83, 75);
+            this.elementHost1.TabIndex = 39;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHost1_ChildChanged);
+            this.elementHost1.Child = this.directionIndicator1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 792);
-            this.Controls.Add(this.directionIndicator1);
+            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.lblDirectionTitle);
             this.Controls.Add(this.lblSpeedTitle);
             this.Controls.Add(this.lblDirection);
@@ -653,7 +656,8 @@
         private System.Windows.Forms.Label lblDirection;
         private System.Windows.Forms.Label lblSpeedTitle;
         private System.Windows.Forms.Label lblDirectionTitle;
-        private DirectionIndicator directionIndicator1;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private Dashboard.UI.DirectionIndicator directionIndicator1;
     }
 }
 

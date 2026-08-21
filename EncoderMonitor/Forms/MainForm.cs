@@ -7,6 +7,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
+using Encoder.Core.Configuration;
+using Encoder.Core.Data;
+using Encoder.Core.Protocol;
+using Encoder.Core.Communication;
+using Dashboard.UI;
+
 namespace EncoderMonitor
 {
     public partial class MainForm : Form
@@ -192,7 +198,7 @@ namespace EncoderMonitor
         private void Clean_Messagebox(object sender, EventArgs e)
         {
             textBox1.Clear();
-            textBox1.AppendText("【已清除】" + Environment.NewLine);
+            Debug.WriteLine("【已清除】" + Environment.NewLine);
         }
         private void Read_Singleturn(object sender, EventArgs e)
         {
@@ -471,8 +477,7 @@ namespace EncoderMonitor
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            EncoderConfig.MultiTurnBits =
-        int.Parse(comboBox5.SelectedItem.ToString());
+            EncoderConfig.MultiTurnBits = int.Parse(comboBox5.SelectedItem.ToString());
         }
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -535,7 +540,7 @@ namespace EncoderMonitor
             {
                 SerialPortManager.sp.DiscardInBuffer();
                 byte[] cmd = new byte[] { 0x02 };
-                SerialPortManager.WriteData(cmd);
+                SerialPortManager.Send(cmd);
                 Thread.Sleep(50);
                 int count = SerialPortManager.sp.BytesToRead;
                 if (count < 6)
@@ -581,7 +586,7 @@ namespace EncoderMonitor
             {
                 SerialPortManager.sp.DiscardInBuffer();
                 byte[] cmd = new byte[] { 0x8A };
-                SerialPortManager.WriteData(cmd);
+                SerialPortManager.Send(cmd);
                 if (showDebugInfo)
                 {
                     textBox1.AppendText(
@@ -639,7 +644,7 @@ namespace EncoderMonitor
 
             byte[] cmd = new byte[] { 0x1A };
 
-            SerialPortManager.WriteData(cmd);
+            SerialPortManager.Send(cmd);
 
 
             System.Threading.Thread.Sleep(100);
@@ -720,7 +725,7 @@ namespace EncoderMonitor
                 byte[] tx = new byte[]
                 {cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
                 (byte)(crc & 0xFF),(byte)(crc >> 8)};
-                SerialPortManager.WriteData(tx);
+                SerialPortManager.Send(tx);
                 if (showDebugInfo)
                 {
                     textBox1.AppendText(
@@ -835,7 +840,7 @@ namespace EncoderMonitor
 
             (byte)(crc & 0xFF),
             (byte)(crc >> 8)};
-                SerialPortManager.WriteData(tx);
+                SerialPortManager.Send(tx);
 
                 if (showDebugInfo)
                 {
@@ -936,7 +941,7 @@ namespace EncoderMonitor
                 ushort crc = ModbusCRC.Calculate(cmd);
                 byte[] tx = new byte[]
                 {cmd[0], cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],(byte)(crc & 0xFF),(byte)(crc >> 8)};
-                SerialPortManager.WriteData(tx);
+                SerialPortManager.Send(tx);
                 if (showDebugInfo)
                 {
                     textBox1.AppendText(
@@ -1039,8 +1044,8 @@ namespace EncoderMonitor
             {
             EncoderConfig.Modbus.SlaveID,0x03,0x00,0x09,0x00,0x04};
             cmd = ModbusCRC.AppendCRC(cmd);
-            SerialPortManager.WriteData(cmd);
-            byte[] rx = SerialPortManager.ReadData();
+            SerialPortManager.Send(cmd);
+            byte[] rx = SerialPortManager.Read();
             if (rx == null)
                 return null;
 
@@ -1348,6 +1353,11 @@ namespace EncoderMonitor
         }
 
         private void directionIndicator1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
 
         }

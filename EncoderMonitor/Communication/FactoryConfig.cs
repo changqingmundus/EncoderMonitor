@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 
+using Encoder.Core.Protocol;
+using Encoder.Core.Communication;
+
 namespace EncoderMonitor.Communication
 {
     public static class FactoryConfig

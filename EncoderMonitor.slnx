@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="Dashboard.UI/Dashboard.UI.csproj" Id="5f5124c3-f942-480f-8aac-2bc0000c74d9" />
+  <Project Path="Encoder.Core/Encoder.Core.csproj" Id="b915b781-bf2f-4f43-90d0-69805ae5c088" />
+  <Project Path="EncoderModbusTool/EncoderModbusTool.csproj" Id="f9bba117-eed5-463f-88d2-7e3e1b81e20e" />
   <Project Path="EncoderMonitor/EncoderMonitor.csproj" Id="8b374205-7529-48df-bbe5-77a4c9a5bbb6" />
 </Solution>

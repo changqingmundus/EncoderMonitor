@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EncoderMonitor
+namespace Encoder.Core.Protocol
 {
     public static class ModbusCRC
     {
