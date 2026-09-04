@@ -45,6 +45,7 @@
     <Compile Include="Communication\ModbusScanner.cs" />
     <Compile Include="Communication\SerialPortManager.cs" />
     <Compile Include="Configuration\EncoderConfig.cs" />
+    <Compile Include="Configuration\ModbusRegisterMap.cs" />
     <Compile Include="Data\EncoderData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\ModbusCRC.cs" />

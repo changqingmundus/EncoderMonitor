@@ -52,20 +52,19 @@ namespace Encoder.Core.Communication
 
         public static void ClosePort()
         {
-            try
+            if (sp != null)
             {
-                if (sp != null)
+                try
                 {
                     if (sp.IsOpen)
                         sp.Close();
-
-                    sp.Dispose();
-                    sp = null;
                 }
-            }
-            catch
-            {
+                catch
+                {
+                }
 
+                sp.Dispose();
+                sp = null;
             }
         }
         public static bool Send(byte[] data)

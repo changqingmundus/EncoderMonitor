@@ -128,7 +128,6 @@ namespace Encoder.Core.Communication
                     int cnt = sp.Read(rx, len, rx.Length - len);
                     len += cnt;
                     lastByteTime = DateTime.Now;
-                    double dt = 0;
                 }
                 // 已收到数据，等待T3.5结束
                 if (len > 0)

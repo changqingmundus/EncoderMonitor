@@ -1,6 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using Encoder.Core.Configuration;
+using System;
 using System.IO.Ports;
+using System.Threading;
 
 namespace Encoder.Core.Communication
 {
@@ -29,7 +30,11 @@ namespace Encoder.Core.Communication
                 ScanProgress?.Invoke(id);
                 try
                 {
-                    var result = master.ReadHoldingRegisters(id, 0x0002, 1);
+                    var result = master.ReadHoldingRegisters(
+                        id,
+                        ModbusRegisterMap.SlaveId,
+                        1);
+
                     if (result != null && result.Length == 1)
                     {
                         return id;

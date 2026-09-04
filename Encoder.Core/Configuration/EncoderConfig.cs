@@ -9,6 +9,11 @@
 
         // 多圈位數
         public static int MultiTurnBits = 12;
+
+        // 当前是否使用 32-bit 寄存器布局
+        public static bool Is32BitMode =>
+            SingleTurnBits > 16 || MultiTurnBits > 16;
+
         // 單圈最大值
         public static uint SingleTurnMax
         {

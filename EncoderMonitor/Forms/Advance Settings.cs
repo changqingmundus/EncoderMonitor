@@ -36,7 +36,6 @@ namespace EncoderMonitor
             ReadFIFOQueue = 0x18               // 18H - Read FIFO Queue
         }
         private MainForm mainForm;
-        private Color copyOriginalColor;
         private void Advance_Settings_Load(object sender, EventArgs e)
         {
             InitFunctionCode();
