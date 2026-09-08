@@ -3,6 +3,7 @@ using Encoder.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
@@ -16,6 +17,10 @@ namespace EncoderModbusTool
         public ModbusMainForm()
         {
             InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             freeModeTimer = new System.Windows.Forms.Timer();
 
@@ -40,6 +45,8 @@ namespace EncoderModbusTool
         private System.Windows.Forms.Timer freeModeTimer;
         private System.Windows.Forms.Timer portCheckTimer; // 用于检测串口是否异常断开
         private string connectedPortName = "";
+
+        private Task continuousReadTask;
         private CancellationTokenSource continuousCts;
         private Dashboard.UI.DialControl dialControlAngle;
         private CancellationTokenSource scanCts;
@@ -999,7 +1006,7 @@ namespace EncoderModbusTool
                     modbusMaster.EnableDataLog = false;
 
                     continuousCts = new CancellationTokenSource();
-                    _ = ContinuousReadLoop(continuousCts.Token);
+                    continuousReadTask = ContinuousReadLoop(continuousCts.Token);
 
                     btnReadModbus.BackColor = Color.Yellow;
                     btnReadModbus.Text = "停止读取";
@@ -1008,7 +1015,6 @@ namespace EncoderModbusTool
                 else
                 {
                     isContinuousReading = false;
-                    modbusMaster.EnableDataLog = true;
                     continuousCts?.Cancel();
                     btnReadModbus.BackColor = SystemColors.Control;
                     directionIndicator1.UpdateDirection(0, 0);
@@ -1043,11 +1049,15 @@ namespace EncoderModbusTool
             {
                 try
                 {
-                    DeviceData data =
-                        await Task.Run(() =>
-                        {
-                            return ReadDeviceData();
-                        });
+                    DeviceData data = await Task.Run(() =>
+                    {
+                        return ReadDeviceData();
+                    });
+
+                    // ReadDeviceData 执行期间可能已经点击了停止
+                    if (token.IsCancellationRequested)
+                        break;
+
                     if (data != null)
                     {
                         Invoke(new Action(() =>
@@ -1070,12 +1080,66 @@ namespace EncoderModbusTool
                         AddSystemLog("ERR", ex.Message);
                     }));
 
-                    await Task.Delay(50);
+                    try
+                    {
+                        await Task.Delay(50, token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
                 }
             }
         }
+        private async Task StopContinuousReadingAsync()
+        {
+            // 先关闭日志，防止最后一次通信产生 RX
+            modbusMaster.EnableDataLog = false;
 
-        private void cbContinuous_CheckedChanged(object sender, EventArgs e)
+            isContinuousReading = false;
+
+            directionIndicator1.UpdateDirection(0, 0);
+
+            // 请求停止
+            if (continuousCts != null)
+            {
+                continuousCts.Cancel();
+            }
+
+            // 等待当前 ContinuousReadLoop 完全结束
+            if (continuousReadTask != null)
+            {
+                try
+                {
+                    await continuousReadTask;
+                }
+                catch (OperationCanceledException)
+                {
+                }
+                catch (Exception ex)
+                {
+                    AddSystemLog("ERR", "停止连续读取失败: " + ex.Message);
+                }
+
+                continuousReadTask = null;
+            }
+
+            if (continuousCts != null)
+            {
+                continuousCts.Dispose();
+                continuousCts = null;
+            }
+
+            btnReadModbus.BackColor = SystemColors.Control;
+            btnReadModbus.Text = "开始读取";
+
+            // 确认连续读取彻底结束后，再恢复日志
+            modbusMaster.EnableDataLog = true;
+
+            AddSystemLog("INFO", "停止连续读取");
+        }
+
+        private async void cbContinuous_CheckedChanged(object sender, EventArgs e)
         {
             if (cbContinuous.Checked)
             {
@@ -1089,10 +1153,7 @@ namespace EncoderModbusTool
                     isContinuousReading = false;
                     directionIndicator1.UpdateDirection(0, 0);
                     continuousCts?.Cancel();
-                    if (modbusMaster != null)
-                    {
-                        modbusMaster.EnableDataLog = true;
-                    }
+                    await StopContinuousReadingAsync();
                     btnReadModbus.BackColor = SystemColors.Control;
                     btnReadModbus.Text = "开始读取";
                 }
@@ -1259,10 +1320,32 @@ namespace EncoderModbusTool
                     freeModeBuffer.RemoveAt(0);
                     continue;
                 }
-                int dataLen = freeModeBuffer[2];
-                // 幀長：
+                // =====================================================
+                // LEN 定义：
+                // LEN = LEN字段自身1字节 + DATA长度
+                // =====================================================
+
+                int lenField = freeModeBuffer[2];
+
+                if (lenField < 1)
+                {
+                    freeModeBuffer.RemoveAt(0);
+                    continue;
+                }
+
+                // 整帧：
+                //
                 // AB CD + LEN + DATA + SUM + XOR + END
-                int frameLen = 2 + 1 + dataLen + 3;
+                //
+                // 其中 LEN 已经包含 LEN 自己
+                //
+                // 所以：
+                // frameLen = 2 + lenField + 3
+                //
+                // 16bit: 2 + 5 + 3 = 10
+                // 32bit: 2 + 9 + 3 = 14
+                int frameLen = 2 + lenField + 3;
+
                 // 還沒收完整
                 if (freeModeBuffer.Count < frameLen)
                     return;
@@ -1274,10 +1357,18 @@ namespace EncoderModbusTool
                 if (frame[frame.Length - 1] != 0x3D)
                     continue;
                 // 這裡才是真正一幀
-                ReadFreeMode(frame);
+                // 根据 Enable32 选择解析方式
+                if (EncoderConfig.Is32BitMode)
+                {
+                    ReadFreeMode32Bit(frame);
+                }
+                else
+                {
+                    ReadFreeMode16Bit(frame);
+                }
             }
         }
-        private void ReadFreeMode(byte[] rx)
+        private void ReadFreeMode16Bit(byte[] rx)
         {
             if (rx == null || rx.Length < 8)
                 return;
@@ -1307,12 +1398,25 @@ namespace EncoderModbusTool
                 return;
             }
 
+            byte dataLen = rx[2];
 
             int multiBits = EncoderConfig.MultiTurnBits;
             int singleBits = EncoderConfig.SingleTurnBits;
             int multiBytes = multiBits > 16 ? 3 : 2;
             int singleBytes = singleBits > 16 ? 3 : 2;
             int expectedMinLen = 3 + multiBytes + singleBytes + 3;
+
+            int encoderDataLen = multiBytes + singleBytes;
+            // 长度字段 = 自身1字节 + 编码器数据长度
+            int expectedDataLen = 1 + encoderDataLen;
+
+            if (dataLen != expectedDataLen)
+            {
+                AddSystemLog("ERR",
+                    $"FreeMode Length Error: RX=0x{dataLen:X2}, Expected=0x{expectedDataLen:X2}");
+                return;
+            }
+
             if (rx.Length < expectedMinLen)
                 return;
 
@@ -1358,6 +1462,145 @@ namespace EncoderModbusTool
                 UpdateFreeModeUI(encoderValue, multiturn, singleturn, angle);
             }
         }
+        private void ReadFreeMode32Bit(byte[] rx)
+        {
+            if (rx == null || rx.Length < 5)
+                return;
+
+            // =========================================================
+            // 1. 帧头 / 帧尾
+            // =========================================================
+
+            if (rx[0] != EncoderConfig.Modbus.FreeData1 ||
+                rx[1] != EncoderConfig.Modbus.FreeData2)
+                return;
+
+            if (rx[rx.Length - 1] != EncoderConfig.Modbus.FreeData3)
+                return;
+
+            // =========================================================
+            // 2. 数据长度
+            // =========================================================
+
+            byte dataLen = rx[2];
+
+            // 整帧长度 = 2字节帧头 + DataLen + 2字节校验 + 1字节帧尾
+            if (rx.Length != dataLen + 5)
+            {
+                AddSystemLog(
+                    "ERR",
+                    $"FreeMode Length Error: RX Len={rx.Length}, DataLen=0x{dataLen:X2}");
+                return;
+            }
+
+            // =========================================================
+            // 3. SUM / XOR
+            // =========================================================
+
+            byte recvSum = rx[rx.Length - 3];
+            byte recvXor = rx[rx.Length - 2];
+
+            byte sum = 0;
+            byte xor = 0;
+
+            for (int i = 2; i < rx.Length - 3; i++)
+            {
+                sum += rx[i];
+                xor ^= rx[i];
+            }
+
+            if (sum != recvSum || xor != recvXor)
+            {
+                AddSystemLog(
+                    "ERR",
+                    $"FreeMode Check Error: SUM={sum:X2}/{recvSum:X2}, XOR={xor:X2}/{recvXor:X2}");
+                return;
+            }
+
+            // =========================================================
+            // 4. 32bit MultiTurn
+            // =========================================================
+
+            if (rx.Length < 14)
+                return;
+
+            uint multiturn =
+                ((uint)rx[3] << 24) |
+                ((uint)rx[4] << 16) |
+                ((uint)rx[5] << 8) |
+                rx[6];
+
+            // =========================================================
+            // 5. 32bit SingleTurn
+            // =========================================================
+
+            uint singleturn =
+                ((uint)rx[7] << 24) |
+                ((uint)rx[8] << 16) |
+                ((uint)rx[9] << 8) |
+                rx[10];
+
+            // =========================================================
+            // 6. Mask
+            // =========================================================
+
+            int multiBits = EncoderConfig.MultiTurnBits;
+            int singleBits = EncoderConfig.SingleTurnBits;
+
+            uint multiMask =
+                multiBits >= 32
+                    ? uint.MaxValue
+                    : (1U << multiBits) - 1U;
+
+            uint singleMask =
+                singleBits >= 32
+                    ? uint.MaxValue
+                    : (1U << singleBits) - 1U;
+
+            multiturn &= multiMask;
+            singleturn &= singleMask;
+
+            // =========================================================
+            // 7. 组合绝对位置
+            // =========================================================
+
+            ulong encoderValue =
+                ((ulong)multiturn << singleBits) |
+                singleturn;
+
+            // =========================================================
+            // 8. 角度
+            // =========================================================
+
+            double angle =
+                singleturn /
+                (double)(1UL << singleBits) *
+                360.0;
+
+            // =========================================================
+            // 9. UI
+            // =========================================================
+
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    UpdateFreeModeUI(
+                        encoderValue,
+                        multiturn,
+                        singleturn,
+                        angle);
+                }));
+            }
+            else
+            {
+                UpdateFreeModeUI(
+                    encoderValue,
+                    multiturn,
+                    singleturn,
+                    angle);
+            }
+        }
         private void ReadFreeModeOnce()
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
@@ -1384,7 +1627,7 @@ namespace EncoderModbusTool
                 Thread.Sleep(1);
             }
         }
-        private void UpdateFreeModeUI(uint encoderValue, uint multiturn, uint singleturn, double angle)
+        private void UpdateFreeModeUI(ulong encoderValue, uint multiturn, uint singleturn, double angle)
         {
             tbCfgMultiTurn.Text = multiturn.ToString();
             tbCfgSingleTurn.Text = singleturn.ToString();
@@ -1418,6 +1661,30 @@ namespace EncoderModbusTool
 
                 AddSystemLog("INFO", $"多圈位数已设置为 {EncoderConfig.MultiTurnBits} bit");
             }
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLanguage("en-GB");
+        }
+        private void chineseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLanguage("zh-CN");
+        }
+        private void francisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLanguage("fr-FR");
+        }
+
+        private void SetLanguage(string cultureName)
+        {
+            Properties.Settings.Default.Language = cultureName;
+            Properties.Settings.Default.Save();
+
+            Thread.CurrentThread.CurrentUICulture =
+                new CultureInfo(cultureName);
+
+            Application.Restart();
         }
     }
 }

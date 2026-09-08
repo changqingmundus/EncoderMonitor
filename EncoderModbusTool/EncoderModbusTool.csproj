@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ModbusMainForm.en-GB.resx">
+      <DependentUpon>ModbusMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModbusMainForm.fr.resx">
+      <DependentUpon>ModbusMainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModbusMainForm.resx">
       <DependentUpon>ModbusMainForm.cs</DependentUpon>
     </EmbeddedResource>

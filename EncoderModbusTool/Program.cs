@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using System.Globalization;
+using System.Threading;
 
 namespace EncoderModbusTool
 {
@@ -11,8 +17,17 @@ namespace EncoderModbusTool
         [STAThread]
         static void Main()
         {
+            string language = Properties.Settings.Default.Language;
+
+            if (string.IsNullOrEmpty(language))
+            {
+                language = "zh-CN";
+            }
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new ModbusMainForm());
         }
     }
