@@ -118,6 +118,258 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 27</value>
+  </data>
+  <data name="lblPort.Text" xml:space="preserve">
+    <value>COM</value>
+  </data>
+  <data name="lblBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 27</value>
+  </data>
+  <data name="lblBaudRate.Text" xml:space="preserve">
+    <value>BaudRate</value>
+  </data>
+  <data name="lblParity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 27</value>
+  </data>
+  <data name="lblParity.Text" xml:space="preserve">
+    <value>Parity</value>
+  </data>
+  <data name="btnOpenSerial.Text" xml:space="preserve">
+    <value>Open Port</value>
+  </data>
+  <data name="btnScanDevice.Text" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="btnStopScan.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt</value>
+  </data>
+  <data name="btnStopScan.Text" xml:space="preserve">
+    <value>Stop Scan</value>
+  </data>
+  <data name="lblcfgUploadTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 216</value>
+  </data>
+  <data name="lblcfgUploadTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 23</value>
+  </data>
+  <data name="lblcfgUploadTime.Text" xml:space="preserve">
+    <value>Upload Interval</value>
+  </data>
+  <data name="btnCfgResetOrigin.Text" xml:space="preserve">
+    <value>Reset Zero</value>
+  </data>
+  <data name="btnCfgChangeOrigin.Text" xml:space="preserve">
+    <value>Set Position</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.Text" xml:space="preserve">
+    <value>Set Up Interval</value>
+  </data>
+  <data name="btnCfgChangeDirection.Text" xml:space="preserve">
+    <value>Set Counter Dir</value>
+  </data>
+  <data name="btnCfgChangeParity.Text" xml:space="preserve">
+    <value>Set Parity</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.Text" xml:space="preserve">
+    <value>Set BaudRate</value>
+  </data>
+  <data name="btnCfgChangeSlaveID.Text" xml:space="preserve">
+    <value>Set Address ID</value>
+  </data>
+  <data name="btnCfgChangeMode.Text" xml:space="preserve">
+    <value>Set WorkMode</value>
+  </data>
+  <data name="lblcfgWorkMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 41</value>
+  </data>
+  <data name="lblcfgWorkMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 23</value>
+  </data>
+  <data name="lblcfgWorkMode.Text" xml:space="preserve">
+    <value>Work Mode</value>
+  </data>
+  <data name="lblcfgSlaveID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>49, 76</value>
+  </data>
+  <data name="lblcfgSlaveID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 23</value>
+  </data>
+  <data name="lblcfgSlaveID.Text" xml:space="preserve">
+    <value>Slave ID</value>
+  </data>
+  <data name="lblcfgBaudRate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 111</value>
+  </data>
+  <data name="lblcfgBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 23</value>
+  </data>
+  <data name="lblcfgBaudRate.Text" xml:space="preserve">
+    <value>Baud Rate</value>
+  </data>
+  <data name="lblcfgParameterHeader.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 6</value>
+  </data>
+  <data name="lblcfgParameterHeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 24</value>
+  </data>
+  <data name="lblcfgParameterHeader.Text" xml:space="preserve">
+    <value>Parameter List</value>
+  </data>
+  <data name="lblCfgCurrentValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>223, 6</value>
+  </data>
+  <data name="lblCfgCurrentValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 24</value>
+  </data>
+  <data name="lblCfgCurrentValue.Text" xml:space="preserve">
+    <value>Current Config</value>
+  </data>
+  <data name="lblCfgAction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>425, 6</value>
+  </data>
+  <data name="lblCfgAction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 24</value>
+  </data>
+  <data name="lblCfgAction.Text" xml:space="preserve">
+    <value>Apply Changes</value>
+  </data>
+  <data name="lblcfgParity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 146</value>
+  </data>
+  <data name="lblcfgParity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="lblcfgParity.Text" xml:space="preserve">
+    <value>Parity</value>
+  </data>
+  <data name="lblcfgDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 181</value>
+  </data>
+  <data name="lblcfgDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 23</value>
+  </data>
+  <data name="lblcfgDirection.Text" xml:space="preserve">
+    <value>Counter Direction</value>
+  </data>
+  <data name="lblcfgOriginPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 251</value>
+  </data>
+  <data name="lblcfgOriginPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 23</value>
+  </data>
+  <data name="lblcfgOriginPosition.Text" xml:space="preserve">
+    <value>Zero Position</value>
+  </data>
+  <data name="lblcfgResetOrigin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>38, 287</value>
+  </data>
+  <data name="lblcfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 23</value>
+  </data>
+  <data name="lblcfgResetOrigin.Text" xml:space="preserve">
+    <value>Reset Zero</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 27</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Single-turn</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 27</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Multi-turn</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 27</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Total Data</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 27</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>355, 65</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 27</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Rotation Speed</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 27</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="lblCfgScanProgress.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="lblCfgScanProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 39</value>
+  </data>
+  <data name="lblCfgScanProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 21</value>
+  </data>
+  <data name="lblCfgScanProgress.Text" xml:space="preserve">
+    <value>Scan Progress</value>
+  </data>
+  <data name="lblStatus.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>No Encoder detected,please scan device...</value>
+  </data>
+  <data name="btnCfgClearlog.Text" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="btnReadModbus.Text" xml:space="preserve">
+    <value>Start Read</value>
+  </data>
+  <data name="btnChangeMode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9pt</value>
+  </data>
+  <data name="btnChangeMode.Text" xml:space="preserve">
+    <value>Enable Free Mode</value>
+  </data>
+  <data name="btnRestartRead.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt</value>
+  </data>
+  <data name="btnRestartRead.Text" xml:space="preserve">
+    <value>Read Parameters</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 21</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ST Bits</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>67, 21</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>MT Bits</value>
+  </data>
+  <data name="文件ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 25</value>
+  </data>
+  <data name="文件ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="帮助ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 25</value>
+  </data>
+  <data name="帮助ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAcAEBAAAAEAIAA5AwAAdgAAABgYAAABACAAxAUAAK8DAAAgIAAAAQAgANwIAABzCQAAMDAAAAEA
@@ -2088,5 +2340,8 @@
         4MKzwqsFXuXAtycHXjUA357j+mqvXuXAc+LA/x8AAP//Eel86wAAAAZJREFUAwBYfGbZKZh7RgAAAABJ
         RU5ErkJggg==
 </value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Modbus Tool V1.0 Shanghai Hengxiang Optical</value>
   </data>
 </root>

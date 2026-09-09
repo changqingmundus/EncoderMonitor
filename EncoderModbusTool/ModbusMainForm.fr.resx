@@ -117,7 +117,428 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblPort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 27</value>
+  </data>
+  <data name="lblPort.Text" xml:space="preserve">
+    <value>COM</value>
+  </data>
+  <data name="lblBaudRate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 27</value>
+  </data>
+  <data name="lblBaudRate.Text" xml:space="preserve">
+    <value>Vitesse</value>
+  </data>
+  <data name="lblParity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblParity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 27</value>
+  </data>
+  <data name="lblParity.Text" xml:space="preserve">
+    <value>Parite</value>
+  </data>
+  <data name="btnOpenSerial.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnOpenSerial.Text" xml:space="preserve">
+    <value>Ouvrir port</value>
+  </data>
+  <data name="btnScanDevice.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt</value>
+  </data>
+  <data name="btnScanDevice.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnScanDevice.Text" xml:space="preserve">
+    <value>Scan App.</value>
+  </data>
+  <data name="btnStopScan.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnStopScan.Text" xml:space="preserve">
+    <value>Arreter</value>
+  </data>
+  <data name="lblcfgUploadTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgUploadTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 216</value>
+  </data>
+  <data name="lblcfgUploadTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 23</value>
+  </data>
+  <data name="lblcfgUploadTime.Text" xml:space="preserve">
+    <value>Intervalle d'envoi</value>
+  </data>
+  <data name="btnCfgResetOrigin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgResetOrigin.Text" xml:space="preserve">
+    <value>Reinitialiser</value>
+  </data>
+  <data name="btnCfgChangeOrigin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeOrigin.Text" xml:space="preserve">
+    <value>Modifier(zero)</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.Text" xml:space="preserve">
+    <value>Modifier(intervalle)</value>
+  </data>
+  <data name="btnCfgChangeDirection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeDirection.Text" xml:space="preserve">
+    <value>Modifier(sens)</value>
+  </data>
+  <data name="btnCfgChangeParity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeParity.Text" xml:space="preserve">
+    <value>Modifier(parite)</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.Text" xml:space="preserve">
+    <value>Modifier(vitesse)</value>
+  </data>
+  <data name="btnCfgChangeSlaveID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeSlaveID.Text" xml:space="preserve">
+    <value>Modifier(adresse)</value>
+  </data>
+  <data name="btnCfgChangeMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgChangeMode.Text" xml:space="preserve">
+    <value>Modifier(mode)</value>
+  </data>
+  <data name="lblcfgWorkMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgWorkMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 41</value>
+  </data>
+  <data name="lblcfgWorkMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 23</value>
+  </data>
+  <data name="lblcfgWorkMode.Text" xml:space="preserve">
+    <value>Mode de travail</value>
+  </data>
+  <data name="lblcfgSlaveID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgSlaveID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 76</value>
+  </data>
+  <data name="lblcfgSlaveID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 23</value>
+  </data>
+  <data name="lblcfgSlaveID.Text" xml:space="preserve">
+    <value>Addresse esclave</value>
+  </data>
+  <data name="lblcfgBaudRate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgBaudRate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 111</value>
+  </data>
+  <data name="lblcfgBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 23</value>
+  </data>
+  <data name="lblcfgBaudRate.Text" xml:space="preserve">
+    <value>Vitesse de transmit</value>
+  </data>
+  <data name="lblcfgParameterHeader.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt, style=Bold</value>
+  </data>
+  <data name="lblcfgParameterHeader.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgParameterHeader.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 8</value>
+  </data>
+  <data name="lblcfgParameterHeader.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 19</value>
+  </data>
+  <data name="lblcfgParameterHeader.Text" xml:space="preserve">
+    <value>Liste des parametres</value>
+  </data>
+  <data name="lblCfgCurrentValue.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCfgCurrentValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>221, 6</value>
+  </data>
+  <data name="lblCfgCurrentValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 24</value>
+  </data>
+  <data name="lblCfgCurrentValue.Text" xml:space="preserve">
+    <value>Config.actuelle</value>
+  </data>
+  <data name="lblCfgAction.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCfgAction.Location" type="System.Drawing.Point, System.Drawing">
+    <value>447, 6</value>
+  </data>
+  <data name="lblCfgAction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 24</value>
+  </data>
+  <data name="lblCfgAction.Text" xml:space="preserve">
+    <value>Appliquer</value>
+  </data>
+  <data name="lblcfgParity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgParity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>59, 146</value>
+  </data>
+  <data name="lblcfgParity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 23</value>
+  </data>
+  <data name="lblcfgParity.Text" xml:space="preserve">
+    <value>Parite</value>
+  </data>
+  <data name="lblcfgDirection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 181</value>
+  </data>
+  <data name="lblcfgDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 23</value>
+  </data>
+  <data name="lblcfgDirection.Text" xml:space="preserve">
+    <value>Sens de comptage</value>
+  </data>
+  <data name="lblcfgOriginPosition.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgOriginPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 251</value>
+  </data>
+  <data name="lblcfgOriginPosition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 23</value>
+  </data>
+  <data name="lblcfgOriginPosition.Text" xml:space="preserve">
+    <value>Position zero</value>
+  </data>
+  <data name="lblcfgResetOrigin.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblcfgResetOrigin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 287</value>
+  </data>
+  <data name="lblcfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 23</value>
+  </data>
+  <data name="lblcfgResetOrigin.Text" xml:space="preserve">
+    <value>Reinitialiser</value>
+  </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="textBox_cfgResolution.Text" xml:space="preserve">
+    <value>Resolution max</value>
+  </data>
+  <data name="label_cfgAngle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label_cfgResolution.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label_cfgBinary.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label_cfgBinary.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 20</value>
+  </data>
+  <data name="label_cfgBinary.Text" xml:space="preserve">
+    <value>Binaire</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 22</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Simple tour</value>
+  </data>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 22</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Multi tours</value>
+  </data>
+  <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Donnees totales</value>
+  </data>
+  <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 22</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Vitesse de rotation</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt, style=Bold</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 22</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Sens de rotation</value>
+  </data>
+  <data name="lblCfgRtDirection.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCfgSpeed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="progressScan.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCfgScanProgress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCfgScanProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 27</value>
+  </data>
+  <data name="lblCfgScanProgress.Text" xml:space="preserve">
+    <value>Progression</value>
+  </data>
+  <data name="lblStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblStatus.Text" xml:space="preserve">
+    <value>Ancun codeur detecte...</value>
+  </data>
+  <data name="btnCfgClearlog.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnCfgClearlog.Text" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="btnReadModbus.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 10pt</value>
+  </data>
+  <data name="btnReadModbus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnReadModbus.Text" xml:space="preserve">
+    <value>Lancer la lecture</value>
+  </data>
+  <data name="btnChangeMode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnChangeMode.Text" xml:space="preserve">
+    <value>En mode libre</value>
+  </data>
+  <data name="cbContinuous.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnRestartRead.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnRestartRead.Text" xml:space="preserve">
+    <value>Relire</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>239, 88</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 21</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Bits Simple</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 21</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Bits Multi</value>
+  </data>
+  <data name="文件ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 25</value>
+  </data>
+  <data name="文件ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+  <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 25</value>
+  </data>
+  <data name="languageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="帮助ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 25</value>
+  </data>
+  <data name="帮助ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+  <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAcAEBAAAAEAIAA5AwAAdgAAABgYAAABACAAxAUAAK8DAAAgIAAAAQAgANwIAABzCQAAMDAAAAEA

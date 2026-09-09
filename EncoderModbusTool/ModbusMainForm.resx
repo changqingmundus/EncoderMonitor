@@ -123,9 +123,6 @@
   <data name="&gt;&gt;cmbPort.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;txtCfgSlaveID.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lblcfgWorkMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 23</value>
@@ -133,8 +130,8 @@
   <data name="&gt;&gt;btnCfgChangeOrigin.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
   </data>
-  <data name="cmbSingleTurn.Items5" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;btnCfgChangeOrigin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cbContinuous.Size" type="System.Drawing.Size, System.Drawing">
     <value>136, 29</value>
@@ -158,13 +155,6 @@
   <data name="&gt;&gt;cmbMultiTurn.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="pictureBox1.InitialImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="rtbDataLog.Text" xml:space="preserve">
-    <value />
-  </data>
   <data name="&gt;&gt;btnCfgResetOrigin.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
@@ -180,11 +170,12 @@
   <data name="elementHostcfgAngle.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 300</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnCfgChangeBaudRate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="chineseToolStripMenuItem.Text" xml:space="preserve">
-    <value>简体中文</value>
+  <data name="cmbSingleTurn.Items11" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="rtbCommLog.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -194,9 +185,6 @@
   </data>
   <data name="elementHostcfgAngle.Text" xml:space="preserve">
     <value>elementHostAngle</value>
-  </data>
-  <data name="&gt;&gt;关于ToolStripMenuItem.Name" xml:space="preserve">
-    <value>关于ToolStripMenuItem</value>
   </data>
   <data name="btnCfgChangeDirection.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -219,8 +207,8 @@
   <data name="&gt;&gt;lblCfgAction.Name" xml:space="preserve">
     <value>lblCfgAction</value>
   </data>
-  <data name="&gt;&gt;btnCfgChangeDirection.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>总数据</value>
   </data>
   <data name="&gt;&gt;label_cfgBinary.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -234,9 +222,6 @@
   <data name="lblcfgUploadTime.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>总数据</value>
-  </data>
   <data name="&gt;&gt;btnScanDevice.ZOrder" xml:space="preserve">
     <value>39</value>
   </data>
@@ -246,8 +231,8 @@
   <data name="lblcfgParameterHeader.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="textBox_cfgResolution.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+  <data name="cmbCfgBaudRate.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
   </data>
   <data name="cmbMultiTurn.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 27</value>
@@ -258,17 +243,17 @@
   <data name="&gt;&gt;cbContinuous.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="textBox_cfgAngle.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
   <data name="tlpCfgParameter.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;label_cfgAngle.Name" xml:space="preserve">
-    <value>label_cfgAngle</value>
+  <data name="&gt;&gt;tbCfgAngle.Name" xml:space="preserve">
+    <value>tbCfgAngle</value>
   </data>
   <data name="cmbMultiTurn.Items22" xml:space="preserve">
     <value>22</value>
-  </data>
-  <data name="label_cfgResolution.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
   </data>
   <data name="rtbDataLog.Size" type="System.Drawing.Size, System.Drawing">
     <value>348, 128</value>
@@ -279,8 +264,11 @@
   <data name="cmbSingleTurn.Items15" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="cmbCfgDirection.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
+  <data name="&gt;&gt;lblcfgDirection.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="cmbParity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 163</value>
   </data>
   <data name="&gt;&gt;btnCfgChangeMode.Name" xml:space="preserve">
     <value>btnCfgChangeMode</value>
@@ -300,17 +288,20 @@
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 21</value>
   </data>
+  <data name="cmbCfgOriginPosition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 249</value>
+  </data>
   <data name="tbCfgEncoderValue.Location" type="System.Drawing.Point, System.Drawing">
     <value>525, 169</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeMode.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="&gt;&gt;btnCfgChangeBaudRate.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
   </data>
-  <data name="lblCfgRtDirection.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="&gt;&gt;lblStatus.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="cmbPort.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;lblCfgRtDirection.Parent" xml:space="preserve">
     <value>$this</value>
@@ -327,8 +318,8 @@
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
-  <data name="textBox_cfgResolution.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 30</value>
+  <data name="englishToolStripMenuItem.Text" xml:space="preserve">
+    <value>English</value>
   </data>
   <data name="lblcfgResetOrigin.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -341,6 +332,9 @@
   </data>
   <data name="btnCfgChangeParity.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 28</value>
+  </data>
+  <data name="cmbSingleTurn.Items5" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="cmbPort.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 9.75pt, style=Bold</value>
@@ -357,8 +351,11 @@
   <data name="cmbParity.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 9.75pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;cmbCfgWorkMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label_cfgAngle.Name" xml:space="preserve">
+    <value>label_cfgAngle</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnRestartRead.Parent" xml:space="preserve">
     <value>$this</value>
@@ -375,8 +372,8 @@
   <data name="cmbMultiTurn.Items13" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="&gt;&gt;elementHostcfgAngle.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;lblcfgOriginPosition.Name" xml:space="preserve">
+    <value>lblcfgOriginPosition</value>
   </data>
   <data name="&gt;&gt;lblcfgParity.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -384,11 +381,11 @@
   <data name="textBox_cfgAngle.Location" type="System.Drawing.Point, System.Drawing">
     <value>98, 722</value>
   </data>
-  <data name="btnChangeMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>789, 130</value>
+  <data name="cmbMultiTurn.Items25" xml:space="preserve">
+    <value>25</value>
   </data>
-  <data name="cmbParity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 27</value>
+  <data name="cmbMultiTurn.Items15" xml:space="preserve">
+    <value>15</value>
   </data>
   <data name="cmbCfgDirection.Items1" xml:space="preserve">
     <value>CCW(逆时针递增)</value>
@@ -408,8 +405,8 @@
   <data name="cmbSingleTurn.Items10" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="cmbSingleTurn.Items11" xml:space="preserve">
-    <value>11</value>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;tlpCfgParameter.ZOrder" xml:space="preserve">
     <value>37</value>
@@ -423,17 +420,17 @@
   <data name="cmbSingleTurn.Items18" xml:space="preserve">
     <value>18</value>
   </data>
-  <data name="btnCfgChangeBaudRate.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt</value>
+  <data name="cmbSingleTurn.Items19" xml:space="preserve">
+    <value>19</value>
   </data>
   <data name="cmbCfgOriginPosition.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="&gt;&gt;francisToolStripMenuItem.Name" xml:space="preserve">
+    <value>francisToolStripMenuItem</value>
+  </data>
   <data name="lblcfgSlaveID.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 12.75pt</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="lblcfgWorkMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>48, 41</value>
@@ -453,8 +450,8 @@
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
-  <data name="&gt;&gt;tbCfgSingleTurn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="cmbCfgDirection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
   </data>
   <data name="menuStrip1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft YaHei UI, 12pt</value>
@@ -462,14 +459,14 @@
   <data name="&gt;&gt;btnReadModbus.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="tbCfgAngle.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+  <data name="label_cfgAngle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>隶书, 15pt, style=Bold</value>
   </data>
-  <data name="&gt;&gt;tbCfgEncoderValue.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="cmbSingleTurn.Items1" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="cmbBaudRate.Items" xml:space="preserve">
-    <value>1200</value>
+  <data name="&gt;&gt;btnCfgChangeBaudRate.Name" xml:space="preserve">
+    <value>btnCfgChangeBaudRate</value>
   </data>
   <data name="&gt;&gt;textBox_cfgResolution.ZOrder" xml:space="preserve">
     <value>32</value>
@@ -492,11 +489,11 @@
   <data name="&gt;&gt;cmbCfgBaudRate.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cmbParity.Name" xml:space="preserve">
-    <value>cmbParity</value>
+  <data name="cmbBaudRate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt, style=Bold</value>
   </data>
-  <data name="tbCfgEncoderValue.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
+  <data name="cmbBaudRate.Items3" xml:space="preserve">
+    <value>9600</value>
   </data>
   <data name="btnCfgChangeOrigin.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 28</value>
@@ -513,8 +510,8 @@
   <data name="lblcfgSlaveID.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="elementHostcfgAngle.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="tbCfgAngle.Text" xml:space="preserve">
+    <value>Angle</value>
   </data>
   <data name="&gt;&gt;textBox_cfgBinary.Parent" xml:space="preserve">
     <value>$this</value>
@@ -534,9 +531,6 @@
   <data name="lblcfgWorkMode.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="cmbMultiTurn.Items8" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="lblcfgSlaveID.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -552,17 +546,11 @@
   <data name="lblcfgUploadTime.Location" type="System.Drawing.Point, System.Drawing">
     <value>48, 216</value>
   </data>
-  <data name="&gt;&gt;btnCfgChangeOrigin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="cmbSingleTurn.Items16" xml:space="preserve">
     <value>16</value>
-  </data>
-  <data name="lblCfgRtDirection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>378, 245</value>
-  </data>
-  <data name="lblcfgBaudRate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 23</value>
   </data>
   <data name="btnCfgChangeSlaveID.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 28</value>
@@ -576,17 +564,17 @@
   <data name="&gt;&gt;tbCfgMultiTurn.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
-  <data name="&gt;&gt;textBox_cfgBinary.Name" xml:space="preserve">
-    <value>textBox_cfgBinary</value>
-  </data>
   <data name="elementHost1.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
-  <data name="&gt;&gt;txtCfgSlaveID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;关于ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;francisToolStripMenuItem.Name" xml:space="preserve">
-    <value>francisToolStripMenuItem</value>
+  <data name="&gt;&gt;btnOpenSerial.Name" xml:space="preserve">
+    <value>btnOpenSerial</value>
+  </data>
+  <data name="lblCfgRtDirection.Text" xml:space="preserve">
+    <value>Stop</value>
   </data>
   <data name="label8.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 12pt</value>
@@ -600,8 +588,8 @@
   <data name="&gt;&gt;lblcfgWorkMode.Name" xml:space="preserve">
     <value>lblcfgWorkMode</value>
   </data>
-  <data name="cmbCfgWorkMode.Items1" xml:space="preserve">
-    <value>FreeMode</value>
+  <data name="&gt;&gt;txtCfgSlaveID.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
   </data>
   <data name="btnCfgResetOrigin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -612,17 +600,20 @@
   <data name="&gt;&gt;cmbCfgWorkMode.Name" xml:space="preserve">
     <value>cmbCfgWorkMode</value>
   </data>
+  <data name="&gt;&gt;lblcfgParity.Name" xml:space="preserve">
+    <value>lblcfgParity</value>
+  </data>
   <data name="&gt;&gt;rtbDataLog.Type" xml:space="preserve">
     <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 27</value>
+  <data name="label_cfgResolution.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
   <data name="cbContinuous.Text" xml:space="preserve">
     <value>Continuous</value>
   </data>
-  <data name="&gt;&gt;txtCfgUploadTime.ZOrder" xml:space="preserve">
-    <value>24</value>
+  <data name="&gt;&gt;btnReadModbus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnCfgChangeUploadTime.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 9.75pt</value>
@@ -630,17 +621,14 @@
   <data name="&gt;&gt;lblCfgCurrentValue.Name" xml:space="preserve">
     <value>lblCfgCurrentValue</value>
   </data>
-  <data name="&gt;&gt;rtbDataLog.Name" xml:space="preserve">
-    <value>rtbDataLog</value>
-  </data>
   <data name="&gt;&gt;label12.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
   </data>
   <data name="cmbBaudRate.Items2" xml:space="preserve">
     <value>4800</value>
   </data>
-  <data name="lblcfgResetOrigin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
+  <data name="francisToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 26</value>
   </data>
   <data name="&gt;&gt;englishToolStripMenuItem.Name" xml:space="preserve">
     <value>englishToolStripMenuItem</value>
@@ -657,8 +645,8 @@
   <data name="btnRestartRead.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 35</value>
   </data>
-  <data name="&gt;&gt;lblBaudRate.Name" xml:space="preserve">
-    <value>lblBaudRate</value>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>249, 88</value>
   </data>
   <data name="elementHostcfgAngle.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 320</value>
@@ -681,14 +669,17 @@
   <data name="&gt;&gt;btnCfgChangeSlaveID.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="&gt;&gt;btnCfgResetOrigin.Name" xml:space="preserve">
-    <value>btnCfgResetOrigin</value>
+  <data name="&gt;&gt;cmbParity.Name" xml:space="preserve">
+    <value>cmbParity</value>
   </data>
   <data name="cmbCfgWorkMode.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 90</value>
+  <data name="lblCfgScanProgress.Text" xml:space="preserve">
+    <value>扫描进度</value>
+  </data>
+  <data name="tbCfgEncoderValue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
   </data>
   <data name="&gt;&gt;cmbParity.ZOrder" xml:space="preserve">
     <value>41</value>
@@ -702,8 +693,11 @@
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="btnCfgClearlog.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="cmbBaudRate.Items" xml:space="preserve">
+    <value>1200</value>
+  </data>
+  <data name="textBox_cfgResolution.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 15pt</value>
   </data>
   <data name="&gt;&gt;lblCfgAction.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
@@ -720,14 +714,14 @@
   <data name="&gt;&gt;elementHostcfgAngle.Name" xml:space="preserve">
     <value>elementHostcfgAngle</value>
   </data>
+  <data name="&gt;&gt;lblcfgParameterHeader.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;btnCfgChangeParity.Name" xml:space="preserve">
     <value>btnCfgChangeParity</value>
   </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 196</value>
-  </data>
-  <data name="&gt;&gt;textBox_cfgResolution.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;txtCfgUploadTime.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -750,14 +744,17 @@
   <data name="btnOpenSerial.Text" xml:space="preserve">
     <value>打开串口</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>单圈</value>
+  <data name="&gt;&gt;lblcfgOriginPosition.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="lblCfgRtDirection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>378, 245</value>
   </data>
   <data name="btnScanDevice.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 257</value>
   </data>
-  <data name="label_cfgBinary.Text" xml:space="preserve">
-    <value>Binary</value>
+  <data name="btnCfgClearlog.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="textBox_cfgBinary.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -777,23 +774,26 @@
   <data name="btnCfgClearlog.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
   </data>
-  <data name="cmbMultiTurn.Items30" xml:space="preserve">
-    <value>32</value>
-  </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>949, 29</value>
   </data>
   <data name="lblcfgWorkMode.Text" xml:space="preserve">
     <value>工作模式</value>
   </data>
-  <data name="&gt;&gt;txtCfgUploadTime.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
+  <data name="&gt;&gt;btnCfgChangeParity.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;cmbPort.ZOrder" xml:space="preserve">
     <value>43</value>
   </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>360, 209</value>
+  </data>
   <data name="&gt;&gt;lblCfgScanProgress.Name" xml:space="preserve">
     <value>lblCfgScanProgress</value>
+  </data>
+  <data name="btnChangeMode.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
   </data>
   <data name="cmbMultiTurn.Items" xml:space="preserve">
     <value>0</value>
@@ -820,9 +820,6 @@
     <value>更改地址</value>
   </data>
   <data name="&gt;&gt;lblCfgSpeed.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnCfgClearlog.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblParity.Type" xml:space="preserve">
@@ -861,8 +858,8 @@
   <data name="lblCfgScanProgress.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 90</value>
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -955,11 +952,11 @@ tion</value>
   <data name="lblCfgCurrentValue.Location" type="System.Drawing.Point, System.Drawing">
     <value>226, 6</value>
   </data>
-  <data name="tbCfgMultiTurn.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 12</value>
   </data>
-  <data name="&gt;&gt;btnOpenSerial.Name" xml:space="preserve">
-    <value>btnOpenSerial</value>
+  <data name="&gt;&gt;btnCfgClearlog.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;textBox_cfgBinary.ZOrder" xml:space="preserve">
     <value>33</value>
@@ -973,6 +970,9 @@ tion</value>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="tlpCfgParameter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>582, 318</value>
+  </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
@@ -981,6 +981,9 @@ tion</value>
   </data>
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="lblCfgRtDirection.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="lblParity.Text" xml:space="preserve">
     <value>校验位</value>
@@ -1018,23 +1021,20 @@ tion</value>
   <data name="lblCfgRtDirection.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>249, 88</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;btnCfgResetOrigin.Name" xml:space="preserve">
+    <value>btnCfgResetOrigin</value>
   </data>
   <data name="&gt;&gt;btnCfgResetOrigin.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
   </data>
-  <data name="&gt;&gt;cmbMultiTurn.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;elementHostcfgAngle.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;languageToolStripMenuItem.Name" xml:space="preserve">
+    <value>languageToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;文件ToolStripMenuItem.Name" xml:space="preserve">
     <value>文件ToolStripMenuItem</value>
-  </data>
-  <data name="francisToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 26</value>
   </data>
   <data name="cmbCfgWorkMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 29</value>
@@ -1072,23 +1072,20 @@ tion</value>
   <data name="tbCfgMultiTurn.Text" xml:space="preserve">
     <value>MultiTurn</value>
   </data>
-  <data name="&gt;&gt;btnOpenSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
+  <data name="cmbSingleTurn.Items6" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="btnOpenSerial.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 11pt</value>
+  </data>
+  <data name="lblParity.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
   </data>
   <data name="&gt;&gt;label_cfgResolution.ZOrder" xml:space="preserve">
     <value>35</value>
   </data>
   <data name="lblCfgAction.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>249, 142</value>
   </data>
   <data name="&gt;&gt;cmbCfgDirection.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1105,23 +1102,20 @@ tion</value>
   <data name="lblParity.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lblcfgOriginPosition.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="帮助ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 25</value>
   </data>
-  <data name="tbCfgSingleTurn.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+  <data name="tbCfgMultiTurn.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
   <data name="btnCfgResetOrigin.Text" xml:space="preserve">
     <value>重设原点</value>
   </data>
-  <data name="帮助ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 25</value>
-  </data>
   <data name="cmbSingleTurn.Items4" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;elementHostcfgAngle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Integration.ElementHost, WindowsFormsIntegration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  <data name="btnCfgChangeBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 28</value>
   </data>
   <data name="&gt;&gt;lblCfgAction.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1177,8 +1171,8 @@ tion</value>
   <data name="cmbCfgBaudRate.Items3" xml:space="preserve">
     <value>9600</value>
   </data>
-  <data name="cmbPort.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="cmbCfgBaudRate.Items2" xml:space="preserve">
+    <value>4800</value>
   </data>
   <data name="cmbCfgBaudRate.Items1" xml:space="preserve">
     <value>2400</value>
@@ -1204,8 +1198,8 @@ tion</value>
   <data name="btnCfgChangeBaudRate.Text" xml:space="preserve">
     <value>更改波特率</value>
   </data>
-  <data name="btnChangeMode.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="lblcfgUploadTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 23</value>
@@ -1213,8 +1207,8 @@ tion</value>
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="btnCfgChangeSlaveID.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;lblBaudRate.Name" xml:space="preserve">
+    <value>lblBaudRate</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 27</value>
@@ -1222,11 +1216,11 @@ tion</value>
   <data name="btnCfgChangeDirection.Text" xml:space="preserve">
     <value>更改计数方向</value>
   </data>
-  <data name="&gt;&gt;label_cfgBinary.Name" xml:space="preserve">
-    <value>label_cfgBinary</value>
+  <data name="tlpCfgParameter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>355, 300</value>
   </data>
-  <data name="englishToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 26</value>
+  <data name="&gt;&gt;elementHostcfgAngle.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;lblCfgSpeed.Name" xml:space="preserve">
     <value>lblCfgSpeed</value>
@@ -1237,8 +1231,8 @@ tion</value>
   <data name="cmbParity.Items2" xml:space="preserve">
     <value>Odd</value>
   </data>
-  <data name="cmbSingleTurn.Items29" xml:space="preserve">
-    <value>29</value>
+  <data name="tbCfgAngle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
   </data>
   <data name="lblcfgUploadTime.Text" xml:space="preserve">
     <value>上传时间</value>
@@ -1246,20 +1240,17 @@ tion</value>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>11, 717</value>
   </data>
-  <data name="tlpCfgParameter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 300</value>
-  </data>
   <data name="txtCfgSlaveID.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 29</value>
-  </data>
-  <data name="&gt;&gt;btnRestartRead.Name" xml:space="preserve">
-    <value>btnRestartRead</value>
   </data>
   <data name="lblcfgDirection.Location" type="System.Drawing.Point, System.Drawing">
     <value>48, 181</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>圈数</value>
+  </data>
+  <data name="tbCfgSingleTurn.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
   </data>
   <data name="rtbDataLog.Location" type="System.Drawing.Point, System.Drawing">
     <value>589, 624</value>
@@ -1270,11 +1261,14 @@ tion</value>
   <data name="label_cfgResolution.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 677</value>
   </data>
+  <data name="tbCfgSingleTurn.Text" xml:space="preserve">
+    <value>SingleTurn</value>
+  </data>
   <data name="cmbSingleTurn.Items" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label_cfgAngle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 725</value>
+  <data name="&gt;&gt;cmbCfgWorkMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblcfgOriginPosition.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1287,12 +1281,6 @@ tion</value>
   </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cmbMultiTurn.Items6" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="cmbCfgDirection.Location" type="System.Drawing.Point, System.Drawing">
     <value>206, 179</value>
@@ -1309,20 +1297,20 @@ tion</value>
   <data name="&gt;&gt;lblStatus.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="chineseToolStripMenuItem.Text" xml:space="preserve">
+    <value>简体中文</value>
   </data>
   <data name="textBox_cfgBinary.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 12pt, style=Bold</value>
   </data>
-  <data name="lblCfgRtDirection.Text" xml:space="preserve">
-    <value>Stop</value>
+  <data name="englishToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 26</value>
+  </data>
+  <data name="&gt;&gt;txtCfgUploadTime.Name" xml:space="preserve">
+    <value>txtCfgUploadTime</value>
   </data>
   <data name="&gt;&gt;tbCfgMultiTurn.Name" xml:space="preserve">
     <value>tbCfgMultiTurn</value>
-  </data>
-  <data name="label_cfgBinary.Font" type="System.Drawing.Font, System.Drawing">
-    <value>隶书, 15pt, style=Bold</value>
   </data>
   <data name="&gt;&gt;btnCfgChangeBaudRate.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -1341,9 +1329,6 @@ tion</value>
   </data>
   <data name="&gt;&gt;cmbPort.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbMultiTurn.Items2" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="&gt;&gt;tbCfgSingleTurn.ZOrder" xml:space="preserve">
     <value>29</value>
@@ -1390,11 +1375,14 @@ tion</value>
   <data name="&gt;&gt;lblcfgUploadTime.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;btnOpenSerial.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="cmbSingleTurn.Items28" xml:space="preserve">
     <value>28</value>
   </data>
-  <data name="tbCfgAngle.Text" xml:space="preserve">
-    <value>Angle</value>
+  <data name="cmbSingleTurn.Items29" xml:space="preserve">
+    <value>29</value>
   </data>
   <data name="&gt;&gt;btnCfgChangeDirection.Name" xml:space="preserve">
     <value>btnCfgChangeDirection</value>
@@ -1423,7 +1411,10 @@ tion</value>
   <data name="&gt;&gt;textBox_cfgAngle.ZOrder" xml:space="preserve">
     <value>31</value>
   </data>
-  <data name="&gt;&gt;textBox_cfgAngle.Parent" xml:space="preserve">
+  <data name="&gt;&gt;txtCfgSlaveID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rtbCommLog.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="btnCfgResetOrigin.TabIndex" type="System.Int32, mscorlib">
@@ -1432,20 +1423,14 @@ tion</value>
   <data name="&gt;&gt;languageToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="cmbSingleTurn.Items6" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="tbCfgEncoderValue.Size" type="System.Drawing.Size, System.Drawing">
     <value>242, 34</value>
   </data>
-  <data name="lblCfgScanProgress.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>单圈</value>
   </data>
   <data name="tbCfgSingleTurn.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeParity.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="cmbSingleTurn.Items2" xml:space="preserve">
     <value>2</value>
@@ -1495,11 +1480,11 @@ tion</value>
   <data name="&gt;&gt;cmbBaudRate.Name" xml:space="preserve">
     <value>cmbBaudRate</value>
   </data>
-  <data name="cmbMultiTurn.Items1" xml:space="preserve">
-    <value>1</value>
+  <data name="label_cfgBinary.Text" xml:space="preserve">
+    <value>Binary</value>
   </data>
-  <data name="tbCfgMultiTurn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>660, 95</value>
+  <data name="&gt;&gt;lblcfgOriginPosition.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1510,6 +1495,9 @@ tion</value>
   <data name="&gt;&gt;lblcfgUploadTime.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;cmbCfgBaudRate.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
   <data name="rtbDataLog.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
   </data>
@@ -1519,8 +1507,8 @@ tion</value>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
   </data>
-  <data name="btnReadModbus.Text" xml:space="preserve">
-    <value>开始读取</value>
+  <data name="btnRestartRead.Location" type="System.Drawing.Point, System.Drawing">
+    <value>792, 258</value>
   </data>
   <data name="lblParity.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 27</value>
@@ -1531,14 +1519,8 @@ tion</value>
   <data name="btnReadModbus.Location" type="System.Drawing.Point, System.Drawing">
     <value>789, 168</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
   <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 25</value>
-  </data>
-  <data name="btnCfgChangeBaudRate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 28</value>
   </data>
   <data name="elementHost1.Location" type="System.Drawing.Point, System.Drawing">
     <value>236, 209</value>
@@ -1561,6 +1543,9 @@ tion</value>
   <data name="&gt;&gt;label_cfgAngle.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1573,14 +1558,14 @@ tion</value>
   <data name="cmbCfgParity.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="textBox_cfgAngle.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 196</value>
   </data>
   <data name="lblcfgParity.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="&gt;&gt;cmbCfgBaudRate.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
+  <data name="&gt;&gt;lblCfgRtDirection.ZOrder" xml:space="preserve">
+    <value>19</value>
   </data>
   <data name="lblBaudRate.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1606,8 +1591,8 @@ tion</value>
   <data name="cmbCfgWorkMode.Items" xml:space="preserve">
     <value>ModBus RTU</value>
   </data>
-  <data name="tbCfgSingleTurn.Text" xml:space="preserve">
-    <value>SingleTurn</value>
+  <data name="&gt;&gt;tbCfgSingleTurn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnCfgClearlog.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 30</value>
@@ -1615,11 +1600,11 @@ tion</value>
   <data name="&gt;&gt;cmbCfgBaudRate.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblcfgSlaveID.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
-  <data name="&gt;&gt;btnCfgChangeBaudRate.Name" xml:space="preserve">
-    <value>btnCfgChangeBaudRate</value>
+  <data name="&gt;&gt;txtCfgUploadTime.ZOrder" xml:space="preserve">
+    <value>24</value>
   </data>
   <data name="&gt;&gt;panel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1629,6 +1614,9 @@ tion</value>
   </data>
   <data name="cmbCfgBaudRate.Location" type="System.Drawing.Point, System.Drawing">
     <value>206, 109</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblBaudRate.Location" type="System.Drawing.Point, System.Drawing">
     <value>25, 112</value>
@@ -1645,8 +1633,8 @@ tion</value>
   <data name="cmbCfgBaudRate.Items" xml:space="preserve">
     <value>1200</value>
   </data>
-  <data name="btnCfgChangeMode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt</value>
+  <data name="label_cfgAngle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="lblPort.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1660,17 +1648,17 @@ tion</value>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
   </data>
+  <data name="progressScan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>299, 23</value>
+  </data>
   <data name="lblParity.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="label_cfgAngle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>隶书, 15pt, style=Bold</value>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
   </data>
-  <data name="btnChangeMode.Text" xml:space="preserve">
-    <value>开启自由模式</value>
-  </data>
-  <data name="btnCfgChangeOrigin.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="btnCfgChangeSlaveID.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="rtbCommLog.Text" xml:space="preserve">
     <value />
@@ -1678,11 +1666,11 @@ tion</value>
   <data name="label_cfgAngle.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
+  <data name="&gt;&gt;lblStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="lblcfgParity.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 12.75pt</value>
-  </data>
-  <data name="cmbMultiTurn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt, style=Bold</value>
   </data>
   <data name="&gt;&gt;panel1.Name" xml:space="preserve">
     <value>panel1</value>
@@ -1690,20 +1678,839 @@ tion</value>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>262, 285</value>
   </data>
+  <data name="&gt;&gt;cmbCfgOriginPosition.Name" xml:space="preserve">
+    <value>cmbCfgOriginPosition</value>
+  </data>
   <data name="lblcfgDirection.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 12.75pt</value>
   </data>
   <data name="lblcfgWorkMode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="&gt;&gt;rtbDataLog.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="cmbMultiTurn.Items30" xml:space="preserve">
+    <value>32</value>
   </data>
   <data name="cmbMultiTurn.Items20" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="cmbMultiTurn.Items10" xml:space="preserve">
     <value>10</value>
+  </data>
+  <data name="&gt;&gt;lblcfgParameterHeader.Name" xml:space="preserve">
+    <value>lblcfgParameterHeader</value>
+  </data>
+  <data name="label_cfgResolution.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;btnCfgClearlog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;directionIndicator1.Type" xml:space="preserve">
+    <value>WindowsFormsIntegration.Design.HostedComponent, WindowsFormsIntegration.Design, Version=18.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="&gt;&gt;tbCfgEncoderValue.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="lblBaudRate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
+  </data>
+  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt, style=Bold</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>531, 65</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.Text" xml:space="preserve">
+    <value>更改上传时间</value>
+  </data>
+  <data name="lblcfgOriginPosition.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;lblCfgScanProgress.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="txtCfgSlaveID.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>434, 109</value>
+  </data>
+  <data name="&gt;&gt;lblParity.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="tbCfgEncoderValue.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="lblcfgParameterHeader.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="languageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="btnCfgChangeOrigin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>434, 249</value>
+  </data>
+  <data name="btnReadModbus.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="btnCfgChangeDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="lblPort.Text" xml:space="preserve">
+    <value>串口</value>
+  </data>
+  <data name="&gt;&gt;rtbDataLog.Name" xml:space="preserve">
+    <value>rtbDataLog</value>
+  </data>
+  <data name="cmbParity.Items1" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt</value>
+  </data>
+  <data name="lblcfgResetOrigin.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 287</value>
+  </data>
+  <data name="&gt;&gt;directionIndicator1.Name" xml:space="preserve">
+    <value>directionIndicator1</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeBaudRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmbSingleTurn.Items8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 10</value>
+  </data>
+  <data name="lblCfgSpeed.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="cbContinuous.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cmbBaudRate.Items4" xml:space="preserve">
+    <value>19200</value>
+  </data>
+  <data name="lblcfgDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnScanDevice.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 36</value>
+  </data>
+  <data name="lblCfgAction.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12.75pt, style=Bold</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>旋转速度</value>
+  </data>
+  <data name="lblcfgBaudRate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12.75pt</value>
+  </data>
+  <data name="textBox_cfgBinary.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 635</value>
+  </data>
+  <data name="btnCfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 30</value>
+  </data>
+  <data name="cmbCfgParity.Items1" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="cmbCfgParity.Items2" xml:space="preserve">
+    <value>Odd</value>
+  </data>
+  <data name="tbCfgMultiTurn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
+  </data>
+  <data name="&gt;&gt;lblcfgParameterHeader.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="textBox_cfgBinary.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="btnCfgChangeMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 28</value>
+  </data>
+  <data name="btnChangeMode.Text" xml:space="preserve">
+    <value>开启自由模式</value>
+  </data>
+  <data name="francisToolStripMenuItem.Text" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="lblCfgScanProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 27</value>
+  </data>
+  <data name="&gt;&gt;lblcfgUploadTime.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt, style=Bold</value>
+  </data>
+  <data name="&gt;&gt;lblcfgBaudRate.Name" xml:space="preserve">
+    <value>lblcfgBaudRate</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tlpCfgParameter.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="rtbDataLog.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;tbCfgEncoderValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblCfgCurrentValue.Text" xml:space="preserve">
+    <value>当前编码器配置</value>
+  </data>
+  <data name="&gt;&gt;cmbMultiTurn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cmbCfgOriginPosition.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rtbCommLog.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 128</value>
+  </data>
+  <data name="textBox_cfgAngle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 15pt</value>
+  </data>
+  <data name="&gt;&gt;label_cfgBinary.Name" xml:space="preserve">
+    <value>label_cfgBinary</value>
+  </data>
+  <data name="&gt;&gt;lblCfgScanProgress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblcfgSlaveID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="txtCfgUploadTime.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 29</value>
+  </data>
+  <data name="cmbCfgParity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 144</value>
+  </data>
+  <data name="rtbCommLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>355, 624</value>
+  </data>
+  <data name="帮助ToolStripMenuItem.Text" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="&gt;&gt;textBox_cfgBinary.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_cfgResolution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 36</value>
+  </data>
+  <data name="btnReadModbus.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeDirection.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="&gt;&gt;progressScan.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="tbCfgSingleTurn.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>338, 35</value>
+  </data>
+  <data name="cmbMultiTurn.Items29" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="cmbMultiTurn.Items19" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;rtbCommLog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btnCfgChangeSlaveID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt</value>
+  </data>
+  <data name="&gt;&gt;lblCfgSpeed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_cfgAngle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 725</value>
+  </data>
+  <data name="lblBaudRate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label_cfgBinary.Font" type="System.Drawing.Font, System.Drawing">
+    <value>隶书, 15pt, style=Bold</value>
+  </data>
+  <data name="tbCfgEncoderValue.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;lblCfgCurrentValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label_cfgAngle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 20</value>
+  </data>
+  <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;lblParity.Name" xml:space="preserve">
+    <value>lblParity</value>
+  </data>
+  <data name="textBox_cfgAngle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 30</value>
+  </data>
+  <data name="&gt;&gt;tbCfgMultiTurn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnCfgResetOrigin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbCfgAngle.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;lblStatus.Name" xml:space="preserve">
+    <value>lblStatus</value>
+  </data>
+  <data name="cmbSingleTurn.Items7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmbCfgDirection.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="cmbCfgDirection.Items" xml:space="preserve">
+    <value>CW(顺时针递增)</value>
+  </data>
+  <data name="&gt;&gt;btnChangeMode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="cmbCfgParity.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="cmbMultiTurn.Items14" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="lblcfgBaudRate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 111</value>
+  </data>
+  <data name="txtCfgUploadTime.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;cmbMultiTurn.Name" xml:space="preserve">
+    <value>cmbMultiTurn</value>
+  </data>
+  <data name="btnCfgClearlog.Text" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="&gt;&gt;btnOpenSerial.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblcfgParameterHeader.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 6</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeMode.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lblcfgWorkMode.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 27</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="lblCfgSpeed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>377, 102</value>
+  </data>
+  <data name="lblcfgWorkMode.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;lblPort.ZOrder" xml:space="preserve">
+    <value>46</value>
+  </data>
+  <data name="lblcfgDirection.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="elementHostcfgAngle.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeOrigin.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lblcfgBaudRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblcfgParity.Text" xml:space="preserve">
+    <value>校验位</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnCfgChangeOrigin.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblCfgCurrentValue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>316, 23</value>
+  </data>
+  <data name="lblStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 39</value>
+  </data>
+  <data name="cmbCfgOriginPosition.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="btnCfgChangeParity.Location" type="System.Drawing.Point, System.Drawing">
+    <value>434, 144</value>
+  </data>
+  <data name="&gt;&gt;cmbCfgParity.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;elementHost1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Integration.ElementHost, WindowsFormsIntegration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="cmbSingleTurn.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="lblCfgRtDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 27</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeSlaveID.Name" xml:space="preserve">
+    <value>btnCfgChangeSlaveID</value>
+  </data>
+  <data name="&gt;&gt;btnScanDevice.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;elementHostcfgAngle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Integration.ElementHost, WindowsFormsIntegration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="cmbMultiTurn.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;lblcfgParameterHeader.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblCfgCurrentValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 24</value>
+  </data>
+  <data name="cmbCfgOriginPosition.Items" xml:space="preserve">
+    <value>中间值</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>434, 214</value>
+  </data>
+  <data name="btnCfgChangeParity.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="cmbSingleTurn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 27</value>
+  </data>
+  <data name="&gt;&gt;btnCfgChangeUploadTime.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;btnChangeMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>249, 142</value>
+  </data>
+  <data name="lblcfgResetOrigin.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;btnRestartRead.Name" xml:space="preserve">
+    <value>btnRestartRead</value>
+  </data>
+  <data name="label_cfgBinary.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="cmbCfgWorkMode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="btnChangeMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>789, 130</value>
+  </data>
+  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Modbus Tool V1.0 Information</value>
+  </data>
+  <data name="btnCfgChangeBaudRate.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tbCfgMultiTurn.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;rtbDataLog.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="tbCfgSingleTurn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 34</value>
+  </data>
+  <data name="&gt;&gt;btnReadModbus.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;帮助ToolStripMenuItem.Name" xml:space="preserve">
+    <value>帮助ToolStripMenuItem</value>
+  </data>
+  <data name="lblCfgSpeed.Text" xml:space="preserve">
+    <value>0 RPM</value>
+  </data>
+  <data name="btnScanDevice.Text" xml:space="preserve">
+    <value>扫描设备</value>
+  </data>
+  <data name="btnCfgChangeMode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;lblcfgResetOrigin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chineseToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbSingleTurn.Items12" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblcfgOriginPosition.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="lblCfgAction.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 24</value>
+  </data>
+  <data name="lblcfgBaudRate.Text" xml:space="preserve">
+    <value>波特率</value>
+  </data>
+  <data name="chineseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 26</value>
+  </data>
+  <data name="&gt;&gt;cmbSingleTurn.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="btnReadModbus.Text" xml:space="preserve">
+    <value>开始读取</value>
+  </data>
+  <data name="lblcfgBaudRate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 23</value>
+  </data>
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>789, 39</value>
+  </data>
+  <data name="cmbBaudRate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 112</value>
+  </data>
+  <data name="&gt;&gt;btnScanDevice.Name" xml:space="preserve">
+    <value>btnScanDevice</value>
+  </data>
+  <data name="cbContinuous.Location" type="System.Drawing.Point, System.Drawing">
+    <value>792, 206</value>
+  </data>
+  <data name="tbCfgSingleTurn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>525, 95</value>
+  </data>
+  <data name="btnCfgChangeDirection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 28</value>
+  </data>
+  <data name="textBox_cfgResolution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 30</value>
+  </data>
+  <data name="lblCfgScanProgress.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
+  </data>
+  <data name="pictureBox1.InitialImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="tlpCfgParameter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;textBox_cfgResolution.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbMultiTurn.Items27" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="cmbMultiTurn.Items17" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;cmbCfgDirection.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="elementHost1.Text" xml:space="preserve">
+    <value>elementHostDirection</value>
+  </data>
+  <data name="cmbSingleTurn.Items30" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="cmbSingleTurn.Items31" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="cmbSingleTurn.Items32" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="btnStopScan.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="cmbCfgBaudRate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="lblcfgSlaveID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 76</value>
+  </data>
+  <data name="lblCfgScanProgress.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="btnCfgChangeDirection.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="btnStopScan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 257</value>
+  </data>
+  <data name="cmbSingleTurn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt, style=Bold</value>
+  </data>
+  <data name="lblPort.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="txtCfgUploadTime.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 214</value>
+  </data>
+  <data name="&gt;&gt;label_cfgResolution.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;progressScan.Name" xml:space="preserve">
+    <value>progressScan</value>
+  </data>
+  <data name="&gt;&gt;cmbBaudRate.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="label_cfgBinary.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 641</value>
+  </data>
+  <data name="cmbSingleTurn.Items3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cmbParity.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 27</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;textBox_cfgAngle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblcfgOriginPosition.Text" xml:space="preserve">
+    <value>原点位置</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnChangeMode.Name" xml:space="preserve">
+    <value>btnChangeMode</value>
+  </data>
+  <data name="btnCfgChangeUploadTime.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;关于ToolStripMenuItem.Name" xml:space="preserve">
+    <value>关于ToolStripMenuItem</value>
+  </data>
+  <data name="btnScanDevice.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 27</value>
+  </data>
+  <data name="btnRestartRead.Text" xml:space="preserve">
+    <value>重新读取参数</value>
+  </data>
+  <data name="txtCfgSlaveID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 12pt</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>655, 65</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
+    <value>pictureBox1</value>
+  </data>
+  <data name="textBox_cfgResolution.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 677</value>
+  </data>
+  <data name="&gt;&gt;cmbCfgParity.Name" xml:space="preserve">
+    <value>cmbCfgParity</value>
+  </data>
+  <data name="cmbCfgWorkMode.Items1" xml:space="preserve">
+    <value>FreeMode</value>
+  </data>
+  <data name="lblcfgParameterHeader.Text" xml:space="preserve">
+    <value>参数列表</value>
+  </data>
+  <data name="lblCfgSpeed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 15pt</value>
+  </data>
+  <data name="&gt;&gt;cmbMultiTurn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;cmbCfgOriginPosition.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblcfgUploadTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;cbContinuous.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;tlpCfgParameter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="lblCfgSpeed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 27</value>
+  </data>
+  <data name="tbCfgAngle.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="textBox_cfgBinary.Text" xml:space="preserve">
+    <value>0000000000000000000</value>
+  </data>
+  <data name="lblcfgOriginPosition.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="cmbParity.Items" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;文件ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="关于ToolStripMenuItem.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="tbCfgMultiTurn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>660, 95</value>
+  </data>
+  <data name="cmbBaudRate.Items6" xml:space="preserve">
+    <value>57600</value>
+  </data>
+  <data name="关于ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 26</value>
+  </data>
+  <data name="cmbMultiTurn.Items9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="cmbMultiTurn.Items8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;lblPort.Name" xml:space="preserve">
+    <value>lblPort</value>
+  </data>
+  <data name="&gt;&gt;lblcfgWorkMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbMultiTurn.Items3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cmbMultiTurn.Items2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="cmbMultiTurn.Items1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cmbMultiTurn.Items7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="cmbMultiTurn.Items6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="cmbMultiTurn.Items5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="cmbMultiTurn.Items4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblcfgParity.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;lblcfgResetOrigin.Parent" xml:space="preserve">
+    <value>tlpCfgParameter</value>
+  </data>
+  <data name="&gt;&gt;lblPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cmbMultiTurn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 163</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -3676,813 +4483,6 @@ tion</value>
         RU5ErkJggg==
 </value>
   </data>
-  <data name="&gt;&gt;lblcfgParameterHeader.Name" xml:space="preserve">
-    <value>lblcfgParameterHeader</value>
-  </data>
-  <data name="label_cfgResolution.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox_cfgResolution.Font" type="System.Drawing.Font, System.Drawing">
-    <value>宋体, 15pt</value>
-  </data>
-  <data name="&gt;&gt;btnCfgClearlog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;directionIndicator1.Type" xml:space="preserve">
-    <value>WindowsFormsIntegration.Design.HostedComponent, WindowsFormsIntegration.Design, Version=18.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="&gt;&gt;tbCfgEncoderValue.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="lblBaudRate.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt, style=Bold</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>531, 65</value>
-  </data>
-  <data name="&gt;&gt;languageToolStripMenuItem.Name" xml:space="preserve">
-    <value>languageToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btnCfgChangeUploadTime.Text" xml:space="preserve">
-    <value>更改上传时间</value>
-  </data>
-  <data name="&gt;&gt;lblcfgOriginPosition.Name" xml:space="preserve">
-    <value>lblcfgOriginPosition</value>
-  </data>
-  <data name="lblcfgOriginPosition.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lblCfgScanProgress.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="txtCfgSlaveID.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="btnCfgChangeBaudRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>434, 109</value>
-  </data>
-  <data name="&gt;&gt;lblParity.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="tbCfgEncoderValue.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="lblcfgParameterHeader.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="languageToolStripMenuItem.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="btnCfgChangeOrigin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>434, 249</value>
-  </data>
-  <data name="btnReadModbus.TabIndex" type="System.Int32, mscorlib">
-    <value>36</value>
-  </data>
-  <data name="btnCfgChangeDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="lblPort.Text" xml:space="preserve">
-    <value>串口</value>
-  </data>
-  <data name="&gt;&gt;tbCfgAngle.Name" xml:space="preserve">
-    <value>tbCfgAngle</value>
-  </data>
-  <data name="cmbSingleTurn.Items1" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tbCfgMultiTurn.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="cmbCfgBaudRate.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;directionIndicator1.Name" xml:space="preserve">
-    <value>directionIndicator1</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeBaudRate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="cmbSingleTurn.Items8" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="chineseToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 26</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 10</value>
-  </data>
-  <data name="cmbMultiTurn.Items25" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="lblCfgSpeed.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="cbContinuous.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cmbBaudRate.Items4" xml:space="preserve">
-    <value>19200</value>
-  </data>
-  <data name="lblcfgDirection.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="btnScanDevice.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 36</value>
-  </data>
-  <data name="lblCfgAction.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12.75pt, style=Bold</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>旋转速度</value>
-  </data>
-  <data name="lblcfgBaudRate.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12.75pt</value>
-  </data>
-  <data name="textBox_cfgBinary.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 635</value>
-  </data>
-  <data name="btnCfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 30</value>
-  </data>
-  <data name="cmbCfgParity.Items1" xml:space="preserve">
-    <value>Even</value>
-  </data>
-  <data name="cmbCfgParity.Items2" xml:space="preserve">
-    <value>Odd</value>
-  </data>
-  <data name="cmbBaudRate.Items3" xml:space="preserve">
-    <value>9600</value>
-  </data>
-  <data name="tbCfgMultiTurn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="&gt;&gt;lblcfgParameterHeader.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="textBox_cfgBinary.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;lblPort.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="francisToolStripMenuItem.Text" xml:space="preserve">
-    <value>Français</value>
-  </data>
-  <data name="lblCfgScanProgress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 27</value>
-  </data>
-  <data name="&gt;&gt;progressScan.Name" xml:space="preserve">
-    <value>progressScan</value>
-  </data>
-  <data name="&gt;&gt;lblcfgUploadTime.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="englishToolStripMenuItem.Text" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt, style=Bold</value>
-  </data>
-  <data name="&gt;&gt;lblcfgBaudRate.Name" xml:space="preserve">
-    <value>lblcfgBaudRate</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tlpCfgParameter.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="lblCfgScanProgress.Text" xml:space="preserve">
-    <value>扫描进度</value>
-  </data>
-  <data name="lblCfgCurrentValue.Text" xml:space="preserve">
-    <value>当前编码器配置</value>
-  </data>
-  <data name="&gt;&gt;cmbMultiTurn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmbCfgOriginPosition.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="btnStopScan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 257</value>
-  </data>
-  <data name="lblcfgResetOrigin.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 287</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="rtbCommLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 128</value>
-  </data>
-  <data name="textBox_cfgAngle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>宋体, 15pt</value>
-  </data>
-  <data name="&gt;&gt;lblCfgScanProgress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblcfgSlaveID.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="txtCfgUploadTime.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 29</value>
-  </data>
-  <data name="cmbCfgParity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 144</value>
-  </data>
-  <data name="rtbCommLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 624</value>
-  </data>
-  <data name="cmbMultiTurn.Items15" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="帮助ToolStripMenuItem.Text" xml:space="preserve">
-    <value>帮助</value>
-  </data>
-  <data name="&gt;&gt;textBox_cfgBinary.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label_cfgResolution.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 36</value>
-  </data>
-  <data name="btnReadModbus.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="&gt;&gt;progressScan.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="tbCfgSingleTurn.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>338, 35</value>
-  </data>
-  <data name="cmbMultiTurn.Items29" xml:space="preserve">
-    <value>29</value>
-  </data>
-  <data name="cmbMultiTurn.Items19" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;rtbCommLog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btnCfgChangeSlaveID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;lblCfgSpeed.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbMultiTurn.Items27" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="lblBaudRate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lblCfgRtDirection.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="tbCfgEncoderValue.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cmbSingleTurn.Items19" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;lblCfgCurrentValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label_cfgAngle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 20</value>
-  </data>
-  <data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;lblParity.Name" xml:space="preserve">
-    <value>lblParity</value>
-  </data>
-  <data name="&gt;&gt;tbCfgMultiTurn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnCfgResetOrigin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbCfgAngle.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;lblStatus.Name" xml:space="preserve">
-    <value>lblStatus</value>
-  </data>
-  <data name="cmbSingleTurn.Items7" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="cmbCfgDirection.Items" xml:space="preserve">
-    <value>CW(顺时针递增)</value>
-  </data>
-  <data name="&gt;&gt;btnChangeMode.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="cmbCfgParity.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="cmbMultiTurn.Items14" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="lblcfgBaudRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 111</value>
-  </data>
-  <data name="txtCfgUploadTime.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;cmbMultiTurn.Name" xml:space="preserve">
-    <value>cmbMultiTurn</value>
-  </data>
-  <data name="btnCfgClearlog.Text" xml:space="preserve">
-    <value>清除</value>
-  </data>
-  <data name="&gt;&gt;btnOpenSerial.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lblcfgParameterHeader.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 6</value>
-  </data>
-  <data name="&gt;&gt;lblcfgDirection.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;lblcfgWorkMode.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 27</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="lblCfgSpeed.Location" type="System.Drawing.Point, System.Drawing">
-    <value>377, 102</value>
-  </data>
-  <data name="lblcfgWorkMode.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lblPort.ZOrder" xml:space="preserve">
-    <value>46</value>
-  </data>
-  <data name="lblcfgDirection.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeOrigin.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="cmbMultiTurn.Items17" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;lblcfgBaudRate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lblcfgParity.Text" xml:space="preserve">
-    <value>校验位</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lblCfgCurrentValue.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 23</value>
-  </data>
-  <data name="lblStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 39</value>
-  </data>
-  <data name="cmbCfgOriginPosition.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="&gt;&gt;cmbCfgParity.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="cmbSingleTurn.TabIndex" type="System.Int32, mscorlib">
-    <value>44</value>
-  </data>
-  <data name="lblCfgRtDirection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 27</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeSlaveID.Name" xml:space="preserve">
-    <value>btnCfgChangeSlaveID</value>
-  </data>
-  <data name="&gt;&gt;btnScanDevice.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblcfgParity.Name" xml:space="preserve">
-    <value>lblcfgParity</value>
-  </data>
-  <data name="cmbMultiTurn.TabIndex" type="System.Int32, mscorlib">
-    <value>45</value>
-  </data>
-  <data name="&gt;&gt;lblcfgParameterHeader.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="cmbCfgOriginPosition.Items" xml:space="preserve">
-    <value>中间值</value>
-  </data>
-  <data name="btnCfgChangeParity.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="cmbSingleTurn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 27</value>
-  </data>
-  <data name="&gt;&gt;btnCfgChangeUploadTime.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;btnChangeMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbBaudRate.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt, style=Bold</value>
-  </data>
-  <data name="lblcfgResetOrigin.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;elementHostcfgAngle.ZOrder" xml:space="preserve">
-    <value>30</value>
-  </data>
-  <data name="label_cfgBinary.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Modbus Tool V1.0 Information</value>
-  </data>
-  <data name="btnCfgChangeBaudRate.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="btnStopScan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 36</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="tbCfgSingleTurn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 34</value>
-  </data>
-  <data name="&gt;&gt;btnReadModbus.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;帮助ToolStripMenuItem.Name" xml:space="preserve">
-    <value>帮助ToolStripMenuItem</value>
-  </data>
-  <data name="lblCfgSpeed.Text" xml:space="preserve">
-    <value>0 RPM</value>
-  </data>
-  <data name="btnScanDevice.Text" xml:space="preserve">
-    <value>扫描设备</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>360, 209</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;lblcfgResetOrigin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chineseToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbSingleTurn.Items12" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbCfgDirection.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="lblCfgAction.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 24</value>
-  </data>
-  <data name="lblcfgBaudRate.Text" xml:space="preserve">
-    <value>波特率</value>
-  </data>
-  <data name="textBox_cfgAngle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 30</value>
-  </data>
-  <data name="&gt;&gt;cmbSingleTurn.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;txtCfgUploadTime.Name" xml:space="preserve">
-    <value>txtCfgUploadTime</value>
-  </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="tbCfgAngle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>789, 39</value>
-  </data>
-  <data name="cmbBaudRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 112</value>
-  </data>
-  <data name="&gt;&gt;btnScanDevice.Name" xml:space="preserve">
-    <value>btnScanDevice</value>
-  </data>
-  <data name="cbContinuous.Location" type="System.Drawing.Point, System.Drawing">
-    <value>792, 206</value>
-  </data>
-  <data name="tbCfgSingleTurn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>525, 95</value>
-  </data>
-  <data name="btnCfgChangeDirection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 28</value>
-  </data>
-  <data name="lblCfgScanProgress.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="&gt;&gt;lblcfgOriginPosition.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="tlpCfgParameter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="lblcfgOriginPosition.Text" xml:space="preserve">
-    <value>原点位置</value>
-  </data>
-  <data name="&gt;&gt;rtbCommLog.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnChangeMode.Name" xml:space="preserve">
-    <value>btnChangeMode</value>
-  </data>
-  <data name="&gt;&gt;cmbCfgDirection.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="elementHost1.Text" xml:space="preserve">
-    <value>elementHostDirection</value>
-  </data>
-  <data name="cmbSingleTurn.Items30" xml:space="preserve">
-    <value>32</value>
-  </data>
-  <data name="cmbSingleTurn.Items31" xml:space="preserve">
-    <value>31</value>
-  </data>
-  <data name="cmbSingleTurn.Items32" xml:space="preserve">
-    <value>32</value>
-  </data>
-  <data name="btnStopScan.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="cmbCfgBaudRate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="btnCfgChangeDirection.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;lblcfgParameterHeader.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbSingleTurn.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9.75pt, style=Bold</value>
-  </data>
-  <data name="lblPort.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="txtCfgUploadTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 214</value>
-  </data>
-  <data name="&gt;&gt;label_cfgResolution.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>655, 65</value>
-  </data>
-  <data name="btnRestartRead.Location" type="System.Drawing.Point, System.Drawing">
-    <value>792, 258</value>
-  </data>
-  <data name="&gt;&gt;cmbBaudRate.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>47</value>
-  </data>
-  <data name="label_cfgBinary.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 641</value>
-  </data>
-  <data name="cmbSingleTurn.Items3" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="progressScan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>299, 23</value>
-  </data>
-  <data name="btnCfgChangeUploadTime.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="lblcfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 23</value>
-  </data>
-  <data name="btnScanDevice.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 27</value>
-  </data>
-  <data name="&gt;&gt;lblcfgResetOrigin.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="btnRestartRead.Text" xml:space="preserve">
-    <value>重新读取参数</value>
-  </data>
-  <data name="txtCfgSlaveID.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="textBox_cfgResolution.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 677</value>
-  </data>
-  <data name="&gt;&gt;cmbCfgParity.Name" xml:space="preserve">
-    <value>cmbCfgParity</value>
-  </data>
-  <data name="lblcfgSlaveID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 76</value>
-  </data>
-  <data name="lblcfgParameterHeader.Text" xml:space="preserve">
-    <value>参数列表</value>
-  </data>
-  <data name="lblCfgSpeed.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
-  </data>
-  <data name="btnCfgChangeUploadTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>434, 214</value>
-  </data>
-  <data name="&gt;&gt;cmbCfgOriginPosition.Parent" xml:space="preserve">
-    <value>tlpCfgParameter</value>
-  </data>
-  <data name="lblcfgUploadTime.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;cbContinuous.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;tlpCfgParameter.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lblCfgSpeed.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 27</value>
-  </data>
-  <data name="&gt;&gt;lblStatus.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="textBox_cfgBinary.Text" xml:space="preserve">
-    <value>0000000000000000000</value>
-  </data>
-  <data name="lblcfgOriginPosition.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="cmbParity.Items" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbCfgWorkMode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 12pt</value>
-  </data>
-  <data name="&gt;&gt;文件ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="关于ToolStripMenuItem.Text" xml:space="preserve">
-    <value>关于</value>
-  </data>
-  <data name="tlpCfgParameter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>582, 318</value>
-  </data>
-  <data name="cmbBaudRate.Items6" xml:space="preserve">
-    <value>57600</value>
-  </data>
-  <data name="关于ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 26</value>
-  </data>
-  <data name="cmbMultiTurn.Items9" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="cmbCfgOriginPosition.Location" type="System.Drawing.Point, System.Drawing">
-    <value>206, 249</value>
-  </data>
-  <data name="&gt;&gt;lblPort.Name" xml:space="preserve">
-    <value>lblPort</value>
-  </data>
-  <data name="&gt;&gt;lblcfgWorkMode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbMultiTurn.Items3" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="cmbCfgBaudRate.Items2" xml:space="preserve">
-    <value>4800</value>
-  </data>
-  <data name="btnCfgChangeMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 28</value>
-  </data>
-  <data name="cmbMultiTurn.Items7" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;lblcfgSlaveID.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="cmbMultiTurn.Items5" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="cmbMultiTurn.Items4" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="lblcfgParity.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="btnCfgChangeParity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>434, 144</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cmbParity.Items1" xml:space="preserve">
-    <value>Even</value>
-  </data>
-  <data name="cmbMultiTurn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 163</value>
-  </data>
-  <data name="lblCfgCurrentValue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 24</value>
-  </data>
-  <data name="&gt;&gt;关于ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="cmbParity.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
@@ -4528,9 +4528,6 @@ tion</value>
   <data name="cmbCfgOriginPosition.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 29</value>
   </data>
-  <data name="label_cfgAngle.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="lblcfgResetOrigin.Text" xml:space="preserve">
     <value>重设原点</value>
   </data>
@@ -4555,8 +4552,8 @@ tion</value>
   <data name="&gt;&gt;cmbCfgParity.Parent" xml:space="preserve">
     <value>tlpCfgParameter</value>
   </data>
-  <data name="&gt;&gt;lblStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBox_cfgResolution.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
   <data name="&gt;&gt;cbContinuous.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -4564,17 +4561,17 @@ tion</value>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblcfgOriginPosition.ZOrder" xml:space="preserve">
-    <value>17</value>
+  <data name="btnStopScan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 36</value>
   </data>
-  <data name="&gt;&gt;elementHost1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Integration.ElementHost, WindowsFormsIntegration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  <data name="cmbMultiTurn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9.75pt, style=Bold</value>
   </data>
   <data name="lblcfgBaudRate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;btnReadModbus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 27</value>
   </data>
   <data name="&gt;&gt;btnScanDevice.Parent" xml:space="preserve">
     <value>$this</value>
@@ -4587,6 +4584,9 @@ tion</value>
   </data>
   <data name="cmbBaudRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 27</value>
+  </data>
+  <data name="lblcfgResetOrigin.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
   </data>
   <data name="cmbSingleTurn.Location" type="System.Drawing.Point, System.Drawing">
     <value>237, 112</value>
@@ -4603,8 +4603,8 @@ tion</value>
   <data name="cmbMultiTurn.Items11" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="cmbParity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 163</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
   <data name="label_cfgBinary.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 20</value>
@@ -4630,8 +4630,8 @@ tion</value>
   <data name="tlpCfgParameter.RowCount" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;cmbCfgOriginPosition.Name" xml:space="preserve">
-    <value>cmbCfgOriginPosition</value>
+  <data name="&gt;&gt;textBox_cfgBinary.Name" xml:space="preserve">
+    <value>textBox_cfgBinary</value>
   </data>
   <data name="&gt;&gt;textBox_cfgAngle.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -4645,14 +4645,14 @@ tion</value>
   <data name="lblcfgParity.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="lblParity.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 15pt</value>
+  <data name="lblcfgResetOrigin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 23</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en-GB</value>
+    <value>fr</value>
   </metadata>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
