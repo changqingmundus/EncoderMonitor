@@ -129,6 +129,12 @@
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>Connection closed. Please scan for devices again!</value>
   </data>
+  <data name="ContinuousReadDisabled" xml:space="preserve">
+    <value>Continuous reading disabled</value>
+  </data>
+  <data name="ContinuousReadEnabled" xml:space="preserve">
+    <value>Continuous reading enabled</value>
+  </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>Device found, Slave ID={0}</value>
   </data>
@@ -138,11 +144,38 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>Failed to read parameters of device (ID={0})</value>
   </data>
+  <data name="DisableFreeMode" xml:space="preserve">
+    <value>Disable Free Mode</value>
+  </data>
+  <data name="EnableFreeMode" xml:space="preserve">
+    <value>Enable Free Mode</value>
+  </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>Encoder connected (ID={0})</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>Encoder not found. Please scan again! (ID={0})</value>
+  </data>
+  <data name="EnterFreeMode" xml:space="preserve">
+    <value>Enter Free Mode</value>
+  </data>
+  <data name="ExitFreeMode" xml:space="preserve">
+    <value>Exit Free Mode</value>
+  </data>
+  <data name="FreeModeCheckError" xml:space="preserve">
+    <value>Free Mode check error</value>
+  </data>
+  <data name="FreeModeCheckErrorDetail" xml:space="preserve">
+    <value>Free Mode check error: SUM={0}/{1}, XOR={2}/{3}</value>
+  </data>
+  <data name="FreeModeLengthError" xml:space="preserve">
+    <value>Free Mode length error: RX Len={0}, DataLen=0x{1}</value>
+  </data>
+  <data name="FreeModeReceiveTimeout" xml:space="preserve">
+    <value>Free Mode receive timeout</value>
+  </data>
+  <data name="FreeModeSwitchFailed" xml:space="preserve">
+    <value>Failed to switch Free Mode: {0}</value>
   </data>
   <data name="FreeModeWarning" xml:space="preserve">
     <value>After restarting, some functions will be unavailable in Free Mode!</value>
@@ -167,6 +200,9 @@
   </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>Serial port opened successfully: {0}</value>
+  </data>
+  <data name="ParameterReadAgainSuccess" xml:space="preserve">
+    <value>Parameters read successfully again</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>Please open the serial port first</value>
@@ -207,8 +243,20 @@
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>Slave ID must be between 1 and 127</value>
   </data>
+  <data name="StartReading" xml:space="preserve">
+    <value>Start Reading</value>
+  </data>
+  <data name="StartReceiving" xml:space="preserve">
+    <value>Start Receiving</value>
+  </data>
   <data name="StartScanDevice" xml:space="preserve">
     <value>Starting device scan...</value>
+  </data>
+  <data name="StopContinuousRead" xml:space="preserve">
+    <value>Stop continuous reading</value>
+  </data>
+  <data name="StopContinuousReadFailed" xml:space="preserve">
+    <value>Failed to stop continuous reading: {0}</value>
   </data>
   <data name="StopScanning" xml:space="preserve">
     <value>Scan stopped</value>

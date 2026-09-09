@@ -1034,7 +1034,7 @@ namespace EncoderModbusTool
 
             if (currentSlaveId == 0)
             {
-                AddSystemLog("ERR", "Slave ID无效");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidSlaveIdFormat);
                 return;
             }
             if (cbContinuous.Checked)
@@ -1158,7 +1158,8 @@ namespace EncoderModbusTool
                 }
                 catch (Exception ex)
                 {
-                    AddSystemLog("ERR", "停止连续读取失败: " + ex.Message);
+                    AddSystemLog("ERR", string.Format(Properties.AppStrings.StopContinuousReadFailed,
+                                                      ex.Message));
                 }
 
                 continuousReadTask = null;
@@ -1171,23 +1172,23 @@ namespace EncoderModbusTool
             }
 
             btnReadModbus.BackColor = SystemColors.Control;
-            btnReadModbus.Text = "开始读取";
+            btnReadModbus.Text = Properties.AppStrings.StartReading;
 
             // 确认连续读取彻底结束后，再恢复日志
             modbusMaster.EnableDataLog = true;
 
-            AddSystemLog("INFO", "停止连续读取");
+            AddSystemLog("INFO", Properties.AppStrings.StopContinuousRead);
         }
 
         private async void cbContinuous_CheckedChanged(object sender, EventArgs e)
         {
             if (cbContinuous.Checked)
             {
-                AddSystemLog("INFO", "连续读取已开启");
+                AddSystemLog("INFO", Properties.AppStrings.ContinuousReadEnabled);
             }
             else
             {
-                AddSystemLog("INFO", "连续读取已关闭");
+                AddSystemLog("INFO", Properties.AppStrings.ContinuousReadDisabled);
                 if (isContinuousReading)
                 {
                     isContinuousReading = false;
@@ -1195,7 +1196,7 @@ namespace EncoderModbusTool
                     continuousCts?.Cancel();
                     await StopContinuousReadingAsync();
                     btnReadModbus.BackColor = SystemColors.Control;
-                    btnReadModbus.Text = "开始读取";
+                    btnReadModbus.Text = Properties.AppStrings.StartReading;
                 }
             }
         }
@@ -1251,7 +1252,7 @@ namespace EncoderModbusTool
             }
             if (currentSlaveId == 0)
             {
-                AddSystemLog("ERR", "Slave ID无效");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidSlaveIdFormat);
                 return;
             }
             try
@@ -1263,11 +1264,12 @@ namespace EncoderModbusTool
 
                 if (ok)
                 {
-                    AddSystemLog("PASS", "重新读取参数成功");
+                    AddSystemLog("PASS", Properties.AppStrings.ParameterReadAgainSuccess);
+
                 }
                 else
                 {
-                    AddSystemLog("ERR", "读取参数失败");
+                    AddSystemLog("ERR", Properties.AppStrings.ReadDeviceParameterFailedWithError);
                 }
             }
             catch (Exception ex)
@@ -1293,13 +1295,13 @@ namespace EncoderModbusTool
 
                     freeModeBuffer.Clear();
 
-                    btnChangeMode.Text = "开启自由模式";
+                    btnChangeMode.Text = Properties.AppStrings.EnableFreeMode;
                     btnChangeMode.BackColor = SystemColors.Control;
 
-                    btnReadModbus.Text = "开始读取";
+                    btnReadModbus.Text = Properties.AppStrings.StartReading;
                     btnReadModbus.BackColor = SystemColors.Control;
 
-                    AddSystemLog("INFO", "退出Free Mode");
+                    AddSystemLog("INFO", Properties.AppStrings.ExitFreeMode);
 
                     return;
                 }
@@ -1308,16 +1310,17 @@ namespace EncoderModbusTool
                 SerialPortManager.sp.DiscardInBuffer();
                 freeModeBuffer.Clear();
 
-                btnChangeMode.Text = "关闭自由模式";
+                btnChangeMode.Text = Properties.AppStrings.DisableFreeMode;
                 btnChangeMode.BackColor = Color.Green;
 
-                btnReadModbus.Text = "开始接收";
+                btnReadModbus.Text = Properties.AppStrings.StartReceiving;
 
-                AddSystemLog("INFO", "进入Free Mode");
+                AddSystemLog("INFO", Properties.AppStrings.EnterFreeMode);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "切换Free Mode失败:" + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.FreeModeSwitchFailed,
+                                                  ex.Message));
             }
         }
         private void ReadFreeModeFromSerial()
@@ -1434,7 +1437,7 @@ namespace EncoderModbusTool
             if (sum != recvSum ||
                 xor != recvXor)
             {
-                AddSystemLog("ERR", "FreeMode Check Error");
+                AddSystemLog("ERR", Properties.AppStrings.FreeModeCheckError);
                 return;
             }
 
@@ -1527,9 +1530,8 @@ namespace EncoderModbusTool
             // 整帧长度 = 2字节帧头 + DataLen + 2字节校验 + 1字节帧尾
             if (rx.Length != dataLen + 5)
             {
-                AddSystemLog(
-                    "ERR",
-                    $"FreeMode Length Error: RX Len={rx.Length}, DataLen=0x{dataLen:X2}");
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.FreeModeLengthError,
+                                                  rx.Length, dataLen.ToString("X2")));
                 return;
             }
 
@@ -1551,9 +1553,11 @@ namespace EncoderModbusTool
 
             if (sum != recvSum || xor != recvXor)
             {
-                AddSystemLog(
-                    "ERR",
-                    $"FreeMode Check Error: SUM={sum:X2}/{recvSum:X2}, XOR={xor:X2}/{recvXor:X2}");
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.FreeModeCheckErrorDetail,
+                                    sum.ToString("X2"),
+                                    recvSum.ToString("X2"),
+                                    xor.ToString("X2"),
+                                    recvXor.ToString("X2")));
                 return;
             }
 
@@ -1661,7 +1665,7 @@ namespace EncoderModbusTool
                 }
                 if ((DateTime.Now - start).TotalMilliseconds > 300)
                 {
-                    throw new TimeoutException("Free Mode接收超时");
+                    throw new TimeoutException(Properties.AppStrings.FreeModeReceiveTimeout);
                 }
                 Application.DoEvents();
                 Thread.Sleep(1);

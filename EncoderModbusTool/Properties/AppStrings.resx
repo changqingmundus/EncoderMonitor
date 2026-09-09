@@ -129,6 +129,12 @@
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>连接关闭，请重新扫描设备！</value>
   </data>
+  <data name="ContinuousReadDisabled" xml:space="preserve">
+    <value>连续读取已关闭</value>
+  </data>
+  <data name="ContinuousReadEnabled" xml:space="preserve">
+    <value>连续读取已开启</value>
+  </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>发现设备 Slave ID={0}</value>
   </data>
@@ -138,11 +144,38 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>设备(ID={0})参数读取失败</value>
   </data>
+  <data name="DisableFreeMode" xml:space="preserve">
+    <value>关闭自由模式</value>
+  </data>
+  <data name="EnableFreeMode" xml:space="preserve">
+    <value>开启自由模式</value>
+  </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>已连接编码器 (ID={0})</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>未发现编码器，请重新扫描！ (ID={0})</value>
+  </data>
+  <data name="EnterFreeMode" xml:space="preserve">
+    <value>进入Free Mode</value>
+  </data>
+  <data name="ExitFreeMode" xml:space="preserve">
+    <value>退出Free Mode</value>
+  </data>
+  <data name="FreeModeCheckError" xml:space="preserve">
+    <value>FreeMode校验错误</value>
+  </data>
+  <data name="FreeModeCheckErrorDetail" xml:space="preserve">
+    <value>FreeMode校验错误: SUM={0}/{1}, XOR={2}/{3}</value>
+  </data>
+  <data name="FreeModeLengthError" xml:space="preserve">
+    <value>FreeMode长度错误: RX Len={0}, DataLen=0x{1}</value>
+  </data>
+  <data name="FreeModeReceiveTimeout" xml:space="preserve">
+    <value>Free Mode接收超时</value>
+  </data>
+  <data name="FreeModeSwitchFailed" xml:space="preserve">
+    <value>切换Free Mode失败: {0}</value>
   </data>
   <data name="FreeModeWarning" xml:space="preserve">
     <value>重启后，自由模式将无法使用某些功能！！！</value>
@@ -167,6 +200,9 @@
   </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>打开串口成功: {0}</value>
+  </data>
+  <data name="ParameterReadAgainSuccess" xml:space="preserve">
+    <value>重新读取参数成功</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>请先打开串口</value>
@@ -207,8 +243,20 @@
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>Slave ID范围必须是1~127</value>
   </data>
+  <data name="StartReading" xml:space="preserve">
+    <value>开始读取</value>
+  </data>
+  <data name="StartReceiving" xml:space="preserve">
+    <value>开始接收</value>
+  </data>
   <data name="StartScanDevice" xml:space="preserve">
     <value>开始扫描设备...</value>
+  </data>
+  <data name="StopContinuousRead" xml:space="preserve">
+    <value>停止连续读取</value>
+  </data>
+  <data name="StopContinuousReadFailed" xml:space="preserve">
+    <value>停止连续读取失败: {0}</value>
   </data>
   <data name="StopScanning" xml:space="preserve">
     <value>停止扫描</value>

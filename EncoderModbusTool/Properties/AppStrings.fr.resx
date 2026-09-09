@@ -129,6 +129,12 @@
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>Connexion fermée. Veuillez rechercher les appareils à nouveau !</value>
   </data>
+  <data name="ContinuousReadDisabled" xml:space="preserve">
+    <value>Lecture continue désactivée</value>
+  </data>
+  <data name="ContinuousReadEnabled" xml:space="preserve">
+    <value>Lecture continue activée</value>
+  </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>Appareil détecté, ID esclave={0}</value>
   </data>
@@ -138,11 +144,38 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>Échec de la lecture des paramètres de l’appareil (ID={0})</value>
   </data>
+  <data name="DisableFreeMode" xml:space="preserve">
+    <value>Désactiver le mode libre</value>
+  </data>
+  <data name="EnableFreeMode" xml:space="preserve">
+    <value>Activer le mode libre</value>
+  </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>Encodeur connecté (ID={0})</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>Encodeur non détecté. Veuillez effectuer une nouvelle analyse ! (ID={0})</value>
+  </data>
+  <data name="EnterFreeMode" xml:space="preserve">
+    <value>Entrer en mode libre</value>
+  </data>
+  <data name="ExitFreeMode" xml:space="preserve">
+    <value>Quitter le mode libre</value>
+  </data>
+  <data name="FreeModeCheckError" xml:space="preserve">
+    <value>Erreur de vérification du mode libre</value>
+  </data>
+  <data name="FreeModeCheckErrorDetail" xml:space="preserve">
+    <value>Erreur de vérification du mode libre : SUM={0}/{1}, XOR={2}/{3}</value>
+  </data>
+  <data name="FreeModeLengthError" xml:space="preserve">
+    <value>Erreur de longueur du mode libre : RX Len={0}, DataLen=0x{1}</value>
+  </data>
+  <data name="FreeModeReceiveTimeout" xml:space="preserve">
+    <value>Délai d’attente de réception en mode libre dépassé</value>
+  </data>
+  <data name="FreeModeSwitchFailed" xml:space="preserve">
+    <value>Échec du passage au mode libre : {0}</value>
   </data>
   <data name="FreeModeWarning" xml:space="preserve">
     <value>Après le redémarrage, certaines fonctions seront indisponibles en mode libre !</value>
@@ -167,6 +200,9 @@
   </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>Port série ouvert avec succès : {0}</value>
+  </data>
+  <data name="ParameterReadAgainSuccess" xml:space="preserve">
+    <value>Paramètres relus avec succès</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>Veuillez d'abord ouvrir le port série</value>
@@ -207,8 +243,20 @@
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>L’ID esclave doit être compris entre 1 et 127</value>
   </data>
+  <data name="StartReading" xml:space="preserve">
+    <value>Démarrer la lecture</value>
+  </data>
+  <data name="StartReceiving" xml:space="preserve">
+    <value>Démarrer la réception</value>
+  </data>
   <data name="StartScanDevice" xml:space="preserve">
     <value>Analyse des appareils en cours...</value>
+  </data>
+  <data name="StopContinuousRead" xml:space="preserve">
+    <value>Arrêter la lecture continue</value>
+  </data>
+  <data name="StopContinuousReadFailed" xml:space="preserve">
+    <value>Échec de l’arrêt de la lecture continue : {0}</value>
   </data>
   <data name="StopScanning" xml:space="preserve">
     <value>Analyse arrêtée</value>
