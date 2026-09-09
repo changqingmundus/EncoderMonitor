@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModbusMainForm));
             this.lblPort = new System.Windows.Forms.Label();
             this.lblBaudRate = new System.Windows.Forms.Label();
@@ -112,6 +113,7 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tTstatus = new System.Windows.Forms.ToolTip(this.components);
             this.tlpCfgParameter.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -514,8 +516,8 @@
             // 
             // lblStatus
             // 
-            resources.ApplyResources(this.lblStatus, "lblStatus");
             this.lblStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.lblStatus, "lblStatus");
             this.lblStatus.Name = "lblStatus";
             // 
             // btnCfgClearlog
@@ -546,8 +548,8 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // btnChangeMode
@@ -671,8 +673,8 @@
             // 
             // panel2
             // 
-            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.BackColor = System.Drawing.Color.DarkGray;
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
             // menuStrip1
@@ -686,52 +688,52 @@
             // 
             // 文件ToolStripMenuItem
             // 
-            resources.ApplyResources(this.文件ToolStripMenuItem, "文件ToolStripMenuItem");
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
+            resources.ApplyResources(this.文件ToolStripMenuItem, "文件ToolStripMenuItem");
             // 
             // languageToolStripMenuItem
             // 
-            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.englishToolStripMenuItem,
             this.chineseToolStripMenuItem,
             this.francisToolStripMenuItem});
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            resources.ApplyResources(this.languageToolStripMenuItem, "languageToolStripMenuItem");
             // 
             // englishToolStripMenuItem
             // 
-            resources.ApplyResources(this.englishToolStripMenuItem, "englishToolStripMenuItem");
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            resources.ApplyResources(this.englishToolStripMenuItem, "englishToolStripMenuItem");
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
             // 
             // chineseToolStripMenuItem
             // 
-            resources.ApplyResources(this.chineseToolStripMenuItem, "chineseToolStripMenuItem");
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
+            resources.ApplyResources(this.chineseToolStripMenuItem, "chineseToolStripMenuItem");
             this.chineseToolStripMenuItem.Click += new System.EventHandler(this.chineseToolStripMenuItem_Click);
             // 
             // francisToolStripMenuItem
             // 
-            resources.ApplyResources(this.francisToolStripMenuItem, "francisToolStripMenuItem");
             this.francisToolStripMenuItem.Name = "francisToolStripMenuItem";
+            resources.ApplyResources(this.francisToolStripMenuItem, "francisToolStripMenuItem");
             this.francisToolStripMenuItem.Click += new System.EventHandler(this.francisToolStripMenuItem_Click);
             // 
             // 帮助ToolStripMenuItem
             // 
-            resources.ApplyResources(this.帮助ToolStripMenuItem, "帮助ToolStripMenuItem");
             this.帮助ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.关于ToolStripMenuItem});
             this.帮助ToolStripMenuItem.Name = "帮助ToolStripMenuItem";
+            resources.ApplyResources(this.帮助ToolStripMenuItem, "帮助ToolStripMenuItem");
             // 
             // 关于ToolStripMenuItem
             // 
-            resources.ApplyResources(this.关于ToolStripMenuItem, "关于ToolStripMenuItem");
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            resources.ApplyResources(this.关于ToolStripMenuItem, "关于ToolStripMenuItem");
             // 
             // pictureBox1
             // 
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Image = global::EncoderModbusTool.Properties.Resources.ModbusMonitor;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
             // 
@@ -885,6 +887,7 @@
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chineseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem francisToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tTstatus;
     }
 }
 

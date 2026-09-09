@@ -18,6 +18,11 @@ namespace EncoderModbusTool
         {
             InitializeComponent();
 
+            tTstatus.AutoPopDelay = 10000;
+            tTstatus.InitialDelay = 500;
+            tTstatus.ReshowDelay = 100;
+            tTstatus.ShowAlways = true;
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -82,7 +87,7 @@ namespace EncoderModbusTool
             // 当前正常打开状态
             if (SerialPortManager.IsOpen)
             {
-                lblStatus.Text = "连接关闭，请重新扫描设备！";
+                SetStatus(Properties.AppStrings.ConnectionClosedRescan);
                 lblStatus.ForeColor = SystemColors.ControlText;
 
                 // 这是用户主动关闭
@@ -90,7 +95,7 @@ namespace EncoderModbusTool
 
                 CloseSerialPortUI();
 
-                AddSystemLog("INFO", "串口已关闭");
+                AddSystemLog("INFO", Properties.AppStrings.SerialPortClosed);
 
                 return;
             }
@@ -98,13 +103,13 @@ namespace EncoderModbusTool
             // 检查串口
             if (cmbPort.SelectedItem == null)
             {
-                MessageBox.Show("请选择串口");
+                MessageBox.Show(Properties.AppStrings.PleaseSelectSerialPort);
                 return;
             }
             // 波特率
             if (!int.TryParse(cmbBaudRate.Text, out int baudRate))
             {
-                MessageBox.Show("波特率错误");
+                MessageBox.Show(Properties.AppStrings.InvalidBaudRate);
                 return;
             }
             Parity parity = GetParity();
@@ -115,7 +120,7 @@ namespace EncoderModbusTool
                 {
                     connectedPortName = portName;
 
-                    btnOpenSerial.Text = "关闭";
+                    btnOpenSerial.Text = Properties.AppStrings.Close;
                     btnOpenSerial.BackColor = Color.FromArgb(46, 125, 50);
                     btnOpenSerial.ForeColor = Color.White;
 
@@ -126,13 +131,14 @@ namespace EncoderModbusTool
                     };
 
                     cmbPort.Enabled = false;
-                    AddSystemLog("PASS", $"打开串口成功: {portName}");
+                    AddSystemLog("PASS", string.Format(Properties.AppStrings.OpenSerialPortSuccess,
+                                                       portName));
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message,
-                    "提示",
+                    Properties.AppStrings.Prompt,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 AddSystemLog("ERR", ex.Message);
@@ -326,6 +332,36 @@ namespace EncoderModbusTool
             rtbDataLog.ScrollToCaret();
         }
 
+        private void SetStatus(string text)
+        {
+            lblStatus.Text = text;
+            tTstatus.SetToolTip(lblStatus, text);
+        }
+
+        private void cmbSingleTurn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbSingleTurn.SelectedItem != null)
+            {
+                EncoderConfig.SingleTurnBits =
+                    int.Parse(cmbSingleTurn.SelectedItem.ToString());
+
+                AddSystemLog("INFO", string.Format(Properties.AppStrings.SingleTurnBitsSet,
+                                                   EncoderConfig.SingleTurnBits));
+            }
+        }
+
+        private void cmbMultiTurn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbMultiTurn.SelectedItem != null)
+            {
+                EncoderConfig.MultiTurnBits =
+                    int.Parse(cmbMultiTurn.SelectedItem.ToString());
+
+                AddSystemLog("INFO", string.Format(Properties.AppStrings.MultiTurnBitsSet,
+                                                   EncoderConfig.MultiTurnBits));
+            }
+        }
+
         private void cmbPort_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbPort.SelectedItem != null)
@@ -347,10 +383,10 @@ namespace EncoderModbusTool
         {
             if (modbusMaster == null)
             {
-                AddSystemLog("ERR", "请先打开串口");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseOpenSerialPort);
                 return;
             }
-            AddSystemLog("INFO", "开始扫描设备...");
+            AddSystemLog("INFO", Properties.AppStrings.StartScanDevice);
             btnScanDevice.Enabled = false;
             progressScan.Minimum = 0;
             progressScan.Maximum = 247;
@@ -366,7 +402,7 @@ namespace EncoderModbusTool
                 {
                     progressScan.Value = value;
 
-                    AddSystemLog("INFO", $"正在扫描 Slave ID={value}");
+                    AddSystemLog("INFO", string.Format(Properties.AppStrings.ScanningSlaveId, value));
                 }));
             };
             int id = await Task.Run(() =>
@@ -375,7 +411,7 @@ namespace EncoderModbusTool
             });
             if (id > 0)
             {
-                AddSystemLog("PASS", $"发现设备 Slave ID={id}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.DeviceFound, id));
                 bool ok = await Task.Run(() =>
                 {
                     return ReadDeviceConfig((byte)id);
@@ -383,23 +419,23 @@ namespace EncoderModbusTool
                 if (ok)
                 {
                     currentSlaveId = (byte)id;
-                    lblStatus.Text = $"已连接编码器 (ID={id})";
+                    SetStatus(string.Format(Properties.AppStrings.EncoderConnected, id));
                     lblStatus.ForeColor = Color.Green;
 
                     btnScanDevice.Enabled = true;
                 }
                 else
                 {
-                    lblStatus.Text = $"设备(ID={id})参数读取失败";
+                    SetStatus(string.Format(Properties.AppStrings.DeviceParameterReadFailed, id));
                     lblStatus.ForeColor = Color.Red;
-                    AddSystemLog("ERR", "读取设备参数失败");
+                    AddSystemLog("ERR", Properties.AppStrings.ReadDeviceParameterFailedWithError);
                     btnScanDevice.Enabled = true;
                 }
             }
             else
             {
-                AddSystemLog("ERR", "未发现设备");
-                lblStatus.Text = $"未发现编码器，请重新扫描！ (ID={id})";
+                AddSystemLog("ERR", Properties.AppStrings.NoDeviceFound);
+                SetStatus(string.Format(Properties.AppStrings.EncoderNotFound, id));
                 lblStatus.ForeColor = Color.Red;
                 btnScanDevice.Enabled = true;
             }
@@ -410,14 +446,14 @@ namespace EncoderModbusTool
             if (scanCts != null)
             {
                 scanCts.Cancel();
-                AddSystemLog("INFO", "停止扫描");
+                AddSystemLog("INFO", Properties.AppStrings.StopScanning);
             }
         }
 
         private void btnCfgClearlog_Click(object sender, EventArgs e)
         {
             rtbDataLog.Clear();
-            AddSystemLog("INFO", "日志已清除");
+            AddSystemLog("INFO", Properties.AppStrings.LogCleared);
         }
 
         private bool ReadDeviceConfig(byte slaveId)
@@ -441,14 +477,15 @@ namespace EncoderModbusTool
                     cmbCfgParity.Text = GetParityText(parity);
                     txtCfgUploadTime.Text = uploadtime.ToString();
                     cmbCfgOriginPosition.Text = GetOriginPositionText(originposition);
-                    AddSystemLog("PASS", "设备参数读取完成");
+                    AddSystemLog("PASS", Properties.AppStrings.DeviceParameterReadComplete);
                 }));
 
                 return true;
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "读取设备参数失败: " + ex.Message);
+                AddSystemLog("ERR", string.Format 
+                            (Properties.AppStrings.ReadDeviceParameterFailedWithError, ex.Message));
                 return false;
             }
         }
@@ -614,12 +651,12 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (cmbCfgWorkMode.SelectedItem == null)
             {
-                AddSystemLog("ERR", "工作模式无效");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidWorkMode);
                 return;
             }
 
@@ -635,20 +672,21 @@ namespace EncoderModbusTool
                     break;
 
                 default:
-                    AddSystemLog("ERR", "未知模式");
+                    AddSystemLog("ERR", Properties.AppStrings.UnknownMode);
                     return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.Protocol, mode);
-                AddSystemLog("PASS", $"工作模式修改成功: {cmbCfgWorkMode.Text}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.WorkModeChangeSuccess,
+                                                   cmbCfgWorkMode.Text)); ;
 
-                lblStatus.Text = "重启后，自由模式将无法使用某些功能！！！";
-                lblStatus.ForeColor = Color.Red;
+                SetStatus(Properties.AppStrings.FreeModeWarning);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改模式异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.WorkModeChangeException,
+                                                  ex.Message));
             }
         }
 
@@ -656,68 +694,70 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (!byte.TryParse(txtCfgSlaveID.Text, out byte newId))
             {
-                AddSystemLog("ERR", "Slave ID格式错误");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidSlaveIdFormat);
                 return;
             }
             if (newId < 1 || newId > 127)
             {
-                AddSystemLog("ERR", "Slave ID范围必须是1~127");
+                AddSystemLog("ERR", Properties.AppStrings.SlaveIdOutOfRange);
                 return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.SlaveId, newId);
-                AddSystemLog("PASS", $"Slave ID修改成功: {newId}");
-                lblStatus.Text = "配置已修改，请重新连接编码器！";
-                lblStatus.ForeColor = Color.Red;
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.SlaveIdChangeSuccess, newId));
+                SetStatus(Properties.AppStrings.ReconnectRequired);
 
                 currentSlaveId = newId;   // 更新当前设备ID
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改Slave ID异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.SlaveIdChangeException,
+                                                  ex.Message));
             }
         }
         private void btnCfgChangeBaudRate_Click(object sender, EventArgs e)
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (cmbCfgBaudRate.SelectedItem == null)
             {
-                AddSystemLog("ERR", "请选择波特率");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseSelectBaudRate);
                 return;
             }
             ushort baudrate = GetBaudRateValue();
             if (baudrate == 0xffff)
             {
-                AddSystemLog("ERR", "波特率错误");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidBaudRate);
                 return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.BaudRate, baudrate);
-                AddSystemLog("PASS", $"波特率修改成功: {cmbCfgBaudRate.Text}");
-                lblStatus.Text = "配置已修改，请重新连接编码器！";
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.BaudRateChangeSuccess,
+                                                   cmbCfgBaudRate.Text));
+                SetStatus(Properties.AppStrings.ReconnectRequired);
                 lblStatus.ForeColor = Color.Red;
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改波特率异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.BaudRateChangeException,
+                                                  ex.Message));
             }
         }
         private void btnCfgChangeParity_Click(object sender, EventArgs e)
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (cmbCfgParity.SelectedItem == null)
@@ -745,7 +785,7 @@ namespace EncoderModbusTool
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.Parity, parityValue);
                 AddSystemLog("PASS", $"校验位修改成功: {cmbCfgParity.Text}");
-                lblStatus.Text = "配置已修改，请重新连接编码器！";
+                SetStatus(Properties.AppStrings.ReconnectRequired);
                 lblStatus.ForeColor = Color.Red;
             }
             catch (Exception ex)
@@ -757,7 +797,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (cmbCfgDirection.SelectedItem == null)
@@ -785,7 +825,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "请先打开串口");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseOpenSerialPort);
                 return;
             }
             if (txtCfgUploadTime.Text == null)
@@ -817,7 +857,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (cmbCfgOriginPosition.SelectedItem == null)
@@ -852,7 +892,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             try
@@ -939,7 +979,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "请先打开串口");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseOpenSerialPort);
                 return;
             }
 
@@ -1206,7 +1246,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             if (currentSlaveId == 0)
@@ -1240,7 +1280,7 @@ namespace EncoderModbusTool
         {
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
-                AddSystemLog("ERR", "串口未打开");
+                AddSystemLog("ERR", Properties.AppStrings.SerialPortNotOpen);
                 return;
             }
             try
@@ -1641,28 +1681,6 @@ namespace EncoderModbusTool
             dialControlAngle.Angle = angle;
         }
 
-        private void cmbSingleTurn_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbSingleTurn.SelectedItem != null)
-            {
-                EncoderConfig.SingleTurnBits =
-                    int.Parse(cmbSingleTurn.SelectedItem.ToString());
-
-                AddSystemLog("INFO", $"单圈位数已设置为 {EncoderConfig.SingleTurnBits} bit");
-            }
-        }
-
-        private void cmbMultiTurn_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbMultiTurn.SelectedItem != null)
-            {
-                EncoderConfig.MultiTurnBits =
-                    int.Parse(cmbMultiTurn.SelectedItem.ToString());
-
-                AddSystemLog("INFO", $"多圈位数已设置为 {EncoderConfig.MultiTurnBits} bit");
-            }
-        }
-
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetLanguage("en-GB");
@@ -1686,5 +1704,6 @@ namespace EncoderModbusTool
 
             Application.Restart();
         }
+
     }
 }

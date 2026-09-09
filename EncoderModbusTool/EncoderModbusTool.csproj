@@ -83,6 +83,7 @@
       <DependentUpon>ModbusMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AppStrings.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ModbusMainForm.en-GB.resx">
       <DependentUpon>ModbusMainForm.cs</DependentUpon>
@@ -92,7 +93,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModbusMainForm.resx">
       <DependentUpon>ModbusMainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\AppStrings.en-GB.resx" />
+    <EmbeddedResource Include="Properties\AppStrings.fr.resx" />
+    <EmbeddedResource Include="Properties\AppStrings.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
