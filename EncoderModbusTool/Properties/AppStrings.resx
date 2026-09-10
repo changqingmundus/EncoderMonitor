@@ -126,6 +126,9 @@
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
+  <data name="CloseSerialPort" xml:space="preserve">
+    <value>关闭串口</value>
+  </data>
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>连接关闭，请重新扫描设备！</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="ContinuousReadEnabled" xml:space="preserve">
     <value>连续读取已开启</value>
+  </data>
+  <data name="DeviceDataReadFailed" xml:space="preserve">
+    <value>读取设备数据失败</value>
   </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>发现设备 Slave ID={0}</value>
@@ -144,6 +150,18 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>设备(ID={0})参数读取失败</value>
   </data>
+  <data name="DirectionCCW" xml:space="preserve">
+    <value>CCW(逆时针递增)</value>
+  </data>
+  <data name="DirectionChangeFailed" xml:space="preserve">
+    <value>修改递增方向异常: {0}</value>
+  </data>
+  <data name="DirectionChangeSuccess" xml:space="preserve">
+    <value>递增方向修改成功: {0}</value>
+  </data>
+  <data name="DirectionCW" xml:space="preserve">
+    <value>CW(顺时针递增)</value>
+  </data>
   <data name="DisableFreeMode" xml:space="preserve">
     <value>关闭自由模式</value>
   </data>
@@ -152,6 +170,9 @@
   </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>已连接编码器 (ID={0})</value>
+  </data>
+  <data name="EncoderDataReadSuccess" xml:space="preserve">
+    <value>读取编码器数据成功</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>未发现编码器，请重新扫描！ (ID={0})</value>
@@ -174,6 +195,9 @@
   <data name="FreeModeReceiveTimeout" xml:space="preserve">
     <value>Free Mode接收超时</value>
   </data>
+  <data name="FreeModeSingleReadComplete" xml:space="preserve">
+    <value>Free Mode单次读取完成</value>
+  </data>
   <data name="FreeModeSwitchFailed" xml:space="preserve">
     <value>切换Free Mode失败: {0}</value>
   </data>
@@ -183,8 +207,14 @@
   <data name="InvalidBaudRate" xml:space="preserve">
     <value>波特率错误</value>
   </data>
+  <data name="InvalidDirection" xml:space="preserve">
+    <value>递增方向错误</value>
+  </data>
   <data name="InvalidSlaveIdFormat" xml:space="preserve">
     <value>Slave ID格式错误</value>
+  </data>
+  <data name="InvalidUploadTimeFormat" xml:space="preserve">
+    <value>上传时间格式错误</value>
   </data>
   <data name="InvalidWorkMode" xml:space="preserve">
     <value>工作模式无效</value>
@@ -192,17 +222,68 @@
   <data name="LogCleared" xml:space="preserve">
     <value>日志已清除</value>
   </data>
+  <data name="ModbusAddressError" xml:space="preserve">
+    <value>写入地址错误</value>
+  </data>
+  <data name="ModbusCrcError" xml:space="preserve">
+    <value>CRC错误</value>
+  </data>
+  <data name="ModbusDataError" xml:space="preserve">
+    <value>写入数据错误</value>
+  </data>
+  <data name="ModbusFunctionCodeError" xml:space="preserve">
+    <value>功能码错误</value>
+  </data>
+  <data name="ModbusResponseError" xml:space="preserve">
+    <value>Modbus响应错误</value>
+  </data>
+  <data name="ModbusResponseLengthError" xml:space="preserve">
+    <value>响应长度错误</value>
+  </data>
+  <data name="ModbusResponseTimeout" xml:space="preserve">
+    <value>Modbus响应超时</value>
+  </data>
   <data name="MultiTurnBitsSet" xml:space="preserve">
     <value>多圈位数已设置为 {0} bit</value>
   </data>
   <data name="NoDeviceFound" xml:space="preserve">
     <value>未发现设备</value>
   </data>
+  <data name="OpenSerialPort" xml:space="preserve">
+    <value>打开串口</value>
+  </data>
+  <data name="OpenSerialPortFailed" xml:space="preserve">
+    <value>打开串口失败: {0}</value>
+  </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>打开串口成功: {0}</value>
   </data>
+  <data name="OriginPositionChangeFailed" xml:space="preserve">
+    <value>修改原点位置异常: {0}</value>
+  </data>
+  <data name="OriginPositionChangeSuccess" xml:space="preserve">
+    <value>原点位置修改成功: {0}</value>
+  </data>
+  <data name="OriginPositionMiddle" xml:space="preserve">
+    <value>中间值</value>
+  </data>
+  <data name="OriginPositionResetSuccess" xml:space="preserve">
+    <value>原点位置已重置</value>
+  </data>
+  <data name="OriginPositionZero" xml:space="preserve">
+    <value>0值</value>
+  </data>
   <data name="ParameterReadAgainSuccess" xml:space="preserve">
     <value>重新读取参数成功</value>
+  </data>
+  <data name="ParityChangeFailed" xml:space="preserve">
+    <value>修改校验位异常: {0}</value>
+  </data>
+  <data name="ParityChangeSuccess" xml:space="preserve">
+    <value>校验位修改成功: {0}</value>
+  </data>
+  <data name="ParityEmpty" xml:space="preserve">
+    <value>校验位为空</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>请先打开串口</value>
@@ -210,11 +291,20 @@
   <data name="PleaseSelectBaudRate" xml:space="preserve">
     <value>请选择波特率</value>
   </data>
+  <data name="PleaseSelectDirection" xml:space="preserve">
+    <value>请选择递增方向</value>
+  </data>
+  <data name="PleaseSelectOriginPosition" xml:space="preserve">
+    <value>请选择原点位置</value>
+  </data>
   <data name="PleaseSelectSerialPort" xml:space="preserve">
     <value>请选择串口</value>
   </data>
   <data name="Prompt" xml:space="preserve">
     <value>提示</value>
+  </data>
+  <data name="ReadData" xml:space="preserve">
+    <value>读取数据</value>
   </data>
   <data name="ReadDeviceParameterFailedWithError" xml:space="preserve">
     <value>读取设备参数失败: {0}</value>
@@ -222,14 +312,32 @@
   <data name="ReconnectRequired" xml:space="preserve">
     <value>配置已修改，请重新连接编码器！</value>
   </data>
+  <data name="ResetOriginPositionFailed" xml:space="preserve">
+    <value>重置原点位置异常: {0}</value>
+  </data>
   <data name="ScanningSlaveId" xml:space="preserve">
     <value>正在扫描 Slave ID={0}</value>
   </data>
   <data name="SerialPortClosed" xml:space="preserve">
     <value>串口已关闭</value>
   </data>
+  <data name="SerialPortDisconnected" xml:space="preserve">
+    <value>检测到串口 {0} 已断开</value>
+  </data>
+  <data name="SerialPortInUse" xml:space="preserve">
+    <value>串口 {0} 正在被其他程序使用</value>
+  </data>
+  <data name="SerialPortLostReconnect" xml:space="preserve">
+    <value>串口丢失，请重新连接编码器！</value>
+  </data>
+  <data name="SerialPortNotFound" xml:space="preserve">
+    <value>串口 {0} 不存在或无法访问</value>
+  </data>
   <data name="SerialPortNotOpen" xml:space="preserve">
     <value>串口未打开</value>
+  </data>
+  <data name="SerialPortUpdateSuccess" xml:space="preserve">
+    <value>串口参数更新成功: {0},{1}</value>
   </data>
   <data name="SingleTurnBitsSet" xml:space="preserve">
     <value>单圈位数已设置为 {0} bit</value>
@@ -242,6 +350,12 @@
   </data>
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>Slave ID范围必须是1~127</value>
+  </data>
+  <data name="StartContinuousReading" xml:space="preserve">
+    <value>开始连续读取</value>
+  </data>
+  <data name="StartFreeModeContinuousReceiving" xml:space="preserve">
+    <value>开始Free Mode连续接收</value>
   </data>
   <data name="StartReading" xml:space="preserve">
     <value>开始读取</value>
@@ -258,11 +372,41 @@
   <data name="StopContinuousReadFailed" xml:space="preserve">
     <value>停止连续读取失败: {0}</value>
   </data>
+  <data name="StopFreeModeReceiving" xml:space="preserve">
+    <value>停止Free Mode接收</value>
+  </data>
+  <data name="StopReading" xml:space="preserve">
+    <value>停止读取</value>
+  </data>
+  <data name="StopReceiving" xml:space="preserve">
+    <value>停止接收</value>
+  </data>
   <data name="StopScanning" xml:space="preserve">
     <value>停止扫描</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>未知模式</value>
+  </data>
+  <data name="UnknownOriginPosition" xml:space="preserve">
+    <value>未知原点位置</value>
+  </data>
+  <data name="UnknownParity" xml:space="preserve">
+    <value>未知校验方式</value>
+  </data>
+  <data name="UpdatingSerialPort" xml:space="preserve">
+    <value>正在更新串口参数...</value>
+  </data>
+  <data name="UploadTimeChangeFailed" xml:space="preserve">
+    <value>修改上传时间异常: {0}</value>
+  </data>
+  <data name="UploadTimeChangeSuccess" xml:space="preserve">
+    <value>上传时间修改成功: {0}</value>
+  </data>
+  <data name="UploadTimeEmpty" xml:space="preserve">
+    <value>上传时间为空</value>
+  </data>
+  <data name="UploadTimeOutOfRange" xml:space="preserve">
+    <value>上传时间超出范围</value>
   </data>
   <data name="WorkModeChangeException" xml:space="preserve">
     <value>修改模式异常: {0}</value>

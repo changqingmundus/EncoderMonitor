@@ -126,6 +126,9 @@
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
   </data>
+  <data name="CloseSerialPort" xml:space="preserve">
+    <value>Fermer le port série</value>
+  </data>
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>Connexion fermée. Veuillez rechercher les appareils à nouveau !</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="ContinuousReadEnabled" xml:space="preserve">
     <value>Lecture continue activée</value>
+  </data>
+  <data name="DeviceDataReadFailed" xml:space="preserve">
+    <value>Échec de la lecture des données de l’appareil</value>
   </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>Appareil détecté, ID esclave={0}</value>
@@ -144,6 +150,18 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>Échec de la lecture des paramètres de l’appareil (ID={0})</value>
   </data>
+  <data name="DirectionCCW" xml:space="preserve">
+    <value>CCW (croissance antihoraire)</value>
+  </data>
+  <data name="DirectionChangeFailed" xml:space="preserve">
+    <value>Erreur lors de la modification du sens de comptage : {0}</value>
+  </data>
+  <data name="DirectionChangeSuccess" xml:space="preserve">
+    <value>Sens de comptage modifié avec succès : {0}</value>
+  </data>
+  <data name="DirectionCW" xml:space="preserve">
+    <value>CW (croissance horaire)</value>
+  </data>
   <data name="DisableFreeMode" xml:space="preserve">
     <value>Désactiver le mode libre</value>
   </data>
@@ -152,6 +170,9 @@
   </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>Encodeur connecté (ID={0})</value>
+  </data>
+  <data name="EncoderDataReadSuccess" xml:space="preserve">
+    <value>Données de l’encodeur lues avec succès</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>Encodeur non détecté. Veuillez effectuer une nouvelle analyse ! (ID={0})</value>
@@ -174,6 +195,9 @@
   <data name="FreeModeReceiveTimeout" xml:space="preserve">
     <value>Délai d’attente de réception en mode libre dépassé</value>
   </data>
+  <data name="FreeModeSingleReadComplete" xml:space="preserve">
+    <value>Lecture unique en mode libre terminée</value>
+  </data>
   <data name="FreeModeSwitchFailed" xml:space="preserve">
     <value>Échec du passage au mode libre : {0}</value>
   </data>
@@ -183,8 +207,14 @@
   <data name="InvalidBaudRate" xml:space="preserve">
     <value>Débit en bauds invalide</value>
   </data>
+  <data name="InvalidDirection" xml:space="preserve">
+    <value>Sens de comptage invalide</value>
+  </data>
   <data name="InvalidSlaveIdFormat" xml:space="preserve">
     <value>Format de l’ID esclave invalide</value>
+  </data>
+  <data name="InvalidUploadTimeFormat" xml:space="preserve">
+    <value>Format du délai de mise à jour invalide</value>
   </data>
   <data name="InvalidWorkMode" xml:space="preserve">
     <value>Mode de fonctionnement invalide</value>
@@ -192,17 +222,68 @@
   <data name="LogCleared" xml:space="preserve">
     <value>Journal effacé</value>
   </data>
+  <data name="ModbusAddressError" xml:space="preserve">
+    <value>Adresse d’écriture invalide</value>
+  </data>
+  <data name="ModbusCrcError" xml:space="preserve">
+    <value>Erreur CRC</value>
+  </data>
+  <data name="ModbusDataError" xml:space="preserve">
+    <value>Données d’écriture invalides</value>
+  </data>
+  <data name="ModbusFunctionCodeError" xml:space="preserve">
+    <value>Code de fonction invalide</value>
+  </data>
+  <data name="ModbusResponseError" xml:space="preserve">
+    <value>Erreur de réponse Modbus</value>
+  </data>
+  <data name="ModbusResponseLengthError" xml:space="preserve">
+    <value>Longueur de réponse invalide</value>
+  </data>
+  <data name="ModbusResponseTimeout" xml:space="preserve">
+    <value>Délai d’attente de la réponse Modbus dépassé</value>
+  </data>
   <data name="MultiTurnBitsSet" xml:space="preserve">
     <value>Résolution du multi-tour définie sur {0} bits</value>
   </data>
   <data name="NoDeviceFound" xml:space="preserve">
     <value>Aucun appareil détecté</value>
   </data>
+  <data name="OpenSerialPort" xml:space="preserve">
+    <value>Ouvrir le port série</value>
+  </data>
+  <data name="OpenSerialPortFailed" xml:space="preserve">
+    <value>Échec de l’ouverture du port série : {0}</value>
+  </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>Port série ouvert avec succès : {0}</value>
   </data>
+  <data name="OriginPositionChangeFailed" xml:space="preserve">
+    <value>Erreur lors de la modification de la position d’origine : {0}</value>
+  </data>
+  <data name="OriginPositionChangeSuccess" xml:space="preserve">
+    <value>Position d’origine modifiée avec succès : {0}</value>
+  </data>
+  <data name="OriginPositionMiddle" xml:space="preserve">
+    <value>Valeur centrale</value>
+  </data>
+  <data name="OriginPositionResetSuccess" xml:space="preserve">
+    <value>Position d’origine réinitialisée avec succès</value>
+  </data>
+  <data name="OriginPositionZero" xml:space="preserve">
+    <value>Valeur zéro</value>
+  </data>
   <data name="ParameterReadAgainSuccess" xml:space="preserve">
     <value>Paramètres relus avec succès</value>
+  </data>
+  <data name="ParityChangeFailed" xml:space="preserve">
+    <value>Erreur lors de la modification de la parité : {0}</value>
+  </data>
+  <data name="ParityChangeSuccess" xml:space="preserve">
+    <value>Parité modifiée avec succès : {0}</value>
+  </data>
+  <data name="ParityEmpty" xml:space="preserve">
+    <value>La parité est vide</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>Veuillez d'abord ouvrir le port série</value>
@@ -210,11 +291,20 @@
   <data name="PleaseSelectBaudRate" xml:space="preserve">
     <value>Veuillez sélectionner un débit en bauds</value>
   </data>
+  <data name="PleaseSelectDirection" xml:space="preserve">
+    <value>Veuillez sélectionner un sens de comptage</value>
+  </data>
+  <data name="PleaseSelectOriginPosition" xml:space="preserve">
+    <value>Veuillez sélectionner une position d’origine</value>
+  </data>
   <data name="PleaseSelectSerialPort" xml:space="preserve">
     <value>Veuillez sélectionner un port série</value>
   </data>
   <data name="Prompt" xml:space="preserve">
     <value>Information</value>
+  </data>
+  <data name="ReadData" xml:space="preserve">
+    <value>Lire les données</value>
   </data>
   <data name="ReadDeviceParameterFailedWithError" xml:space="preserve">
     <value>Échec de la lecture des paramètres de l’appareil : {0}</value>
@@ -222,14 +312,32 @@
   <data name="ReconnectRequired" xml:space="preserve">
     <value>Configuration modifiée. Veuillez reconnecter l’encodeur !</value>
   </data>
+  <data name="ResetOriginPositionFailed" xml:space="preserve">
+    <value>Erreur lors de la réinitialisation de la position d’origine : {0}</value>
+  </data>
   <data name="ScanningSlaveId" xml:space="preserve">
     <value>Analyse de l’ID esclave={0}</value>
   </data>
   <data name="SerialPortClosed" xml:space="preserve">
     <value>Port série fermé</value>
   </data>
+  <data name="SerialPortDisconnected" xml:space="preserve">
+    <value>Le port série {0} a été déconnecté</value>
+  </data>
+  <data name="SerialPortInUse" xml:space="preserve">
+    <value>Le port série {0} est déjà utilisé</value>
+  </data>
+  <data name="SerialPortLostReconnect" xml:space="preserve">
+    <value>Port série perdu. Veuillez reconnecter l’encodeur !</value>
+  </data>
+  <data name="SerialPortNotFound" xml:space="preserve">
+    <value>Le port série {0} n’existe pas ou est inaccessible</value>
+  </data>
   <data name="SerialPortNotOpen" xml:space="preserve">
     <value>Le port série n’est pas ouvert</value>
+  </data>
+  <data name="SerialPortUpdateSuccess" xml:space="preserve">
+    <value>Paramètres du port série mis à jour avec succès : {0},{1}</value>
   </data>
   <data name="SingleTurnBitsSet" xml:space="preserve">
     <value>Résolution du mono-tour définie sur {0} bits</value>
@@ -242,6 +350,12 @@
   </data>
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>L’ID esclave doit être compris entre 1 et 127</value>
+  </data>
+  <data name="StartContinuousReading" xml:space="preserve">
+    <value>Démarrer la lecture continue</value>
+  </data>
+  <data name="StartFreeModeContinuousReceiving" xml:space="preserve">
+    <value>Démarrer la réception continue en mode libre</value>
   </data>
   <data name="StartReading" xml:space="preserve">
     <value>Démarrer la lecture</value>
@@ -258,11 +372,41 @@
   <data name="StopContinuousReadFailed" xml:space="preserve">
     <value>Échec de l’arrêt de la lecture continue : {0}</value>
   </data>
+  <data name="StopFreeModeReceiving" xml:space="preserve">
+    <value>Arrêter la réception en mode libre</value>
+  </data>
+  <data name="StopReading" xml:space="preserve">
+    <value>Arrêter la lecture</value>
+  </data>
+  <data name="StopReceiving" xml:space="preserve">
+    <value>Arrêter la réception</value>
+  </data>
   <data name="StopScanning" xml:space="preserve">
     <value>Analyse arrêtée</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Mode inconnu</value>
+  </data>
+  <data name="UnknownOriginPosition" xml:space="preserve">
+    <value>Position d’origine inconnue</value>
+  </data>
+  <data name="UnknownParity" xml:space="preserve">
+    <value>Parité inconnue</value>
+  </data>
+  <data name="UpdatingSerialPort" xml:space="preserve">
+    <value>Mise à jour des paramètres du port série...</value>
+  </data>
+  <data name="UploadTimeChangeFailed" xml:space="preserve">
+    <value>Erreur lors de la modification du délai de mise à jour : {0}</value>
+  </data>
+  <data name="UploadTimeChangeSuccess" xml:space="preserve">
+    <value>Délai de mise à jour modifié avec succès : {0}</value>
+  </data>
+  <data name="UploadTimeEmpty" xml:space="preserve">
+    <value>Le délai de mise à jour est vide</value>
+  </data>
+  <data name="UploadTimeOutOfRange" xml:space="preserve">
+    <value>Le délai de mise à jour est hors plage</value>
   </data>
   <data name="WorkModeChangeException" xml:space="preserve">
     <value>Erreur lors de la modification du mode de fonctionnement : {0}</value>

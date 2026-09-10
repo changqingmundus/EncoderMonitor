@@ -179,20 +179,9 @@ namespace EncoderMonitor
                 }
 
                 string comPort = comboBox1.SelectedItem.ToString();
-                bool success = SerialPortManager.OpenPort(comboBox1.Text, baudRate,
+                SerialPortManager.OpenPort(comboBox1.Text, baudRate,
                                                           parity);
-                if (success)
-                {
-                    button4.Text = "关闭串口";
-                    button4.BackColor = Color.LightGreen;
-                    // 禁用下拉框
-                    comboBox1.Enabled = false;
-                    comboBox2.Enabled = false;
-                }
-                else
-                {
-                    MessageBox.Show($"串口 {comPort} 打开失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                
             }
         }
         private void Clean_Messagebox(object sender, EventArgs e)

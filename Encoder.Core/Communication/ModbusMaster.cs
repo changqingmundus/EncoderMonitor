@@ -6,6 +6,31 @@ using System.Threading;
 
 namespace Encoder.Core.Communication
 {
+    public enum ModbusError
+    {
+        Timeout,
+        ResponseError,
+        InvalidLength,
+        InvalidSlaveId,
+        InvalidFunctionCode,
+        InvalidAddress,
+        InvalidData,
+        CrcError
+    }
+
+    public class ModbusException : Exception
+    {
+        public ModbusError Error { get; }
+
+        public ModbusException(
+            ModbusError error,
+            Exception innerException = null)
+            : base(innerException?.Message, innerException)
+        {
+            Error = error;
+        }
+    }
+
     public class ModbusMaster
     {
         private SerialPort sp;
@@ -27,33 +52,37 @@ namespace Encoder.Core.Communication
         {
             lock (modbusLock)
             {
-                byte[] frame = CreateReadCommand(slaveId, address, count);
+                byte[] frame =
+                    CreateReadCommand(
+                        slaveId,
+                        address,
+                        count);
+
                 ushort crc = ModbusCRC(frame, 6);
 
                 frame[6] = (byte)(crc & 0xff);
                 frame[7] = (byte)(crc >> 8);
 
                 sp.DiscardInBuffer();
+
                 if (EnableDataLog)
                 {
                     DataLog?.Invoke("TX", frame);
                 }
 
-                sp.Write(frame, 0, frame.Length);
+                sp.Write(
+                    frame,
+                    0,
+                    frame.Length);
+
                 byte[] recv = ReceiveFrame();
-                if (recv == null || recv.Length == 0)
-                {
-                    throw new TimeoutException("Modbus无响应");
-                }
+
                 if (EnableDataLog)
                 {
                     DataLog?.Invoke("RX", recv);
                 }
-                if (!ParseResponse(recv, recv.Length, slaveId, out ushort[] values))
-                {
-                    throw new Exception("Modbus响应错误");
-                }
-                return values;
+
+                return ParseResponse(recv, recv.Length, slaveId);
             }
         }
         public byte[] WriteSingleRegister(byte slaveId, ushort address, ushort value)
@@ -61,6 +90,7 @@ namespace Encoder.Core.Communication
             byte[] frame = CreateWriteCommand(slaveId, address, value);
 
             sp.DiscardInBuffer();
+
             if (EnableDataLog)
             {
                 DataLog?.Invoke("TX", frame);
@@ -69,10 +99,7 @@ namespace Encoder.Core.Communication
             sp.Write(frame, 0, frame.Length);
 
             byte[] rx = ReceiveFrame();
-            if (rx == null || rx.Length == 0)
-            {
-                throw new TimeoutException("Modbus响应超时");
-            }
+
             if (EnableDataLog)
             {
                 DataLog?.Invoke("RX", rx);
@@ -80,37 +107,50 @@ namespace Encoder.Core.Communication
 
             if (rx.Length != 8)
             {
-                throw new Exception("响应长度错误");
+                throw new ModbusException(
+                    ModbusError.InvalidLength);
             }
+
             if (rx[0] != slaveId)
             {
-                throw new Exception("Slave ID错误");
+                throw new ModbusException(
+                    ModbusError.InvalidSlaveId);
             }
+
             if (rx[1] != 0x06)
             {
-                throw new Exception("功能码错误");
-
+                throw new ModbusException(
+                    ModbusError.InvalidFunctionCode);
             }
+
             if (rx[2] != (byte)(address >> 8) ||
                 rx[3] != (byte)(address & 0xff))
             {
-                throw new Exception("写入地址错误");
+                throw new ModbusException(
+                    ModbusError.InvalidAddress);
             }
-
 
             if (rx[4] != (byte)(value >> 8) ||
                 rx[5] != (byte)(value & 0xff))
             {
-                throw new Exception("写入数据错误");
+                throw new ModbusException(
+                    ModbusError.InvalidData);
             }
 
-            ushort crc = (ushort)(rx[6] | (rx[7] << 8));
-            ushort calc = ModbusCRC(rx, 6);
+            ushort crc =
+                (ushort)(
+                    rx[6] |
+                    (rx[7] << 8));
+
+            ushort calc =
+                ModbusCRC(rx, 6);
 
             if (crc != calc)
             {
-                throw new Exception("CRC错误");
+                throw new ModbusException(
+                    ModbusError.CrcError);
             }
+
             return rx;
         }
 
@@ -141,7 +181,7 @@ namespace Encoder.Core.Communication
 
                 if ((DateTime.Now - start).TotalMilliseconds > 300)
                 {
-                    throw new TimeoutException("Modbus响应超时");
+                    throw new ModbusException(ModbusError.Timeout);
                 }
                 Thread.Sleep(1);
             }
@@ -151,40 +191,66 @@ namespace Encoder.Core.Communication
 
             return recv;
         }
-        private bool ParseResponse(byte[] data, int len, byte expectedId, out ushort[] values)
+        private ushort[] ParseResponse(byte[] data, int len, byte expectedId)
         {
-            values = null;
             if (len < 5)
-                return false;
+            {
+                throw new ModbusException(
+                    ModbusError.InvalidLength);
+            }
 
             byte slaveId = data[0];
+
             if (slaveId != expectedId)
-                return false;
+            {
+                throw new ModbusException(
+                    ModbusError.InvalidSlaveId);
+            }
 
             if (data[1] != 0x03)
-                return false;
+            {
+                throw new ModbusException(
+                    ModbusError.InvalidFunctionCode);
+            }
 
             byte byteCount = data[2];
 
             if (len != byteCount + 5)
-                return false;
+            {
+                throw new ModbusException(
+                    ModbusError.InvalidLength);
+            }
 
-            ushort crc = (ushort)(data[len - 2] | data[len - 1] << 8);
-            ushort calc = ModbusCRC(data, len - 2);
+            ushort crc =
+                (ushort)(
+                    data[len - 2] |
+                    (data[len - 1] << 8));
+
+            ushort calc =
+                ModbusCRC(
+                    data,
+                    len - 2);
+
             if (crc != calc)
-                return false;
+            {
+                throw new ModbusException(
+                    ModbusError.CrcError);
+            }
 
             int regCount = byteCount / 2;
 
-            values = new ushort[regCount];
+            ushort[] values =
+                new ushort[regCount];
+
             for (int i = 0; i < regCount; i++)
             {
                 values[i] =
                     (ushort)(
-                    data[3 + i * 2] << 8 |
-                    data[4 + i * 2]);
+                        (data[3 + i * 2] << 8) |
+                        data[4 + i * 2]);
             }
-            return true;
+
+            return values;
         }
 
         private byte[] CreateReadCommand(byte slaveId, ushort address, ushort count)

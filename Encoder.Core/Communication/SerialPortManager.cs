@@ -4,6 +4,29 @@ using System.IO.Ports;
 
 namespace Encoder.Core.Communication
 {
+    public enum SerialPortError
+    {
+        PortInUse,
+        PortNotFound,
+        OpenFailed
+    }
+
+    public class SerialPortException : Exception
+    {
+        public SerialPortError Error { get; }
+        public string PortName { get; }
+
+        public SerialPortException(
+            SerialPortError error,
+            string portName,
+            Exception innerException = null)
+            : base(innerException?.Message, innerException)
+        {
+            Error = error;
+            PortName = portName;
+        }
+    }
+
     public static class SerialPortManager
     {
         public static SerialPort sp;
@@ -14,7 +37,8 @@ namespace Encoder.Core.Communication
                 return sp != null && sp.IsOpen;
             }
         }
-        public static bool OpenPort(string portName, int baudRate, Parity parity)
+
+        public static void OpenPort(string portName, int baudRate, Parity parity)
         {
             try
             {
@@ -30,23 +54,25 @@ namespace Encoder.Core.Communication
                 sp.WriteTimeout = 150;
 
                 sp.Open();
-
-                return true;
             }
             catch (UnauthorizedAccessException)
             {
-                throw new Exception(
-                    $"串口 {portName} 正在被其他程序使用");
+                throw new SerialPortException(
+                    SerialPortError.PortInUse,
+                    portName);
             }
             catch (IOException)
             {
-                throw new Exception(
-                    $"串口 {portName} 不存在或无法访问");
+                throw new SerialPortException(
+                    SerialPortError.PortNotFound,
+                    portName);
             }
             catch (Exception ex)
             {
-                throw new Exception(
-                    $"打开串口失败: {ex.Message}");
+                throw new SerialPortException(
+                    SerialPortError.OpenFailed,
+                    portName,
+                    ex);
             }
         }
 

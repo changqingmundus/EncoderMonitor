@@ -220,7 +220,6 @@
             this.tlpCfgParameter.Controls.Add(this.label12, 1, 8);
             this.tlpCfgParameter.Controls.Add(this.txtCfgSlaveID, 1, 2);
             this.tlpCfgParameter.Name = "tlpCfgParameter";
-            this.tlpCfgParameter.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // lblcfgUploadTime
             // 
@@ -370,6 +369,7 @@
             // cmbCfgDirection
             // 
             resources.ApplyResources(this.cmbCfgDirection, "cmbCfgDirection");
+            this.cmbCfgDirection.DropDownWidth = 200;
             this.cmbCfgDirection.FormattingEnabled = true;
             this.cmbCfgDirection.Items.AddRange(new object[] {
             resources.GetString("cmbCfgDirection.Items"),
@@ -437,7 +437,6 @@
             // 
             resources.ApplyResources(this.elementHostcfgAngle, "elementHostcfgAngle");
             this.elementHostcfgAngle.Name = "elementHostcfgAngle";
-            this.elementHostcfgAngle.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.elementHostcfgAngle_ChildChanged);
             this.elementHostcfgAngle.Child = null;
             // 
             // tbCfgSingleTurn

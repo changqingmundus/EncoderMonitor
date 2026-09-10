@@ -66,6 +66,14 @@ namespace EncoderModbusTool
             dialControlAngle = new Dashboard.UI.DialControl();        //调用角度盘
             elementHostcfgAngle.Child = dialControlAngle;
 
+            cmbCfgDirection.Items.Clear();
+            cmbCfgDirection.Items.Add(Properties.AppStrings.DirectionCW);
+            cmbCfgDirection.Items.Add(Properties.AppStrings.DirectionCCW);
+
+            cmbCfgOriginPosition.Items.Clear();
+            cmbCfgOriginPosition.Items.Add(Properties.AppStrings.OriginPositionMiddle);
+            cmbCfgOriginPosition.Items.Add(Properties.AppStrings.OriginPositionZero);
+
             cmbBaudRate.SelectedIndex = 3;
             cmbParity.SelectedIndex = 0;
 
@@ -115,10 +123,8 @@ namespace EncoderModbusTool
             Parity parity = GetParity();
             try
             {
-                bool result = SerialPortManager.OpenPort(portName, baudRate, parity);
-                if (result)
-                {
-                    connectedPortName = portName;
+                SerialPortManager.OpenPort(portName, baudRate, parity);
+                connectedPortName = portName;
 
                     btnOpenSerial.Text = Properties.AppStrings.Close;
                     btnOpenSerial.BackColor = Color.FromArgb(46, 125, 50);
@@ -133,6 +139,25 @@ namespace EncoderModbusTool
                     cmbPort.Enabled = false;
                     AddSystemLog("PASS", string.Format(Properties.AppStrings.OpenSerialPortSuccess,
                                                        portName));
+            }
+            catch (SerialPortException ex)
+            {
+                switch (ex.Error)
+                {
+                    case SerialPortError.PortInUse:
+                        AddSystemLog("ERR", string.Format(Properties.AppStrings.SerialPortInUse,
+                                                          ex.PortName));
+                        break;
+
+                    case SerialPortError.PortNotFound:
+                        AddSystemLog("ERR", string.Format(Properties.AppStrings.SerialPortNotFound,
+                                                          ex.PortName));
+                        break;
+
+                    case SerialPortError.OpenFailed:
+                        AddSystemLog("ERR", string.Format(Properties.AppStrings.OpenSerialPortFailed,
+                                                          ex.Message));
+                        break;
                 }
             }
             catch (Exception ex)
@@ -153,30 +178,69 @@ namespace EncoderModbusTool
             continuousCts?.Cancel();
 
             string port = SerialPortManager.sp.PortName;
+
             if (!int.TryParse(cmbBaudRate.Text, out int baudRate))
             {
                 return;
             }
+
             Parity parity = GetParity();
 
-            AddSystemLog("INFO", "正在更新串口参数...");
+            AddSystemLog("INFO", Properties.AppStrings.UpdatingSerialPort);
 
             SerialPortManager.ClosePort();
-            bool result = SerialPortManager.OpenPort(port, baudRate, parity);
 
-            if (result)
+            try
             {
-                // 关键：重新绑定ModbusMaster
+                SerialPortManager.OpenPort(port, baudRate, parity);
+
+                // 重新绑定 ModbusMaster
                 modbusMaster = new ModbusMaster(SerialPortManager.sp);
+
                 modbusMaster.DataLog += (type, data) =>
                 {
                     AddDataLog(type, data);
                 };
-                AddSystemLog("PASS", $"串口参数更新成功: {baudRate},{parity}");
+
+                AddSystemLog(
+                    "PASS",
+                    string.Format(
+                        Properties.AppStrings.SerialPortUpdateSuccess,
+                        baudRate,
+                        parity));
             }
-            else
+            catch (SerialPortException ex)
             {
-                AddSystemLog("ERR", "串口参数更新失败");
+                switch (ex.Error)
+                {
+                    case SerialPortError.PortInUse:
+                        AddSystemLog(
+                            "ERR",
+                            string.Format(
+                                Properties.AppStrings.SerialPortInUse,
+                                ex.PortName));
+                        break;
+
+                    case SerialPortError.PortNotFound:
+                        AddSystemLog(
+                            "ERR",
+                            string.Format(
+                                Properties.AppStrings.SerialPortNotFound,
+                                ex.PortName));
+                        break;
+
+                    case SerialPortError.OpenFailed:
+                        AddSystemLog(
+                            "ERR",
+                            string.Format(
+                                Properties.AppStrings.OpenSerialPortFailed,
+                                ex.Message));
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                AddSystemLog("ERR", ex.Message);
             }
         }
         private void CloseSerialPortUI()
@@ -204,12 +268,12 @@ namespace EncoderModbusTool
             cmbBaudRate.Enabled = true;
             cmbParity.Enabled = true;
 
-            btnOpenSerial.Text = "打开串口";
+            btnOpenSerial.Text = Properties.AppStrings.OpenSerialPort;
             btnOpenSerial.BackColor = SystemColors.Control;
             btnOpenSerial.ForeColor = SystemColors.ControlText;
 
             btnReadModbus.BackColor = SystemColors.Control;
-            btnReadModbus.Text = "开始读取";
+            btnReadModbus.Text = Properties.AppStrings.StartReading;
 
             // 清除当前选择
             cmbPort.SelectedIndex = -1;
@@ -265,16 +329,6 @@ namespace EncoderModbusTool
                 default:
                     return 0xffff;
             }
-        }
-
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        private void elementHostcfgAngle_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
-
         }
 
         /* show system log*/
@@ -336,6 +390,58 @@ namespace EncoderModbusTool
         {
             lblStatus.Text = text;
             tTstatus.SetToolTip(lblStatus, text);
+        }
+
+        private void HandleModbusException(ModbusException ex)
+        {
+            switch (ex.Error)
+            {
+                case ModbusError.Timeout:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusResponseTimeout);
+                    break;
+
+                case ModbusError.InvalidLength:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusResponseLengthError);
+                    break;
+
+                case ModbusError.InvalidSlaveId:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.InvalidSlaveIdFormat);
+                    break;
+
+                case ModbusError.InvalidFunctionCode:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusFunctionCodeError);
+                    break;
+
+                case ModbusError.InvalidAddress:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusAddressError);
+                    break;
+
+                case ModbusError.InvalidData:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusDataError);
+                    break;
+
+                case ModbusError.CrcError:
+                    AddSystemLog(
+                        "ERR",
+                        Properties.AppStrings.ModbusCrcError);
+                    break;
+
+                default:
+                    AddSystemLog("ERR", ex.Message);
+                    break;
+            }
         }
 
         private void cmbSingleTurn_SelectedIndexChanged(object sender, EventArgs e)
@@ -625,13 +731,13 @@ namespace EncoderModbusTool
             switch (value)
             {
                 case 1:
-                    return "中间值";
+                    return Properties.AppStrings.OriginPositionMiddle;
 
                 case 2:
-                    return "0值";
+                    return Properties.AppStrings.OriginPositionZero;
 
                 default:
-                    return "Unknown";
+                    return Properties.AppStrings.UnknownOriginPosition;
             }
         }
         private string GetDirectionText(ushort value)
@@ -639,11 +745,13 @@ namespace EncoderModbusTool
             switch (value)
             {
                 case 1:
-                    return "CW(顺时针递增)";
+                    return Properties.AppStrings.DirectionCW;
+
                 case 2:
-                    return "CCW(逆时针递增)";
+                    return Properties.AppStrings.DirectionCCW;
+
                 default:
-                    return "Unknown";
+                    return Properties.AppStrings.InvalidDirection;
             }
         }
 
@@ -683,6 +791,10 @@ namespace EncoderModbusTool
 
                 SetStatus(Properties.AppStrings.FreeModeWarning);
             }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
+            }
             catch (Exception ex)
             {
                 AddSystemLog("ERR", string.Format(Properties.AppStrings.WorkModeChangeException,
@@ -714,6 +826,10 @@ namespace EncoderModbusTool
                 SetStatus(Properties.AppStrings.ReconnectRequired);
 
                 currentSlaveId = newId;   // 更新当前设备ID
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {
@@ -747,6 +863,10 @@ namespace EncoderModbusTool
                 SetStatus(Properties.AppStrings.ReconnectRequired);
                 lblStatus.ForeColor = Color.Red;
             }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
+            }
             catch (Exception ex)
             {
                 AddSystemLog("ERR", string.Format(Properties.AppStrings.BaudRateChangeException,
@@ -762,7 +882,7 @@ namespace EncoderModbusTool
             }
             if (cmbCfgParity.SelectedItem == null)
             {
-                AddSystemLog("ERR", "校验位为空");
+                AddSystemLog("ERR", Properties.AppStrings.ParityEmpty);
                 return;
             }
             ushort parityValue;
@@ -778,19 +898,25 @@ namespace EncoderModbusTool
                     parityValue = 3;
                     break;
                 default:
-                    AddSystemLog("ERR", "未知校验方式");
+                    AddSystemLog("ERR", Properties.AppStrings.UnknownParity);
                     return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.Parity, parityValue);
-                AddSystemLog("PASS", $"校验位修改成功: {cmbCfgParity.Text}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.ParityChangeSuccess,
+                                                   cmbCfgParity.Text));
                 SetStatus(Properties.AppStrings.ReconnectRequired);
                 lblStatus.ForeColor = Color.Red;
             }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
+            }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改校验位异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.ParityChangeFailed,
+                                                  ex.Message));
             }
         }
         private void btnCfgChangeDirection_Click(object sender, EventArgs e)
@@ -802,23 +928,29 @@ namespace EncoderModbusTool
             }
             if (cmbCfgDirection.SelectedItem == null)
             {
-                AddSystemLog("ERR", "请选择递增方向");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseSelectDirection);
                 return;
             }
             ushort direction = GetDirectionValue();
             if (direction == 0xffff)
             {
-                AddSystemLog("ERR", "递增方向错误");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidDirection);
                 return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.CountDirection, direction);
-                AddSystemLog("PASS", $"递增方向修改成功: {cmbCfgDirection.Text}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.DirectionChangeSuccess,
+                                                   cmbCfgDirection.Text));
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改递增方向异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.DirectionChangeFailed,
+                                                  ex.Message));
             }
         }
         private void btnCfgChangeUploadTime_Click(object sender, EventArgs e)
@@ -830,27 +962,34 @@ namespace EncoderModbusTool
             }
             if (txtCfgUploadTime.Text == null)
             {
-                AddSystemLog("ERR", "上传时间为空");
+                AddSystemLog("ERR", Properties.AppStrings.UploadTimeEmpty);
                 return;
             }
             if (!ushort.TryParse(txtCfgUploadTime.Text, out ushort uploadTime))
             {
-                AddSystemLog("ERR", "上传时间格式错误");
+                AddSystemLog("ERR", Properties.AppStrings.InvalidUploadTimeFormat);
                 return;
             }
             if (uploadTime < 1 || uploadTime > 3000)
             {
-                AddSystemLog("ERR", "上传时间超出范围");
+                AddSystemLog("ERR", Properties.AppStrings.UploadTimeOutOfRange);
                 return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.ReportInterval, uploadTime);
-                AddSystemLog("PASS", $"上传时间修改成功: {uploadTime}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.UploadTimeChangeSuccess,
+                                                   uploadTime));
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改上传时间异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.UploadTimeChangeFailed,
+                                                  ex.Message));
+
             }
         }
         private void btnCfgChangeOrigin_Click(object sender, EventArgs e)
@@ -862,7 +1001,7 @@ namespace EncoderModbusTool
             }
             if (cmbCfgOriginPosition.SelectedItem == null)
             {
-                AddSystemLog("ERR", "请选择原点位置");
+                AddSystemLog("ERR", Properties.AppStrings.PleaseSelectOriginPosition);
                 return;
             }
             ushort originPosition;
@@ -875,17 +1014,23 @@ namespace EncoderModbusTool
                     originPosition = 2;
                     break;
                 default:
-                    AddSystemLog("ERR", "未知原点位置");
+                    AddSystemLog("ERR", Properties.AppStrings.UnknownOriginPosition);
                     return;
             }
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.ZeroPositionReference, originPosition);
-                AddSystemLog("PASS", $"原点位置修改成功: {cmbCfgOriginPosition.Text}");
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.OriginPositionChangeSuccess,
+                                                   cmbCfgOriginPosition.Text));
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "修改原点位置异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.OriginPositionChangeFailed,
+                                                  ex.Message));
             }
         }
         private void btnCfgResetOrigin_Click(object sender, EventArgs e)
@@ -898,11 +1043,16 @@ namespace EncoderModbusTool
             try
             {
                 modbusMaster.WriteSingleRegister(currentSlaveId, ModbusRegisterMap.EncoderZero, 0xFF);
-                AddSystemLog("PASS", "原点位置已重置");
+                AddSystemLog("PASS", Properties.AppStrings.OriginPositionResetSuccess);
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", "重置原点位置异常: " + ex.Message);
+                AddSystemLog("ERR", string.Format(Properties.AppStrings.ResetOriginPositionFailed,
+                                                  ex.Message));
             }
         }
 
@@ -919,11 +1069,9 @@ namespace EncoderModbusTool
                 {
                     string lostPort = connectedPortName;
 
-                    AddSystemLog(
-                        "ERR",
-                        $"检测到串口 {lostPort} 已断开");
-
-                    lblStatus.Text = "串口丢失，请重新连接编码器！";
+                    AddSystemLog("ERR", string.Format(Properties.AppStrings.SerialPortDisconnected,
+                                                      lostPort));
+                    SetStatus(Properties.AppStrings.SerialPortLostReconnect);
                     lblStatus.ForeColor = Color.Red;
 
                     connectedPortName = "";
@@ -999,9 +1147,9 @@ namespace EncoderModbusTool
                         btnReadModbus.FlatAppearance.BorderColor = Color.FromArgb(160, 160, 160);
                         btnReadModbus.BackColor = Color.FromArgb(240, 200, 50);
                         btnReadModbus.ForeColor = Color.Black;
-                        btnReadModbus.Text = "停止接收";
+                        btnReadModbus.Text = Properties.AppStrings.StopReceiving;
 
-                        AddSystemLog("INFO", "开始Free Mode连续接收");
+                        AddSystemLog("INFO", Properties.AppStrings.StartFreeModeContinuousReceiving);
                     }
                     else
                     {
@@ -1010,8 +1158,8 @@ namespace EncoderModbusTool
                         freeModeTimer.Stop();
 
                         btnReadModbus.BackColor = SystemColors.Control;
-                        btnReadModbus.Text = "开始接收";
-                        AddSystemLog("INFO", "停止Free Mode接收");
+                        btnReadModbus.Text = Properties.AppStrings.StopReceiving;
+                        AddSystemLog("INFO", Properties.AppStrings.StopFreeModeReceiving);
                     }
 
                     return;
@@ -1021,9 +1169,9 @@ namespace EncoderModbusTool
                 {
                     ReadFreeModeOnce();
 
-                    btnReadModbus.Text = "开始接收";
+                    btnReadModbus.Text = Properties.AppStrings.StartReceiving;
 
-                    AddSystemLog("PASS", "Free Mode单次读取完成");
+                    AddSystemLog("PASS", Properties.AppStrings.FreeModeSingleReadComplete);
                 }
                 catch (Exception ex)
                 {
@@ -1049,8 +1197,8 @@ namespace EncoderModbusTool
                     continuousReadTask = ContinuousReadLoop(continuousCts.Token);
 
                     btnReadModbus.BackColor = Color.Yellow;
-                    btnReadModbus.Text = "停止读取";
-                    AddSystemLog("INFO", "开始连续读取");
+                    btnReadModbus.Text = Properties.AppStrings.StopReading;
+                    AddSystemLog("INFO", Properties.AppStrings.StartContinuousReading);
                 }
                 else
                 {
@@ -1058,8 +1206,8 @@ namespace EncoderModbusTool
                     continuousCts?.Cancel();
                     btnReadModbus.BackColor = SystemColors.Control;
                     directionIndicator1.UpdateDirection(0, 0);
-                    btnReadModbus.Text = "读取数据";
-                    AddSystemLog("INFO", "停止连续读取");
+                    btnReadModbus.Text = Properties.AppStrings.ReadData;
+                    AddSystemLog("INFO", Properties.AppStrings.StopReading);
                 }
 
                 return;
@@ -1072,11 +1220,16 @@ namespace EncoderModbusTool
                 });
                 if (data == null)
                 {
-                    AddSystemLog("ERR", "读取设备数据失败");
+                    AddSystemLog("ERR", Properties.AppStrings.DeviceDataReadFailed);
+
                     return;
                 }
                 UpdateDeviceUI(data);
-                AddSystemLog("PASS", "读取编码器数据成功");
+                AddSystemLog("PASS", Properties.AppStrings.EncoderDataReadSuccess);
+            }
+            catch (ModbusException ex)
+            {
+                HandleModbusException(ex);
             }
             catch (Exception ex)
             {

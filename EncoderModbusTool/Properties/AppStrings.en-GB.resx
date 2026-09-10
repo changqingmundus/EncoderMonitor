@@ -126,6 +126,9 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="CloseSerialPort" xml:space="preserve">
+    <value>Close Serial Port</value>
+  </data>
   <data name="ConnectionClosedRescan" xml:space="preserve">
     <value>Connection closed. Please scan for devices again!</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="ContinuousReadEnabled" xml:space="preserve">
     <value>Continuous reading enabled</value>
+  </data>
+  <data name="DeviceDataReadFailed" xml:space="preserve">
+    <value>Failed to read device data</value>
   </data>
   <data name="DeviceFound" xml:space="preserve">
     <value>Device found, Slave ID={0}</value>
@@ -144,6 +150,18 @@
   <data name="DeviceParameterReadFailed" xml:space="preserve">
     <value>Failed to read parameters of device (ID={0})</value>
   </data>
+  <data name="DirectionCCW" xml:space="preserve">
+    <value>CCW (Counterclockwise Increasing)</value>
+  </data>
+  <data name="DirectionChangeFailed" xml:space="preserve">
+    <value>Error changing direction: {0}</value>
+  </data>
+  <data name="DirectionChangeSuccess" xml:space="preserve">
+    <value>Direction changed successfully: {0}</value>
+  </data>
+  <data name="DirectionCW" xml:space="preserve">
+    <value>CW (Clockwise Increasing)</value>
+  </data>
   <data name="DisableFreeMode" xml:space="preserve">
     <value>Disable Free Mode</value>
   </data>
@@ -152,6 +170,9 @@
   </data>
   <data name="EncoderConnected" xml:space="preserve">
     <value>Encoder connected (ID={0})</value>
+  </data>
+  <data name="EncoderDataReadSuccess" xml:space="preserve">
+    <value>Encoder data read successfully</value>
   </data>
   <data name="EncoderNotFound" xml:space="preserve">
     <value>Encoder not found. Please scan again! (ID={0})</value>
@@ -174,6 +195,9 @@
   <data name="FreeModeReceiveTimeout" xml:space="preserve">
     <value>Free Mode receive timeout</value>
   </data>
+  <data name="FreeModeSingleReadComplete" xml:space="preserve">
+    <value>Free Mode single read completed</value>
+  </data>
   <data name="FreeModeSwitchFailed" xml:space="preserve">
     <value>Failed to switch Free Mode: {0}</value>
   </data>
@@ -183,8 +207,14 @@
   <data name="InvalidBaudRate" xml:space="preserve">
     <value>Invalid baud rate</value>
   </data>
+  <data name="InvalidDirection" xml:space="preserve">
+    <value>Invalid direction</value>
+  </data>
   <data name="InvalidSlaveIdFormat" xml:space="preserve">
     <value>Invalid Slave ID format</value>
+  </data>
+  <data name="InvalidUploadTimeFormat" xml:space="preserve">
+    <value>Invalid update time format</value>
   </data>
   <data name="InvalidWorkMode" xml:space="preserve">
     <value>Invalid operating mode</value>
@@ -192,17 +222,68 @@
   <data name="LogCleared" xml:space="preserve">
     <value>Log cleared</value>
   </data>
+  <data name="ModbusAddressError" xml:space="preserve">
+    <value>Invalid write address</value>
+  </data>
+  <data name="ModbusCrcError" xml:space="preserve">
+    <value>CRC error</value>
+  </data>
+  <data name="ModbusDataError" xml:space="preserve">
+    <value>Invalid write data</value>
+  </data>
+  <data name="ModbusFunctionCodeError" xml:space="preserve">
+    <value>Invalid function code</value>
+  </data>
+  <data name="ModbusResponseError" xml:space="preserve">
+    <value>Modbus response error</value>
+  </data>
+  <data name="ModbusResponseLengthError" xml:space="preserve">
+    <value>Invalid response length</value>
+  </data>
+  <data name="ModbusResponseTimeout" xml:space="preserve">
+    <value>Modbus response timeout</value>
+  </data>
   <data name="MultiTurnBitsSet" xml:space="preserve">
     <value>Multi-turn resolution set to {0} bits</value>
   </data>
   <data name="NoDeviceFound" xml:space="preserve">
     <value>No device found</value>
   </data>
+  <data name="OpenSerialPort" xml:space="preserve">
+    <value>Open Serial Port</value>
+  </data>
+  <data name="OpenSerialPortFailed" xml:space="preserve">
+    <value>Failed to open serial port: {0}</value>
+  </data>
   <data name="OpenSerialPortSuccess" xml:space="preserve">
     <value>Serial port opened successfully: {0}</value>
   </data>
+  <data name="OriginPositionChangeFailed" xml:space="preserve">
+    <value>Error changing origin position: {0}</value>
+  </data>
+  <data name="OriginPositionChangeSuccess" xml:space="preserve">
+    <value>Origin position changed successfully: {0}</value>
+  </data>
+  <data name="OriginPositionMiddle" xml:space="preserve">
+    <value>Middle Value</value>
+  </data>
+  <data name="OriginPositionResetSuccess" xml:space="preserve">
+    <value>Origin position reset successfully</value>
+  </data>
+  <data name="OriginPositionZero" xml:space="preserve">
+    <value>Zero Value</value>
+  </data>
   <data name="ParameterReadAgainSuccess" xml:space="preserve">
     <value>Parameters read successfully again</value>
+  </data>
+  <data name="ParityChangeFailed" xml:space="preserve">
+    <value>Error changing parity: {0}</value>
+  </data>
+  <data name="ParityChangeSuccess" xml:space="preserve">
+    <value>Parity changed successfully: {0}</value>
+  </data>
+  <data name="ParityEmpty" xml:space="preserve">
+    <value>Parity is empty</value>
   </data>
   <data name="PleaseOpenSerialPort" xml:space="preserve">
     <value>Please open the serial port first</value>
@@ -210,11 +291,20 @@
   <data name="PleaseSelectBaudRate" xml:space="preserve">
     <value>Please select a baud rate</value>
   </data>
+  <data name="PleaseSelectDirection" xml:space="preserve">
+    <value>Please select a direction</value>
+  </data>
+  <data name="PleaseSelectOriginPosition" xml:space="preserve">
+    <value>Please select an origin position</value>
+  </data>
   <data name="PleaseSelectSerialPort" xml:space="preserve">
     <value>Please select a serial port</value>
   </data>
   <data name="Prompt" xml:space="preserve">
     <value>Notice</value>
+  </data>
+  <data name="ReadData" xml:space="preserve">
+    <value>Read Data</value>
   </data>
   <data name="ReadDeviceParameterFailedWithError" xml:space="preserve">
     <value>Failed to read device parameters: {0}</value>
@@ -222,14 +312,32 @@
   <data name="ReconnectRequired" xml:space="preserve">
     <value>Configuration changed. Please reconnect the encoder!</value>
   </data>
+  <data name="ResetOriginPositionFailed" xml:space="preserve">
+    <value>Error resetting origin position: {0}</value>
+  </data>
   <data name="ScanningSlaveId" xml:space="preserve">
     <value>Scanning Slave ID={0}</value>
   </data>
   <data name="SerialPortClosed" xml:space="preserve">
     <value>Serial port closed</value>
   </data>
+  <data name="SerialPortDisconnected" xml:space="preserve">
+    <value>Serial port {0} disconnected</value>
+  </data>
+  <data name="SerialPortInUse" xml:space="preserve">
+    <value>Serial port {0} is already in use</value>
+  </data>
+  <data name="SerialPortLostReconnect" xml:space="preserve">
+    <value>Serial port lost. Please reconnect the encoder!</value>
+  </data>
+  <data name="SerialPortNotFound" xml:space="preserve">
+    <value>Serial port {0} does not exist or cannot be accessed</value>
+  </data>
   <data name="SerialPortNotOpen" xml:space="preserve">
     <value>Serial port is not open</value>
+  </data>
+  <data name="SerialPortUpdateSuccess" xml:space="preserve">
+    <value>Serial port parameters updated successfully: {0},{1}</value>
   </data>
   <data name="SingleTurnBitsSet" xml:space="preserve">
     <value>Single-turn resolution set to {0} bits</value>
@@ -242,6 +350,12 @@
   </data>
   <data name="SlaveIdOutOfRange" xml:space="preserve">
     <value>Slave ID must be between 1 and 127</value>
+  </data>
+  <data name="StartContinuousReading" xml:space="preserve">
+    <value>Start Continuous Reading</value>
+  </data>
+  <data name="StartFreeModeContinuousReceiving" xml:space="preserve">
+    <value>Start Free Mode continuous receiving</value>
   </data>
   <data name="StartReading" xml:space="preserve">
     <value>Start Reading</value>
@@ -258,11 +372,41 @@
   <data name="StopContinuousReadFailed" xml:space="preserve">
     <value>Failed to stop continuous reading: {0}</value>
   </data>
+  <data name="StopFreeModeReceiving" xml:space="preserve">
+    <value>Stop Free Mode receiving</value>
+  </data>
+  <data name="StopReading" xml:space="preserve">
+    <value>Stop Reading</value>
+  </data>
+  <data name="StopReceiving" xml:space="preserve">
+    <value>Stop Receiving</value>
+  </data>
   <data name="StopScanning" xml:space="preserve">
     <value>Scan stopped</value>
   </data>
   <data name="UnknownMode" xml:space="preserve">
     <value>Unknown mode</value>
+  </data>
+  <data name="UnknownOriginPosition" xml:space="preserve">
+    <value>Unknown origin position</value>
+  </data>
+  <data name="UnknownParity" xml:space="preserve">
+    <value>Unknown parity</value>
+  </data>
+  <data name="UpdatingSerialPort" xml:space="preserve">
+    <value>Updating serial port parameters...</value>
+  </data>
+  <data name="UploadTimeChangeFailed" xml:space="preserve">
+    <value>Error changing update time: {0}</value>
+  </data>
+  <data name="UploadTimeChangeSuccess" xml:space="preserve">
+    <value>Update time changed successfully: {0}</value>
+  </data>
+  <data name="UploadTimeEmpty" xml:space="preserve">
+    <value>Update time is empty</value>
+  </data>
+  <data name="UploadTimeOutOfRange" xml:space="preserve">
+    <value>Update time is out of range</value>
   </data>
   <data name="WorkModeChangeException" xml:space="preserve">
     <value>Error changing operating mode: {0}</value>
