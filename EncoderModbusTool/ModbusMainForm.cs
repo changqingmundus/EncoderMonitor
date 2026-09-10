@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -60,6 +62,8 @@ namespace EncoderModbusTool
 
         private void ModbusMainForm_Load(object sender, EventArgs e)
         {
+            DeleteOldLogs();   //清零旧日志
+
             UpdateSerialPortList();
             portCheckTimer.Start();
 
@@ -126,19 +130,19 @@ namespace EncoderModbusTool
                 SerialPortManager.OpenPort(portName, baudRate, parity);
                 connectedPortName = portName;
 
-                    btnOpenSerial.Text = Properties.AppStrings.Close;
-                    btnOpenSerial.BackColor = Color.FromArgb(46, 125, 50);
-                    btnOpenSerial.ForeColor = Color.White;
+                btnOpenSerial.Text = Properties.AppStrings.Close;
+                btnOpenSerial.BackColor = Color.FromArgb(46, 125, 50);
+                btnOpenSerial.ForeColor = Color.White;
 
-                    modbusMaster = new ModbusMaster(SerialPortManager.sp);
-                    modbusMaster.DataLog += (type, data) =>
-                    {
-                        AddDataLog(type, data);
-                    };
+                modbusMaster = new ModbusMaster(SerialPortManager.sp);
+                modbusMaster.DataLog += (type, data) =>
+                {
+                    AddDataLog(type, data);
+                };
 
-                    cmbPort.Enabled = false;
-                    AddSystemLog("PASS", string.Format(Properties.AppStrings.OpenSerialPortSuccess,
-                                                       portName));
+                cmbPort.Enabled = false;
+                AddSystemLog("PASS", string.Format(Properties.AppStrings.OpenSerialPortSuccess,
+                                                   portName));
             }
             catch (SerialPortException ex)
             {
@@ -357,6 +361,8 @@ namespace EncoderModbusTool
             rtbCommLog.AppendText(log + Environment.NewLine);
             rtbCommLog.SelectionColor = Color.Black;
             rtbCommLog.ScrollToCaret();
+
+            SaveProgramLog(type, message); //保存log到文件
         }
         private void AddDataLog(string type, byte[] data)
         {
@@ -385,6 +391,71 @@ namespace EncoderModbusTool
             rtbDataLog.SelectionColor = Color.Black;
             rtbDataLog.ScrollToCaret();
         }
+        private void SaveProgramLog(string type, string message)
+        {
+            try
+            {
+                string logDir = Path.Combine(
+                    Application.StartupPath,
+                    "Logs");
+
+                Directory.CreateDirectory(logDir);
+
+                string fileName =
+                    DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+
+                string filePath =
+                    Path.Combine(logDir, fileName);
+
+                string log =
+                    $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] [{type}] {message}";
+
+                File.AppendAllText(
+                    filePath,
+                    log + Environment.NewLine,
+                    Encoding.UTF8);
+
+
+                // 删除30天以前的日志
+                DeleteOldLogs();
+            }
+            catch
+            {
+                // 日志失败不能影响程序
+            }
+        }
+        private void DeleteOldLogs()
+        {
+            try
+            {
+                string logDir = Path.Combine(
+                    Application.StartupPath,
+                    "Logs");
+
+                if (!Directory.Exists(logDir))
+                    return;
+
+                string[] files =
+                    Directory.GetFiles(logDir, "*.log");
+
+                DateTime limit =
+                    DateTime.Now.AddDays(-30);
+
+                foreach (string file in files)
+                {
+                    FileInfo info = new FileInfo(file);
+
+                    if (info.CreationTime < limit)
+                    {
+                        info.Delete();
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
 
         private void SetStatus(string text)
         {
@@ -590,7 +661,7 @@ namespace EncoderModbusTool
             }
             catch (Exception ex)
             {
-                AddSystemLog("ERR", string.Format 
+                AddSystemLog("ERR", string.Format
                             (Properties.AppStrings.ReadDeviceParameterFailedWithError, ex.Message));
                 return false;
             }
