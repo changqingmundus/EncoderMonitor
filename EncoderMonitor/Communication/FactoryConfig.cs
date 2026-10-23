@@ -1,101 +1,60 @@
-﻿using System;
-using System.Linq;
-
+﻿using Encoder.Core.Communication;
 using Encoder.Core.Protocol;
-using Encoder.Core.Communication;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace EncoderMonitor.Communication
 {
     public static class FactoryConfig
     {
+        public static ushort FactoryKey = 0x500A;
+        public static ushort FactorySaveKey = 0x505A;
         public static void WriteEncoder(
               byte slaveID,
+              ushort FactoryKey,
+              byte Mode,
+              byte STChip,
+              byte MTChip,
               byte singleBits,
               byte multiBits,
-              byte crcBits)
+              byte crcBits,
+              byte regmap,
+              ushort FactorySaveKey)
         {
+            ushort sensorConfig = (ushort)(
+                                 (Mode & 0x0F) |
+                                 ((STChip & 0x0F) << 4) |
+                                 ((MTChip & 0x0F) << 8));
+
+            ushort outputConfig = (ushort)(
+                                  (regmap & 0x03) |
+                                  ((crcBits & 0x03) << 2) |
+                                  ((singleBits & 0x3F) << 4) |
+                                  ((multiBits & 0x3F) << 10));
             byte[] frame =
-            {
-                slaveID,0x66,0x50,0x0A, 0x00,0x01,0x00,0x04,0x08,
-                0x00,singleBits,
-                0x00,multiBits,
-                0x00,crcBits,
-                0x50,
-                0x5A
-            };
-            Send(frame);
-        }
-        public static void WriteAllFactoryConfig(
-            byte slaveID,
-            byte singleBits,
-            byte multiBits,
-            byte crcBits,
-            uint baudRate,
-            byte parity)
-        {
-            WriteEncoderConfig(
-                slaveID,
-                singleBits,
-                multiBits,
-                crcBits);
-            WriteCommunicationConfig(
-                slaveID,
-                baudRate,
-                parity);
-        }
-        private static void WriteEncoderConfig(
-              byte slaveID,
-              byte singleBits,
-              byte multiBits,
-              byte crcBits)
-        {
-            byte[] frame =
-            {
-                slaveID,
-                0x66,
-                0x50,
-                0x0A,
-                0x00,
-                0x01,
-                0x00,
-                0x04,
-                0x08,
-                0x00,
-                singleBits,
-                0x00,
-                multiBits,
-                0x00,
-                crcBits,
-                0x50,
-                0x5A
-            };
-            Send(frame);
-        }
-        private static void WriteCommunicationConfig(
-              byte slaveID,
-              uint baudRate,
-              byte parity)
-        {
-            byte[] frame =   //waiting for config
-            {
-                slaveID,
-                0x66,
-                0x50,
-                0x11,
-                0x00,
-                0x01,
-                0x00,
-                0x04,
-                0x08,
-                0x00,
-                (byte)baudRate,
-                0x00,
-                parity,
-                0x00,
-                0xFF,
-                0x50,
-                0x5A
-            };
+            {slaveID,
+             0x66,
+             (byte)(FactoryConfig.FactoryKey >> 8),
+             (byte)(FactoryConfig.FactoryKey & 0xFF),
+             0x00, 0x00,
+             0x00, 0x03,
+             0x06,
+             (byte)(sensorConfig >> 8),
+             (byte)(sensorConfig & 0xFF),
+
+             (byte)(outputConfig >> 8),
+             (byte)(outputConfig & 0xFF),
+
+            (byte)(FactoryConfig.FactorySaveKey >> 8),
+            (byte)(FactoryConfig.FactorySaveKey & 0xFF) };
+
+            ushort crc = ModbusCRC.Calculate(frame);
+            frame = frame.Concat(new byte[]
+            {(byte)(crc & 0xFF),  // CRC Low
+             (byte)(crc >> 8)     // CRC High
+            }).ToArray();
+
             Send(frame);
         }
         private static void Send(byte[] frame)

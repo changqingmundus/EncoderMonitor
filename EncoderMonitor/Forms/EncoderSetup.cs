@@ -1,27 +1,31 @@
-﻿using EncoderMonitor.Communication;
-using System;
-using System.Linq;
-using System.Windows.Forms;
-
+﻿using Encoder.Core.Communication;
 using Encoder.Core.Configuration;
 using Encoder.Core.Protocol;
-using Encoder.Core.Communication;
+using EncoderMonitor.Communication;
+using System;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace EncoderMonitor
 {
     public partial class EncoderSetup : Form
     {
-        public EncoderSetup()
+        private byte currentSlaveId;
+        public EncoderSetup(byte slaveId)
         {
             InitializeComponent();
+            currentSlaveId = slaveId;
         }
         private void EncoderSetup_Load(object sender, EventArgs e)
         {
-            Factory_BaudRate.SelectedItem = "9600";
-            Factory_Parity.SelectedIndex = 0;
-            Factory_ST.SelectedItem = "16";
-            Factory_MT.SelectedItem = "12";
+            Factory_Mode.SelectedItem = "多圈";
+            Factory_STChip.SelectedItem = "IC-MU";
+            Factory_MTChip.SelectedItem = "IC-PVL";
+            Factory_STBits.SelectedItem = "24";
+            Factory_MTBits.SelectedItem = "24";
             Factory_CRC.SelectedItem = "6";
+            Factory_RegMap.SelectedItem = "Auto";
 
             UpdateStatusSuccess("Load Complete!");
         }
@@ -33,27 +37,28 @@ namespace EncoderMonitor
         {
             try
             {
-                // 檢查參數
-                if (Factory_ST.SelectedItem == null ||
-                    Factory_MT.SelectedItem == null ||
-                    Factory_CRC.SelectedItem == null)
+                if (Factory_Mode.SelectedItem == null ||
+                    Factory_STBits.SelectedItem == null ||
+                    Factory_MTBits.SelectedItem == null ||
+                    Factory_CRC.SelectedItem == null ||
+                    Factory_RegMap.SelectedItem == null)
                 {
-                    UpdateStatusError("請選擇配置參數");
+                    UpdateStatusError("請選擇完整的配置參數");
                     return;
                 }
 
 
-                if (tabControl1.SelectedTab == TabTamagawa)
+                if (tb_select_setup.SelectedTab == TabTamagawa)
                 {
                     UpdateStatusError(
                     "Tamagawa Factory Config: Not Implemented");
                     //WriteTamagawaFactory();
                 }
-                else if (tabControl1.SelectedTab == TabModBusRTU)
+                else if (tb_select_setup.SelectedTab == TabModBusRTU)
                 {
                     WriteModbusFactory();
                 }
-                else if (tabControl1.SelectedTab == TabCANopen)
+                else if (tb_select_setup.SelectedTab == TabCANopen)
                 {
                     UpdateStatusError(
                     "CAN Factory Config: Not Implemented");
@@ -74,18 +79,13 @@ namespace EncoderMonitor
                 return false;
             }
 
-
-            // CRC檢查
+            // CRC 检查：最后两个字节是低字节在前
             ushort calcCRC = ModbusCRC.Calculate(
-                response.Take(response.Length - 2).ToArray()
-            );
+                response.Take(response.Length - 2).ToArray());
 
-            ushort recvCRC =
-                (ushort)(
-                    response[response.Length - 2] |
-                    (response[response.Length - 1] << 8)
-                );
-
+            ushort recvCRC = (ushort)(
+                response[response.Length - 2] |
+                (response[response.Length - 1] << 8));
 
             if (calcCRC != recvCRC)
             {
@@ -93,51 +93,56 @@ namespace EncoderMonitor
                 return false;
             }
 
-            // Slave
-            if (response[0] != (byte)Factory_SlaveID.Value)
+            // 功能码
+            if (response[0] != 0x66)
             {
-                UpdateStatusError("Slave ID Error");
+                UpdateStatusError(
+                    $"Factory Config: Unexpected Function 0x{response[0]:X2}");
                 return false;
             }
 
-            // Function
-            if (response[1] == 0x66)
+            // 成功响应：功能码 + 0x88 + 地址(2) + 写入数量(2) + CRC(2)
+            if (response.Length >= 8 && response[1] == 0x88)
             {
-                // 成功
-                if (response[2] == 0x88)
-                {
-                    UpdateStatusSuccess("Factory Config: Success");
-                    return true;
-                }
+                ushort address = (ushort)(
+                    (response[2] << 8) | response[3]);
 
+                ushort quantityWritten = (ushort)(
+                    (response[4] << 8) | response[5]);
 
-                // Modbus異常碼
+                UpdateStatusSuccess(
+                    $"Factory Config: Success, Address=0x{address:X4}, Written={quantityWritten}");
+
+                return true;
+            }
+
+            // Modbus 异常响应通常为：功能码 | 异常功能码 | 异常码 | CRC
+            if (response.Length >= 5 && response[1] == (0x66 | 0x80))
+            {
                 switch (response[2])
                 {
                     case 0x01:
                         UpdateStatusError("Illegal Function");
                         break;
-
                     case 0x02:
                         UpdateStatusError("Illegal Address");
                         break;
-
                     case 0x03:
                         UpdateStatusError("Illegal Data");
                         break;
-
                     case 0x04:
                         UpdateStatusError("Slave Device Error");
                         break;
-
                     default:
                         UpdateStatusError(
-                            $"Factory Config Error: 0x{response[2]:X2}"
-                        );
+                            $"Factory Config Error: 0x{response[2]:X2}");
                         break;
                 }
+
+                return false;
             }
 
+            UpdateStatusError("Factory Config: Invalid Response");
             return false;
         }
         private void LogToUIsetup(string msg)
@@ -173,12 +178,18 @@ namespace EncoderMonitor
         private void WriteModbusFactory()
         {
             FactoryConfig.WriteEncoder(
-                (byte)Factory_SlaveID.Value,
-                byte.Parse(Factory_ST.SelectedItem.ToString()),
-                byte.Parse(Factory_MT.SelectedItem.ToString()),
-                byte.Parse(Factory_CRC.SelectedItem.ToString())
-            );
-            byte[] response = ModbusReceiver.ReadResponse(500);
+                currentSlaveId,
+                FactoryConfig.FactoryKey,
+                GetFactoryModeValue(),
+                GetFactorySTChipValue(),
+                GetFactoryMTChipValue(),
+                byte.Parse(Factory_STBits.SelectedItem.ToString()),
+                byte.Parse(Factory_MTBits.SelectedItem.ToString()),
+                GetFactoryCRCValue(),
+                GetFactoryRegMapValue(),
+                FactoryConfig.FactorySaveKey);
+
+            byte[] response = ModbusReceiver.ReadResponse(1500);
             if (response == null)
             {
                 UpdateStatusError("Factory Config Timeout");
@@ -187,42 +198,86 @@ namespace EncoderMonitor
             CheckFactoryResponse(response);
         }
 
-        private void Change_FreeMode_Click(object sender, EventArgs e)
+        private byte GetFactoryModeValue()
         {
-            byte[] cmd = { EncoderConfig.Modbus.SlaveID, 0x06, 0x00, 0x08, 0x00, 0x02 };
-            ushort crc = ModbusCRC.Calculate(cmd);
-            byte[] frame ={cmd[0],cmd[1],cmd[2],cmd[3],cmd[4],cmd[5],
-                           (byte)(crc & 0xff),(byte)(crc >> 8)};
-            try
+            switch (Factory_Mode.SelectedItem?.ToString())
             {
-                SerialPortManager.Send(frame);
-                UpdateStatusSuccess("FreeMode Enable Command Sent");
-                // 等待設備回覆 500ms
-                byte[] response =
-                    ModbusReceiver.ReadResponse(500);
-                if (response == null)
-                {
-                    UpdateStatusSuccess(
-                        "FreeMode Enable Timeout"
-                    );
-                    return;
-                }
-                //UpdateStatusSuccess("RX: " + BitConverter.ToString(response));
-                if (response.Length == 8)
-                {
-                    UpdateStatusSuccess("FreeMode Enable Success");
-                }
-                else
-                {
-                    UpdateStatusError("FreeMode Response Length Error");
-                }
+                case "单圈":
+                    return 0x01;
+
+                case "多圈":
+                    return 0x02;
+
+                default:
+                    throw new InvalidOperationException("请选择有效的编码器模式");
             }
-            catch (Exception ex)
+        }
+        private byte GetFactoryRegMapValue()
+        {
+            switch (Factory_RegMap.SelectedItem?.ToString())
             {
-                UpdateStatusError(
-                    "FreeMode Send Error: " + ex.Message
-                );
+                case "Auto":
+                    return 0x00;
+
+                case "16Bits":
+                    return 0x01;
+
+                case "32Bits":
+                    return 0x02;
+
+                default:
+                    throw new InvalidOperationException("请选择有效的寄存器映射模式");
             }
+        }
+        private byte GetFactorySTChipValue()
+        {
+            switch (Factory_STChip.SelectedItem?.ToString())
+            {
+                case "None":
+                    return 0x00;
+
+                case "IC-MU":
+                    return 0x01;
+
+                case "IC-PZ":
+                    return 0x02;
+
+                default:
+                    throw new InvalidOperationException("请选择有效的 ST Chip");
+            }
+        }
+        private byte GetFactoryMTChipValue()
+        {
+            switch (Factory_MTChip.SelectedItem?.ToString())
+            {
+                case "None":
+                    return 0x00;
+
+                case "IC-PVL":
+                    return 0x01;
+
+                default:
+                    throw new InvalidOperationException("请选择有效的 MT Chip");
+            }
+        }
+        private byte GetFactoryCRCValue()
+        {
+            switch (Factory_CRC.SelectedItem?.ToString())
+            {
+                case "6":
+                    return 0x00;
+
+                case "16":
+                    return 0x01;
+
+                default:
+                    throw new InvalidOperationException("请选择有效的 CRC 配置");
+            }
+        }
+
+        private void Factory_BaudRate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
