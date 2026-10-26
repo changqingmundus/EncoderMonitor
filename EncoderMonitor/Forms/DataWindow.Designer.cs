@@ -161,6 +161,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataWindow";
             this.Text = "DataWindow";
+            this.Load += new System.EventHandler(this.DataWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

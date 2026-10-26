@@ -86,7 +86,6 @@
   <ItemGroup>
     <Compile Include="Communication\FactoryConfig.cs" />
     <Compile Include="Communication\ModbusReceiver.cs" />
-    <Compile Include="DeviceData.cs" />
     <Compile Include="Forms\Advance Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +110,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PrecisionTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrecisionTestForm.Designer.cs">
+      <DependentUpon>PrecisionTestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AppStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrecisionTestForm.resx">
+      <DependentUpon>PrecisionTestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\AppStrings.en-GB.resx" />
     <EmbeddedResource Include="Properties\AppStrings.fr.resx" />

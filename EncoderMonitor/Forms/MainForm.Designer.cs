@@ -430,15 +430,16 @@
             // encoderSetupToolStripMenuItem1
             // 
             this.encoderSetupToolStripMenuItem1.Name = "encoderSetupToolStripMenuItem1";
-            this.encoderSetupToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.encoderSetupToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.encoderSetupToolStripMenuItem1.Text = "EncoderSetup";
             this.encoderSetupToolStripMenuItem1.Click += new System.EventHandler(this.encoderSetupToolStripMenuItem1_Click);
             // 
             // precisionTestToolStripMenuItem
             // 
             this.precisionTestToolStripMenuItem.Name = "precisionTestToolStripMenuItem";
-            this.precisionTestToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.precisionTestToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.precisionTestToolStripMenuItem.Text = "Precision Test";
+            this.precisionTestToolStripMenuItem.Click += new System.EventHandler(this.precisionTestToolStripMenuItem_Click);
             // 
             // encoderSetupToolStripMenuItem
             // 

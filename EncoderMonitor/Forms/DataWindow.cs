@@ -42,5 +42,10 @@ namespace EncoderMonitor
                 dialControl1.Angle = angle;
             }
         }
+
+        private void DataWindow_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

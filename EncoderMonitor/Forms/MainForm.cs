@@ -2,7 +2,6 @@
 using Encoder.Core.Configuration;
 using Encoder.Core.Data;
 using Encoder.Core.Protocol;
-using EncoderModbusMonitor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +20,7 @@ namespace EncoderMonitor
     {
         private DataWindow dataWindow;   //聲明DataWindow
         private Advance_Settings advancedSettingsForm;
+        private PrecisionTestForm precisionTestForm;
         private ModbusMaster modbusMaster;
         private byte currentSlaveId;
         private bool freeModeEnabled = false;   // 是否进入Free Mode
@@ -1072,7 +1072,7 @@ namespace EncoderMonitor
             }
         }
 
-        private DeviceData ReadDeviceData()
+        private EncoderData ReadDeviceData()
         {
             if (SerialPortManager.sp == null ||
                 !SerialPortManager.sp.IsOpen)
@@ -1080,7 +1080,7 @@ namespace EncoderMonitor
                 return null;
             }
 
-            DeviceData data = new DeviceData();
+            EncoderData data = new EncoderData();
 
             // =========================================================
             // 读取 Encoder Value + Rotation Direction + Speed
@@ -1123,11 +1123,9 @@ namespace EncoderMonitor
             ulong singleResolution =
                 1UL << EncoderConfig.SingleTurnBits;
 
-            data.MultiTurn =
-                raw / singleResolution;
+            data.MultiTurn = (uint)(raw / singleResolution);
 
-            data.SingleTurn =
-                raw % singleResolution;
+            data.SingleTurn = (uint)(raw % singleResolution);
 
 
             // =========================================================
@@ -1238,7 +1236,7 @@ namespace EncoderMonitor
             {
                 try
                 {
-                    DeviceData data = await Task.Run(() =>
+                    EncoderData data = await Task.Run(() =>
                     {
                         return ReadDeviceData();
                     });
@@ -1421,12 +1419,10 @@ namespace EncoderMonitor
                                 modbusMaster.EnableDataLog = false;
 
                                 continuousCts = new CancellationTokenSource();
-                                continuousReadTask =
-                                    ContinuousReadLoop(continuousCts.Token);
+                                continuousReadTask = ContinuousReadLoop(continuousCts.Token);
 
                                 btn_Readout.BackColor = Color.Yellow;
-                                btn_Readout.Text =
-                                    Properties.AppStrings.StopReading;
+                                btn_Readout.Text = Properties.AppStrings.StopReading;
 
                                 AddSystemLog(
                                     "INFO",
@@ -1439,8 +1435,7 @@ namespace EncoderMonitor
 
                                 btn_Readout.BackColor = SystemColors.Control;
                                 //directionIndicator1.UpdateDirection(0, 0);
-                                btn_Readout.Text =
-                                    Properties.AppStrings.ReadData;
+                                btn_Readout.Text = Properties.AppStrings.ReadData;
 
                                 AddSystemLog(
                                     "INFO",
@@ -1450,9 +1445,9 @@ namespace EncoderMonitor
                             return;
                         }
 
-                        DeviceData deviceData = await Task.Run(() => ReadDeviceData());
+                        data = await Task.Run(() => ReadDeviceData());
 
-                        if (deviceData == null)
+                        if (data == null)
                         {
                             AddSystemLog(
                                 "ERR",
@@ -1460,7 +1455,7 @@ namespace EncoderMonitor
                             return;
                         }
 
-                        UpdateDeviceUI(deviceData);
+                        UpdateDeviceUI(data);
 
                         AddSystemLog(
                             "PASS",
@@ -1707,7 +1702,7 @@ namespace EncoderMonitor
                 data.SingleTurn = SingleTurn;
                 data.Angle =
                     SingleTurn * 360.0 / Math.Pow(2, EncoderConfig.SingleTurnBits);
-                data.CRC_OK = recvCrc == calcCrc;
+                //data.CRC_OK = recvCrc == calcCrc;
                 return data;
             }
 
@@ -1771,8 +1766,7 @@ namespace EncoderMonitor
                 byte calcCrc = TamagawaCalcCRC(new byte[]
                 {rx[0],rx[1],rx[2],rx[3],rx[4]});
                 data.MultiTurn = abm;
-                data.CRC_OK =
-                    recvCrc == calcCrc;
+                //data.CRC_OK = recvCrc == calcCrc;
                 return data;
             }
             catch (Exception ex)
@@ -1808,7 +1802,7 @@ namespace EncoderMonitor
             byte recvCrc = rx[10];
             byte calcCrc = TamagawaCalcCRC(new byte[]
             {rx[0],rx[1],rx[2],rx[3],rx[4],rx[5],rx[6],rx[7],rx[8],rx[9]});
-            data.CRC_OK = (recvCrc == calcCrc);
+            /*data.CRC_OK = (recvCrc == calcCrc);
             if (!data.CRC_OK)
             {
                 if (showDebugInfo)
@@ -1817,7 +1811,7 @@ namespace EncoderMonitor
                         "CRC FAIL" + Environment.NewLine);
                 }
                 return null;
-            }
+            }*/
             uint SingleTurn =
                 ((uint)rx[2] << 16) |
                 ((uint)rx[3] << 8) |
@@ -1902,18 +1896,17 @@ namespace EncoderMonitor
                 ushort recvCRC =
                     (ushort)(rx[count - 2] |
                     (rx[count - 1] << 8));
-                ushort calcCRC =
-                       ModbusCRC.Calculate(rx.Take(count - 2).ToArray());
+                ushort calcCRC = ModbusCRC.Calculate(rx.Take(count - 2).ToArray());
                 if (recvCRC != calcCRC)
                 {
-                    data.CRC_OK = false;
+                   // data.CRC_OK = false;
 
                     if (showDebugInfo)
                         rtbDataLog.AppendText(
                             "CRC FAIL\r\n");
                     return null;
                 }
-                data.CRC_OK = true;
+                //data.CRC_OK = true;
                 // Modbus正常返回
                 if (rx.Length >= 5 &&
                     rx[1] == EncoderConfig.Modbus.FunctionCode)
@@ -2029,14 +2022,13 @@ namespace EncoderMonitor
                     rx,
                     crcData,
                     count - 2);
-                ushort calcCRC =
-                    ModbusCRC.Calculate(crcData);
-                if (recvCRC != calcCRC)
+                ushort calcCRC = ModbusCRC.Calculate(crcData);
+                /*if (recvCRC != calcCRC)
                 {
                     data.CRC_OK = false;
                     return null;
                 }
-                data.CRC_OK = true;
+                data.CRC_OK = true;*/
                 if (rx[1] == 0x03 &&
                    rx[2] == 0x02)
                 {
@@ -2124,12 +2116,12 @@ namespace EncoderMonitor
                 ushort calcCRC = ModbusCRC.Calculate(crcData);
                 if (recvCRC != calcCRC)
                 {
-                    data.CRC_OK = false;
+                    //data.CRC_OK = false;
                     if (showDebugInfo)
                         rtbDataLog.AppendText("CRC FAIL\r\n");
                     return null;
                 }
-                data.CRC_OK = true;
+                //data.CRC_OK = true;
                 // Modbus All 返回
                 if (rx.Length >= 7 &&
                     rx[1] == EncoderConfig.Modbus.FunctionCode)
@@ -2560,7 +2552,7 @@ namespace EncoderMonitor
         }
 
         /*update data to datawindow*/
-        private void UpdateDeviceUI(DeviceData data)
+        private void UpdateDeviceUI(EncoderData data)
         {
             if (data == null)
                 return;
@@ -2695,6 +2687,29 @@ namespace EncoderMonitor
         {
             EncoderSetup setup = new EncoderSetup(currentSlaveId);
             setup.Show();
+        }
+
+        private void precisionTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenPrecisionTestForm();
+        }
+
+        private void OpenPrecisionTestForm()
+        {
+            if (precisionTestForm == null || precisionTestForm.IsDisposed)
+            {
+                precisionTestForm = new PrecisionTestForm();
+            }
+
+            if (!precisionTestForm.Visible)
+            {
+                precisionTestForm.Show(this);
+            }
+            else
+            {
+                precisionTestForm.BringToFront();
+                precisionTestForm.Activate();
+            }
         }
     }
 }
