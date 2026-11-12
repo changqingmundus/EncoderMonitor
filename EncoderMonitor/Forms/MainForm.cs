@@ -1,11 +1,14 @@
 ﻿using Encoder.Core.Communication;
+using Encoder.Core.Communication.CAN;
 using Encoder.Core.Configuration;
 using Encoder.Core.Data;
 using Encoder.Core.Protocol;
+using Peak.Can.Basic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -21,6 +24,7 @@ namespace EncoderMonitor
         private DataWindow dataWindow;   //聲明DataWindow
         private Advance_Settings advancedSettingsForm;
         private PrecisionTestForm precisionTestForm;
+        private PcanCanOpenMaster pcanMaster;
         private ModbusMaster modbusMaster;
         private byte currentSlaveId;
         private bool freeModeEnabled = false;   // 是否进入Free Mode
@@ -126,6 +130,35 @@ namespace EncoderMonitor
         /*open serial port*/
         private void btn_OpenSerial_Click(object sender, EventArgs e)
         {
+            if (currentProtocol == EncoderProtocol.CANopen)
+            {
+                if (pcanMaster != null && pcanMaster.IsConnected)
+                {
+                    // 断开连接
+                    pcanMaster.Disconnect();
+                    btn_OpenSerial.Text = Properties.AppStrings.OpenSerialPort;
+                    btn_OpenSerial.BackColor = SystemColors.Control;
+                    btn_OpenSerial.ForeColor = SystemColors.ControlText;
+                    AddSystemLog("INFO", "PCAN 已断开");
+                    return;
+                }
+
+                pcanMaster = new PcanCanOpenMaster(1); // 节点ID默认为1
+                // 假设使用 PCAN-USB，默认通道 USBBUS1，500K
+                if (pcanMaster.Connect(PCANBasic.PCAN_USBBUS1, TPCANBaudrate.PCAN_BAUD_500K))
+                {
+                    btn_OpenSerial.Text = Properties.AppStrings.Close;
+                    btn_OpenSerial.BackColor = Color.FromArgb(46, 125, 50);
+                    btn_OpenSerial.ForeColor = Color.White;
+                    AddSystemLog("PASS", "PCAN 初始化成功，波特率 500k");
+                }
+                else
+                {
+                    AddSystemLog("ERR", "PCAN 初始化失败，请检查设备是否插好，驱动是否安装！");
+                }
+                return;
+            }
+
             string portName = cmb_Port.Text;
 
             // 当前正常打开状态
@@ -1330,13 +1363,63 @@ namespace EncoderMonitor
 
         private async void btn_Readout_Click(object sender, EventArgs e)
         {
+            EncoderData data = null;
+
+            if (currentProtocol == EncoderProtocol.CANopen)
+            {
+                if (pcanMaster == null || !pcanMaster.IsConnected)
+                {
+                    MessageBox.Show("请先连接 PCAN！");
+                    return;
+                }
+
+                // =========================================================
+                // 处理连续读取的逻辑
+                // =========================================================
+                if (cb_Continuous.Checked)
+                {
+                    if (!continuousTimer.Enabled)
+                    {
+                        // 启动连续读取
+                        continuousTimer.Start();
+
+                        btn_Readout.BackColor = Color.Yellow;
+                        btn_Readout.Text = Properties.AppStrings.StopReading;
+                        AddSystemLog("INFO", "CANopen 开启连续读取");
+                    }
+                    else
+                    {
+                        // 停止连续读取
+                        continuousTimer.Stop();
+
+                        btn_Readout.BackColor = SystemColors.Control;
+                        btn_Readout.Text = Properties.AppStrings.ReadData;
+                        AddSystemLog("INFO", "CANopen 停止连续读取");
+                    }
+                    return;
+                }
+
+                // =========================================================
+                // 如果没有勾选连续读取，则执行单次读取
+                // =========================================================
+                data = pcanMaster.ReadData();
+                if (data != null)
+                {
+                    UpdateDeviceUI(data);
+                    AddSystemLog("PASS", "CANopen 数据读取成功");
+                }
+                else
+                {
+                    AddSystemLog("ERR", "未收到 181h 报文或数据无效");
+                }
+                return;
+            }
+
             if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
             {
                 MessageBox.Show("请先打开串口！");
                 return;
             }
-
-            EncoderData data = null;
 
             bool oldFlag = showDebugInfo;
             showDebugInfo = true;
@@ -1488,8 +1571,33 @@ namespace EncoderMonitor
 
         private void ContinuousTimer_Tick(object sender, EventArgs e)
         {
-            if (isContinuousReading)
+            if (isContinuousReading) return;
+
+            if (currentProtocol == EncoderProtocol.CANopen)
+            {
+                if (pcanMaster == null || !pcanMaster.IsConnected) return;
+
+                isContinuousReading = true;
+                try
+                {
+                    EncoderData data = pcanMaster.ReadData();
+                    if (data != null)
+                    {
+                        // 复用你现有的 UI 更新逻辑
+                        UpdateDeviceUI(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("CANopen Read Error: " + ex.Message);
+                }
+                finally
+                {
+                    isContinuousReading = false;
+                }
                 return;
+            }
+
             if (SerialPortManager.sp == null ||
                 !SerialPortManager.sp.IsOpen)
                 return;
@@ -2699,17 +2807,47 @@ namespace EncoderMonitor
             if (precisionTestForm == null || precisionTestForm.IsDisposed)
             {
                 precisionTestForm = new PrecisionTestForm();
+
+                // 注入真实编码器读取器：直接从串口/Modbus 读当前数据
+                precisionTestForm.EncoderReader = () =>
+                {
+                    try
+                    {
+                        if (currentProtocol == EncoderProtocol.CANopen)
+                        {
+                            if (pcanMaster == null || !pcanMaster.IsConnected) return null;
+                            return pcanMaster.ReadData();
+                        }
+
+                        if (SerialPortManager.sp == null || !SerialPortManager.sp.IsOpen)
+                            return null;
+
+                        switch (currentProtocol)
+                        {
+                            case EncoderProtocol.Tamagawa:
+                                return ReadTamagawaAll();
+
+                            case EncoderProtocol.ModbusRTU:
+                                if (currentSlaveId == 0) return null;   // 未扫描到设备
+                                return ReadDeviceData();
+
+                            default:
+                                return null;
+                        }
+                    }
+                    catch
+                    {
+                        return null;   // 任何通信异常都返回 null，由精度测试侧处理
+                    }
+                };
+
+                // 把编码器单圈位数传过去，精度测试才能把 SingleTurn 转成角度
+                precisionTestForm.SingleTurnBits = EncoderConfig.SingleTurnBits;
             }
 
-            if (!precisionTestForm.Visible)
-            {
-                precisionTestForm.Show(this);
-            }
-            else
-            {
-                precisionTestForm.BringToFront();
-                precisionTestForm.Activate();
-            }
+            if (!precisionTestForm.Visible) precisionTestForm.Show(this);
+            else { precisionTestForm.BringToFront(); precisionTestForm.Activate(); }
+
         }
     }
 }

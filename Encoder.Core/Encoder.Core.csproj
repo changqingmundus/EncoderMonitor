@@ -41,9 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communication\ModbusMaster.cs" />
-    <Compile Include="Communication\ModbusScanner.cs" />
-    <Compile Include="Communication\SerialPortManager.cs" />
+    <Compile Include="Communication\CAN\PcanCanOpenMaster.cs" />
+    <Compile Include="Communication\CAN\PcanBasic.cs" />
+    <Compile Include="Communication\CAN\PcanDriver.cs" />
+    <Compile Include="Communication\Modbus\ModbusMaster.cs" />
+    <Compile Include="Communication\Modbus\ModbusScanner.cs" />
+    <Compile Include="Communication\SerialPort\SerialPortManager.cs" />
     <Compile Include="Configuration\EncoderConfig.cs" />
     <Compile Include="Configuration\ModbusRegisterMap.cs" />
     <Compile Include="Data\EncoderData.cs" />
